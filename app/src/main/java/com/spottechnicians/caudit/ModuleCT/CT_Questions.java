@@ -30,7 +30,7 @@ public class CT_Questions extends AppCompatActivity {
     //Visit visit;
     VisitSingleton visit;
 
-    String ansewers[]={"1","2","3","4","5","6","7","8","9","10","11","12"};
+    String ansewers[] = {"", "", "", "", "", "", "", "", "", "", "", ""};
     String otherText[]={"","","","","","","","","","","",""};
     int currentButtonPressed;
     int buttonType;
@@ -215,7 +215,7 @@ public class CT_Questions extends AppCompatActivity {
         for (int i = 0; i < ansewers.length; i++) {
             result = result + ansewers[i] + otherText[i] + "/";
 
-            allAns[i]=ansewers[i]+otherText[i];
+            allAns[i] = ansewers[i] + "," + otherText[i];
 
         }
         Toast.makeText(this, result, Toast.LENGTH_LONG).show();

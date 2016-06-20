@@ -26,18 +26,6 @@ public class DbHelper extends SQLiteOpenHelper
 
     //type of service
 
-    private static  final  String TYPE_CT="ct";
-    private static  final  String TYPE_HK="hk";
-    private static  final  String TYPE_SRM="srm";
-    private static  final  String TYPE_T_HK="ct_hk";
-    private static  final  String TYPE_ALL="all";
-
-
-
-
-
-    private static final String DB_NAME="CAudit";
-    private static final  int DB_VERSION=7;
     public static final String TABLE_ATM="atm";
     public static final String COLUMN_ID="id";
     public static final String COLUMN_ID_ATM="id";
@@ -49,7 +37,6 @@ public class DbHelper extends SQLiteOpenHelper
     public static final String COLUMN_CITY_ATM="city";
     public static final String COLUMN_STATE_ATM="state";
     public static final String COLUMN_TYPE_ATM="type";
-
 //    for CTQuestions
     public static final String TABLE_CT_REPORT="CtReport";
     public static final String COLUMN_VISIT_ID="visit_id";
@@ -64,16 +51,22 @@ public class DbHelper extends SQLiteOpenHelper
     public static final String COLUMN_DATE_OF_VISIT="date_of_visit";
     public static final String COLUMN_TIME_OF_VISIT="time_of_visit";
     public static final String COLUMN_SYNC_STATUS="sync_status";
+    public static final String TABLE_ATM_AUDITED = "atm_audited";
+    public static final String COLUMN_AUDITED_DATE = "audited_date";
+    public static final String COLUMN_AUDITED_ATM_ID = "audited_atm_id";
+    public static final String COLUMN_AUDITED_ATM_TYPE = "audited_type";
+    public static final String COLUMN_CTQ1 = "Q1";
+    public static final String COLUMN_CTQ2 = "Q2";
+    public static final String COLUMN_CTQ3 = "Q3";
 
 
 
 
     // table to maintain audit records
-
-    public static  final String TABLE_ATM_AUDITED="atm_audited";
-    public static final   String COLUMN_AUDITED_DATE="audited_date";
-    public static final  String COLUMN_AUDITED_ATM_ID="audited_atm_id";
-    public static final  String COLUMN_AUDITED_ATM_TYPE="audited_type";
+    public static final String COLUMN_CTQ4 = "Q4";
+    public static final String COLUMN_CTQ5 = "Q5";
+    public static final String COLUMN_CTQ6 = "Q6";
+    public static final String COLUMN_CTQ7 = "Q7";
 /*
     public static final String COLUMN_CTQ1="Is CT present at site";
     public static final String COLUMN_CTQ2="Is CT wearing ID card";
@@ -87,21 +80,11 @@ public class DbHelper extends SQLiteOpenHelper
     public static final String COLUMN_CTQ10="Does CT ensure only one person per ATM machine";
     public static final String COLUMN_CTQ11="Important numbers are displayed in the ATM";
     public static final String COLUMN_CTQ12="Is the ATM down due to any major problem";*/
-
-
-    public static final String COLUMN_CTQ1="Q1";
-    public static final String COLUMN_CTQ2="Q2";
-    public static final String COLUMN_CTQ3="Q3";
-    public static final String COLUMN_CTQ4="Q4";
-    public static final String COLUMN_CTQ5="Q5";
-    public static final String COLUMN_CTQ6="Q6";
-    public static final String COLUMN_CTQ7="Q7";
     public static final String COLUMN_CTQ8="Q8";
     public static final String COLUMN_CTQ9="Q9";
     public static final String COLUMN_CTQ10="Q10";
     public static final String COLUMN_CTQ11="Q11";
     public static final String COLUMN_CTQ12="Q12";
-
     public static final String COLUMN_CT_NAME="caretaker_name";
     public static final String COLUMN_CT_NO="caretaker_number";
     public static final String COLUMN_LATITUDE="latitude";
@@ -110,7 +93,13 @@ public class DbHelper extends SQLiteOpenHelper
     public static final String COLUMN_CT_PHOTO2="CT_Photo2";
     public static final String COLUMN_CT_PHOTO3="CT_Photo3";
     public static final String COLUMN_CT_SIGNATURE="CT_Signature";
-
+    private static final String TYPE_CT = "ct";
+    private static final String TYPE_HK = "hk";
+    private static final String TYPE_SRM = "srm";
+    private static final String TYPE_T_HK = "ct_hk";
+    private static final String TYPE_ALL = "all";
+    private static final String DB_NAME = "CAudit";
+    private static final int DB_VERSION = 7;
     Visit visit;
 
     Visit visitt;
@@ -118,6 +107,7 @@ public class DbHelper extends SQLiteOpenHelper
 
 
     public DbHelper(Context context) {
+
         super(context, DB_NAME, null, DB_VERSION);
     }
 
@@ -252,8 +242,7 @@ public class DbHelper extends SQLiteOpenHelper
                         cursor.getString(cursor.getColumnIndex(COLUMN_LONGITUDE)),
                         getBitMapFromByte(cursor.getBlob(cursor.getColumnIndex(COLUMN_CT_PHOTO1))),
                         getBitMapFromByte(cursor.getBlob(cursor.getColumnIndex(COLUMN_CT_PHOTO2))),
-                        getBitMapFromByte(cursor.getBlob(cursor.getColumnIndex(COLUMN_CT_PHOTO3))),
-                        getBitMapFromByte(cursor.getBlob(cursor.getColumnIndex(COLUMN_CT_SIGNATURE)))
+                        getBitMapFromByte(cursor.getBlob(cursor.getColumnIndex(COLUMN_CT_PHOTO3)))
                         ));
 
 
@@ -300,7 +289,7 @@ public class DbHelper extends SQLiteOpenHelper
         ContentValues contentValues=new ContentValues();
 
 
-            contentValues.put(COLUMN_VISIT_ID,visitList.getVisitId().replace(" ","").replace("_","").replace("-","").replace(":",""));
+        contentValues.put(COLUMN_VISIT_ID, visitList.getVisitId().replace(" ", "_").replace("-", "_").replace(":", "_"));
             contentValues.put(COLUMN_ATM_ID,visitList.getAtmId());
             contentValues.put(COLUMN_USER_ID,visitList.getUserId());
             contentValues.put(COLUMN_SITE_ID,visitList.getSiteId());
@@ -337,7 +326,6 @@ public class DbHelper extends SQLiteOpenHelper
             contentValues.put(COLUMN_CT_PHOTO1,visitList.getCtphotoByteArray("img0"));
             contentValues.put(COLUMN_CT_PHOTO2,visitList.getCtphotoByteArray("img1"));
             contentValues.put(COLUMN_CT_PHOTO3,visitList.getCtphotoByteArray("img2"));
-            contentValues.put(COLUMN_CT_SIGNATURE,visitList.getCtphotoByteArray("img3"));
             contentValues.put(COLUMN_SYNC_STATUS,"unsynced");
 
 
@@ -388,14 +376,16 @@ public class DbHelper extends SQLiteOpenHelper
 
     public String  getAuditDateRecords(String atmid)
     {
+
         String selectQuery="SELECT * FROM "+TABLE_ATM_AUDITED+" WHERE "+COLUMN_AUDITED_ATM_ID +" = '"+atmid+"'";
         SQLiteDatabase databaseRead=this.getReadableDatabase();
         Cursor cursor=databaseRead.rawQuery(selectQuery,null);
+        SQLiteDatabase databaseRead2 = this.getReadableDatabase();
         String lastupdateddate="not audited";
+        String days = "0";
         if(cursor.moveToFirst())
         {
             do{
-
 
                 lastupdateddate=cursor.getString(cursor.getColumnIndex(COLUMN_AUDITED_DATE));
 
@@ -446,7 +436,6 @@ public class DbHelper extends SQLiteOpenHelper
     {
 
         SQLiteDatabase databaseUpdate=this.getReadableDatabase();
-        String table = "beaconTable";
         String whereClause = COLUMN_VISIT_ID + "=?";
         String[] whereArgs = new String[] { String.valueOf(atmid) };
         databaseUpdate.delete(TABLE_CT_REPORT,whereClause,whereArgs);
@@ -490,7 +479,6 @@ public class DbHelper extends SQLiteOpenHelper
                         + COLUMN_LATITUDE + " TEXT ,"
                         + COLUMN_LONGITUDE + " TEXT ,"
                         + COLUMN_CT_PHOTO1 + " BLOB ," + COLUMN_CT_PHOTO2 + " BLOB ," + COLUMN_CT_PHOTO3 + " BLOB ,"
-                        + COLUMN_CT_SIGNATURE + " BLOB ,"
                         + COLUMN_SYNC_STATUS + " TEXT ,"
                         + COLUMN_TYPE_ATM+" TEXT)";
 
@@ -567,9 +555,8 @@ public class DbHelper extends SQLiteOpenHelper
                         cursor.getString(cursor.getColumnIndex(COLUMN_LONGITUDE)),
                         getBitMapFromByte(cursor.getBlob(cursor.getColumnIndex(COLUMN_CT_PHOTO1))),
                         getBitMapFromByte(cursor.getBlob(cursor.getColumnIndex(COLUMN_CT_PHOTO2))),
-                        getBitMapFromByte(cursor.getBlob(cursor.getColumnIndex(COLUMN_CT_PHOTO3))),
-                        getBitMapFromByte(cursor.getBlob(cursor.getColumnIndex(COLUMN_CT_SIGNATURE)))
-                );
+                     getBitMapFromByte(cursor.getBlob(cursor.getColumnIndex(COLUMN_CT_PHOTO3)))
+             );
 
 
 

@@ -32,72 +32,62 @@ public class Visit{
     private String time;
     private String caretakeName;
     private String caretakerNumber;
-
-
-
-    public Visit(String visitId, String atmId, String userId,String siteid,String city,String state, String location, String bankName,String customerName, String date,
-                 String time, String[] ct, String caretakeName, String caretakerNumber, String latitude, String longitude,
-                 Bitmap ctphoto1, Bitmap ctphoto2, Bitmap ctphoto3, Bitmap signature) {
-
-
-
-        this.visitId = visitId;
-        this.atmId = atmId;
-        this.userId = userId;
-        this.siteid=siteid;
-        this.city=city;
-        this.state=state;
-        this.location = location;
-        this.bankName = bankName;
-        this.customerName = customerName;
-        this.date = date;
-        this.time = time;
-        this.ct = ct;
-        this.caretakeName = caretakeName;
-        this.caretakerNumber = caretakerNumber;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.ctphoto1 = ctphoto1;
-        this.ctphoto2 = ctphoto2;
-        this.ctphoto3 = ctphoto3;
-        this.signature = signature;
-
-    }
-
-
-    public Visit(String visitId, String atmId, String userId, String location, String bankName,String customerName, String date,
-                 String time,String caretakeName, String caretakerNumber, String latitude, String longitude) {
-
-
-
-        this.visitId = visitId;
-        this.atmId = atmId;
-        this.userId = userId;
-        this.location = location;
-        this.bankName = bankName;
-        this.customerName = customerName;
-        this.date = date;
-        this.time = time;
-        this.ct = ct;
-        this.caretakeName = caretakeName;
-        this.caretakerNumber = caretakerNumber;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.ctphoto1 = ctphoto1;
-        this.ctphoto2 = ctphoto2;
-        this.ctphoto3 = ctphoto3;
-        this.signature = signature;
-    }
-
-
-
-
     private String housekeeperName;
     private String housekeeperNumber;
     private String srmName;
     private String SrmNumber;
     private String latitude;
     private String longitude;
+
+    public Visit(String visitId, String atmId, String userId, String siteid, String city, String state, String location, String bankName, String customerName, String date,
+                 String time, String[] ct, String caretakeName, String caretakerNumber, String latitude, String longitude,
+                 Bitmap ctphoto1, Bitmap ctphoto2, Bitmap ctphoto3) {
+
+
+        this.visitId = visitId;
+        this.atmId = atmId;
+        this.userId = userId;
+        this.siteid = siteid;
+        this.city = city;
+        this.state = state;
+        this.location = location;
+        this.bankName = bankName;
+        this.customerName = customerName;
+        this.date = date;
+        this.time = time;
+        this.ct = ct;
+        this.caretakeName = caretakeName;
+        this.caretakerNumber = caretakerNumber;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.ctphoto1 = ctphoto1;
+        this.ctphoto2 = ctphoto2;
+        this.ctphoto3 = ctphoto3;
+
+    }
+
+    public Visit(String visitId, String atmId, String userId, String location, String bankName, String customerName, String date,
+                 String time, String caretakeName, String caretakerNumber, String latitude, String longitude) {
+
+
+        this.visitId = visitId;
+        this.atmId = atmId;
+        this.userId = userId;
+        this.location = location;
+        this.bankName = bankName;
+        this.customerName = customerName;
+        this.date = date;
+        this.time = time;
+        this.ct = ct;
+        this.caretakeName = caretakeName;
+        this.caretakerNumber = caretakerNumber;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.ctphoto1 = ctphoto1;
+        this.ctphoto2 = ctphoto2;
+        this.ctphoto3 = ctphoto3;
+        this.signature = signature;
+    }
 
 
 

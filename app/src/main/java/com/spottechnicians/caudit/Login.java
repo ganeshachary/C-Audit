@@ -36,17 +36,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Login extends AppCompatActivity {
-    List<Atm> atmList;
-    EditText etPassword,etUserid;
-    DbHelper dbHelper;
-
-
+    public static final String USER_ID_LOGIN_PREFERENCES = "UserIdLoginPref";
+    public static final String UserIdEntered = "UserId";
+    public static final String PasswordEntered = "Password";
     public static SharedPreferences sharedPreferences;
-    public static final String USER_ID_LOGIN_PREFERENCES="UserIdLoginPref";
-    public static final String UserIdEntered="UserId";
-    public static final String PasswordEntered="Password";
-
-
+    List<Atm> atmList;
+    EditText etPassword, etUserid;
+    DbHelper dbHelper;
     String password,userid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +63,7 @@ public class Login extends AppCompatActivity {
 
         userid=etUserid.getText().toString();
         password=etPassword.getText().toString();
-    //  if(!checkOfflineLogin())
+        if (!checkOfflineLogin())
         {
             storeCredenditials();
 
@@ -81,10 +77,9 @@ public class Login extends AppCompatActivity {
                 Toast.makeText(this,"Turn on the mobile data or wifi",Toast.LENGTH_LONG).show();
             }
 
-        }
-        //else
+        } else
         {
-          // logIn();
+            logIn();
         }
 
 

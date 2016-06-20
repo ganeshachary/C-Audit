@@ -176,11 +176,11 @@ public class Home extends AppCompatActivity {
 
 
     public class UploadToServer extends AsyncTask<Void,Void,String> {
-        private ProgressDialog pDialog;
-        private String jsonStream;
         Visit visit;
         String visitid;
-        int round=0;
+        int round = 0;
+        private ProgressDialog pDialog;
+        private String jsonStream;
 
         UploadToServer(Visit visit,int round)
         {
@@ -210,15 +210,15 @@ public class Home extends AppCompatActivity {
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
                 OutputStream os=httpURLConnection.getOutputStream();
-                visitid=visit.getVisitId().replace(" ","").replace("_","").replace("-","").replace(":","");
+                visitid = visit.getVisitId();
                 Log.v("visitId",visitid);
 
                 BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
-                String data= URLEncoder.encode("visit_id", "UTF-8")+"="+URLEncoder.encode(visitid.replace(" ",""),"UTF-8")+ "&"
+                String data = URLEncoder.encode("visit_id", "UTF-8") + "=" + URLEncoder.encode(visitid, "UTF-8") + "&"
                         +URLEncoder.encode("img1", "UTF-8")+"="+URLEncoder.encode(visit.getCtPhoto1String(),"UTF-8")+"&"
                         +URLEncoder.encode("img2", "UTF-8")+"="+URLEncoder.encode(visit.getCtPhoto2String(),"UTF-8")+"&"
                         +URLEncoder.encode("img3", "UTF-8")+"="+URLEncoder.encode(visit.getCtPhoto3String(),"UTF-8")+"&"
-                        +URLEncoder.encode("img4", "UTF-8")+"="+URLEncoder.encode(visit.getCtSignatureString(),"UTF-8");
+                        + URLEncoder.encode("img4", "UTF-8") + "=" + URLEncoder.encode(visit.getCtPhoto1String(), "UTF-8");
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
                 if(bufferedWriter!=null)
