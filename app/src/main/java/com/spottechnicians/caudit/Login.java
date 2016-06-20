@@ -15,7 +15,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
+import com.spottechnicians.caudit.ModuleCT.CT_Questions;
 import com.spottechnicians.caudit.models.Atm;
+import com.spottechnicians.caudit.utils.GetLocationService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,17 +38,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Login extends AppCompatActivity {
-    List<Atm> atmList;
-    EditText etPassword,etUserid;
-    DbHelper dbHelper;
-
-
+    public static final String USER_ID_LOGIN_PREFERENCES = "UserIdLoginPref";
+    public static final String UserIdEntered = "UserId";
+    public static final String PasswordEntered = "Password";
     public static SharedPreferences sharedPreferences;
-    public static final String USER_ID_LOGIN_PREFERENCES="UserIdLoginPref";
-    public static final String UserIdEntered="UserId";
-    public static final String PasswordEntered="Password";
-
-
+    List<Atm> atmList;
+    EditText etPassword, etUserid;
+    DbHelper dbHelper;
     String password,userid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,24 +65,40 @@ public class Login extends AppCompatActivity {
 
         userid=etUserid.getText().toString();
         password=etPassword.getText().toString();
-    //  if(!checkOfflineLogin())
+        if (!checkOfflineLogin())
         {
             storeCredenditials();
 
-            if(networkStatus()!=0)
+            if (networkStatus() != 0 && GetLocationService.isLocationOn(this))
             {
+
+                startService(new Intent(this, GetLocationService.class));
                 ValidateLoginDeatails validateLoginDeatails=new ValidateLoginDeatails();
                 validateLoginDeatails.execute(userid,password);
-            }
-            else
+
+
+            } else if (!GetLocationService.isLocationOn(this))
             {
-                Toast.makeText(this,"Turn on the mobile data or wifi",Toast.LENGTH_LONG).show();
+
+                CT_Questions.showLocationSettings(this);
+
+            } else {
+                Toast.makeText(this, "Turn on the mobile data or wifi", Toast.LENGTH_LONG).show();
             }
 
-        }
-        //else
+        } else
         {
-          // logIn();
+            if (GetLocationService.isLocationOn(this)) {
+                startService(new Intent(this, GetLocationService.class));
+                logIn();
+                Toast.makeText(this, "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
+                        GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
+
+            } else {
+                CT_Questions.showLocationSettings(this);
+            }
+
+
         }
 
 

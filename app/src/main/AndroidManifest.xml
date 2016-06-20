@@ -53,6 +53,11 @@
         <activity android:name=".ChkReport">
 
         </activity>
+
+        <service
+            android:name=".utils.GetLocationService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

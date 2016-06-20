@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
 import com.spottechnicians.caudit.models.Visit;
+import com.spottechnicians.caudit.utils.GetLocationService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,6 +52,10 @@ public class Home extends AppCompatActivity {
         //After uploading to github
 
       //  Toast.makeText(this,s,Toast.LENGTH_LONG).show();
+
+        Toast.makeText(this, "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
+                GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
+
 
     }
 
@@ -176,11 +181,11 @@ public class Home extends AppCompatActivity {
 
 
     public class UploadToServer extends AsyncTask<Void,Void,String> {
-        private ProgressDialog pDialog;
-        private String jsonStream;
         Visit visit;
         String visitid;
-        int round=0;
+        int round = 0;
+        private ProgressDialog pDialog;
+        private String jsonStream;
 
         UploadToServer(Visit visit,int round)
         {
