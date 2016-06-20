@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">CAudit</string>
+    <string name="logoname">C-Audit</string>
+    <string name="loginbtn">Login</string>
+    <string name="welcomemessage">Welcome To C-Audit</string>
+    <string name="version">Cv-1.0 \n\n www.CAudit.com</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+
+
+    <string name="daily_visit">Daily Visit Report</string>
+    <string name="srm_report">Other Report</string>
+    <string name="audited">Audited</string>
+    <string name="unaudited">UnAdudited</string>
+    <string name="sync">Sync to Server</string>
+
+    //Textview in hindi
+    <string name="daily_visit_hindi">दैनिक जाएँ रिपोर्ट</string>
+    <string name="srm_report_hindi">अन्य रिपोर्ट</string>
+    <string name="audited_hindi">लेखा परीक्षित</string>
+    <string name="unaudited_hindi">बिना जाँचा</string>
+    <string name="sync_hindi">सर्वर से सिंक</string>
+
+    <!--//DailyVisitReport screen texts-->
+
+    <string name="ct_hk">CT/HK</string>
+    <string name="srm">SRM</string>
+    <string name="tis">TIS</string>
+    <string name="ebill">E-Bill</string>
+    <string name="ct_hk_hindi">सी टी/एच</string>
+    <string name="srm_hindi">एसआरएम</string>
+    <string name="tis_hindi">टी आई एस</string>
+    <string name="ebill_hindi">ई बिल</string>
+    <string name="title_activity_caretaker__housekeeping">Caretaker_Housekeeping</string>
+
+    <!--//questionery array for services-->
+
+
+    <!--//CT questions-->
+
+    <string-array name="ct_question">
+        <item>1.is CT present at site?</item>
+        <item>2.is CT wearing ID card?</item>
+        <item>3.is CT wearing proper uniform?</item>
+        <item>4.CT telephone working?</item>
+        <item>5.is CT chair available at site?</item>
+        <item>6.is CT working for more than 12hrs at stretch?</item>
+        <item>7.All mandatory registers and Logbook are maintained?</item>
+        <item>8.Does CT know where to deposit cash and cheque?</item>
+        <item>9.Does CT politely help customer with use of ATM?</item>
+        <item>10.Does CT ensure only one person per ATM machine?</item>
+        <item>11.Important numbers are displayed in the ATM?</item>
+        <item>12.Is the ATM down due to any major problem</item>
+    </string-array>
+
+
+    <!--button text for question    -->
+
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="na">NA</string>
+    <string name="next">NEXT</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="listsearchhint">Enter ATM ID/Address</string>
+
+
+    <!--for ct image-->
+    <string name="photomenu">Photograph Menu</string>
+    <string name="ctphoto1text1">Caretaker photo complete uniform and Id</string>
+
+    <string name="ctphoto1text2">Front signage,chair with caretaker</string>
+
+    <string name="ctphoto1text3">Registers photo</string>
+</resources>

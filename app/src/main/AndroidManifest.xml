@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.spottechnicians.caudit">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher3"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Splash"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
+        <activity
+            android:name=".Home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Daily_Audit"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ModuleCT.CT_Questions"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ModuleCT.Photo_Of_CT"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ModuleCT.Signatuere_Of_CT"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ModuleCT.SignatureCanvas"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ChkReport">
+
+        </activity>
+    </application>
+
+</manifest>
