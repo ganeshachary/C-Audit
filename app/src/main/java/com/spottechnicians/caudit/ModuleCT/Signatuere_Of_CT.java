@@ -68,16 +68,12 @@ public class Signatuere_Of_CT extends AppCompatActivity {
 
         boolean status = true;
 
-        if (visit.getPicListByKey("img3") != null) {
-            String ctName = etName.getText().toString();
+
+        String ctName = etName.getText().toString();
             String ctNumber = etNumber.getText().toString();
             if (ctName != null && ctNumber != null) {
                 visit.setCaretakerName(ctName);
                 visit.setCaretakerNumber(ctNumber);
-
-
-
-
             } else if (ctName == "") {
                 Toast.makeText(this, "Enter the Name", Toast.LENGTH_LONG).show();
             } else if (ctNumber == "") {
@@ -86,10 +82,7 @@ public class Signatuere_Of_CT extends AppCompatActivity {
                 status = false;
                 Toast.makeText(this, "Enter Name and Number", Toast.LENGTH_LONG).show();
             }
-        } else {
-            status = false;
-            Toast.makeText(this, "Put your Signature", Toast.LENGTH_LONG).show();
-        }
+
 
         if (status) {
             if(dbHelper.insertCTReport(visit))
