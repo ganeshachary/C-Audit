@@ -15,7 +15,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
+import com.spottechnicians.caudit.ModuleCT.CT_Questions;
 import com.spottechnicians.caudit.models.Atm;
+import com.spottechnicians.caudit.utils.GetLocationService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,19 +69,36 @@ public class Login extends AppCompatActivity {
         {
             storeCredenditials();
 
-            if(networkStatus()!=0)
+            if (networkStatus() != 0 && GetLocationService.isLocationOn(this))
             {
+
+                startService(new Intent(this, GetLocationService.class));
                 ValidateLoginDeatails validateLoginDeatails=new ValidateLoginDeatails();
                 validateLoginDeatails.execute(userid,password);
-            }
-            else
+
+
+            } else if (!GetLocationService.isLocationOn(this))
             {
-                Toast.makeText(this,"Turn on the mobile data or wifi",Toast.LENGTH_LONG).show();
+
+                CT_Questions.showLocationSettings(this);
+
+            } else {
+                Toast.makeText(this, "Turn on the mobile data or wifi", Toast.LENGTH_LONG).show();
             }
 
         } else
         {
-            logIn();
+            if (GetLocationService.isLocationOn(this)) {
+                startService(new Intent(this, GetLocationService.class));
+                logIn();
+                Toast.makeText(this, "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
+                        GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
+
+            } else {
+                CT_Questions.showLocationSettings(this);
+            }
+
+
         }
 
 

@@ -72,6 +72,43 @@ public class CT_Questions extends AppCompatActivity {
         builder.create().show();
     }
 
+    //made this method static so can be called easily while checking location availability
+    public static void showLocationSettings(final Activity activity) {
+
+
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+
+        alertDialog.setTitle("Location SETTINGS");
+
+        alertDialog
+                .setMessage("Location" + " is not enabled! Want to go to settings menu?");
+
+        alertDialog.setPositiveButton("Settings",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+
+                        activity.startActivity(intent);
+                        //   activity.finish();
+                        dialog.dismiss();
+                    }
+                });
+
+        alertDialog.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        activity.finish();
+
+                        dialog.cancel();
+                    }
+                });
+
+        alertDialog.show();
+
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,43 +166,6 @@ public class CT_Questions extends AppCompatActivity {
 
     }
 
-    private void showLocationSettings(final Activity activity) {
-
-
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-
-        alertDialog.setTitle("Location SETTINGS");
-
-        alertDialog
-                .setMessage("Location" + " is not enabled! Want to go to settings menu?");
-
-        alertDialog.setPositiveButton("Settings",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-
-                        activity.startActivity(intent);
-                        activity.finish();
-                        dialog.dismiss();
-                    }
-                });
-
-        alertDialog.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        activity.finish();
-
-                        dialog.cancel();
-                    }
-                });
-
-        alertDialog.show();
-
-
-
-    }
-
     public void setTimeDate() {
         try {
             int answer = android.provider.Settings.System.getInt(getContentResolver(),
@@ -204,8 +204,8 @@ public class CT_Questions extends AppCompatActivity {
         String userIDEnterd=sharedPreferences.getString(Login.UserIdEntered,null);
         visit.setVisitId(userIDEnterd+"_"+visit.getDate()+"_"+visit.getTime());
         visit.setUserId(userIDEnterd);
-        visit.setLatitude("0");
-        visit.setLongitude("0");
+        //visit.setLatitude("0");
+        // visit.setLongitude("0");
     }
 
     public void onNext(View view) {

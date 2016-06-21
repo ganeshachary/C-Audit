@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.VisitSingleton;
+import com.spottechnicians.caudit.utils.GetLocationService;
 
 public class Photo_Of_CT extends AppCompatActivity {
 
@@ -42,6 +43,12 @@ public class Photo_Of_CT extends AppCompatActivity {
         ivCtPhoto2 = (ImageView) findViewById(R.id.ivCtPhoto2);
 
         ivCtPhoto3 = (ImageView) findViewById(R.id.ivCtPhoto3);
+
+        Toast.makeText(this, "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
+                GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
+
+        visit.setLatitude(GetLocationService.LATITUDE_FROM_SERVICE);
+        visit.setLongitude(GetLocationService.LONGITUDE_FROM_SERVICE);
 
 
     }

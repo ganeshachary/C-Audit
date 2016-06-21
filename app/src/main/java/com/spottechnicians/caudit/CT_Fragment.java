@@ -13,12 +13,14 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
 import com.spottechnicians.caudit.ModuleCT.CT_Questions;
 import com.spottechnicians.caudit.adapters.AtmList;
 import com.spottechnicians.caudit.models.Atm;
 import com.spottechnicians.caudit.models.VisitSingleton;
+import com.spottechnicians.caudit.utils.GetLocationService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +62,7 @@ public class CT_Fragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String stringAtmId = ((TextView) view.findViewById(R.id.tvAtmId)).getText().toString();
-                String stringSiteId = ((TextView) view.findViewById(R.id.tvAtmId)).getTag().toString();
+                String stringSiteId = view.findViewById(R.id.tvAtmId).getTag().toString();
                 String location=((TextView) view.findViewById(R.id.tvAddress)).getText().toString();
                 String city=((TextView) view.findViewById(R.id.tvCity)).getText().toString();
                 String state=((TextView) view.findViewById(R.id.tvState)).getText().toString();
@@ -75,8 +77,18 @@ public class CT_Fragment extends Fragment {
                 visit.setBankName(bankname);
                 visit.setCustomerName(customer);
 
-                Intent intent=new Intent(getContext(),CT_Questions.class);
-                startActivity(intent);
+                if (GetLocationService.isLocationOn(getActivity())) {
+
+                    Toast.makeText(getActivity(), "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
+                            GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getContext(), CT_Questions.class);
+                    startActivity(intent);
+                } else {
+                    CT_Questions.showLocationSettings(getActivity());
+                }
+
+
+
             }
         });
         etSearchBar.addTextChangedListener(new TextWatcher() {
