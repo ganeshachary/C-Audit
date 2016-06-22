@@ -1,13 +1,17 @@
 package com.spottechnicians.caudit;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -55,19 +59,16 @@ public class Login extends AppCompatActivity {
         setUsernamePassword();
 
 
-
     }
 
-    public void validateLogin(View view)
-    {
+    public void validateLogin(View view) {
 
 
-
-        userid=etUserid.getText().toString();
-        password=etPassword.getText().toString();
-        if (!checkOfflineLogin())
+        userid = etUserid.getText().toString();
+        password = etPassword.getText().toString();
+    /*    if (!checkOfflineLogin())
         {
-            storeCredenditials();
+
 
             if (networkStatus() != 0 && GetLocationService.isLocationOn(this))
             {
@@ -80,13 +81,18 @@ public class Login extends AppCompatActivity {
             } else if (!GetLocationService.isLocationOn(this))
             {
 
+
                 CT_Questions.showLocationSettings(this);
 
             } else {
+
                 Toast.makeText(this, "Turn on the mobile data or wifi", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this,"username or password is wrong",Toast.LENGTH_SHORT).show();
+
             }
 
-        } else
+        }
+        else
         {
             if (GetLocationService.isLocationOn(this)) {
                 startService(new Intent(this, GetLocationService.class));
@@ -100,13 +106,131 @@ public class Login extends AppCompatActivity {
 
 
         }
+*/
+        if (inputValidation()) {
+
+            if (isLocationPermissionGranted()) {  //if permission is granted then do login checks
+
+                if (networkStatus() != 0) {
+                   /* if (GetLocationService.isLocationOn(this)) {
+
+                        startService(new Intent(this, GetLocationService.class));
+                        ValidateLoginDeatails validateLoginDeatails = new ValidateLoginDeatails();
+                        validateLoginDeatails.execute(userid, password);
+
+                    } else {
+                        CT_Questions.showLocationSettings(this);
+                    }
+*/
+                    if (checkOfflineLogin()) {
 
 
+                        if (GetLocationService.isLocationOn(this)) {
+                            startService(new Intent(this, GetLocationService.class));
+                            logIn();
+                            Toast.makeText(this, "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
+                                    GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
+
+                        } else {
+                            CT_Questions.showLocationSettings(this);
+                        }
+                    } else {
+                        //    Toast.makeText(this, "Username of Password is wrong OR turn on data to check online", Toast.LENGTH_LONG).show();
+
+                        if (GetLocationService.isLocationOn(this)) {
+
+                            startService(new Intent(this, GetLocationService.class));
+                            ValidateLoginDeatails validateLoginDeatails = new ValidateLoginDeatails();
+                            validateLoginDeatails.execute(userid, password);
+
+                        } else {
+                            CT_Questions.showLocationSettings(this);
+                        }
+
+                    }
 
 
+                } else {
+                    if (checkOfflineLogin()) {
+
+
+                        if (GetLocationService.isLocationOn(this)) {
+                            startService(new Intent(this, GetLocationService.class));
+                            logIn();
+                            Toast.makeText(this, "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
+                                    GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
+
+                        } else {
+                            CT_Questions.showLocationSettings(this);
+                        }
+                    } else {
+                        Toast.makeText(this, "Username of Password is wrong OR turn on data to check online", Toast.LENGTH_LONG).show();
+                    }
+
+
+                }
+
+
+            } else {
+                Toast.makeText(this, "Please Turn on Location permissions for this app", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    public boolean inputValidation() {
+
+        if ((userid == null || userid.equals("")) && (password == null || password.equals(""))) {
+            etUserid.setError("Enter Username");
+            etPassword.setError("Enter Password");
+            return false;
+        } else if (userid == null || userid.equals("")) {
+            etUserid.setError("Enter Username");
+            return false;
+        } else if (password == null || password.equals("")) {
+            etPassword.setError("Enter Password");
+            return false;
+        } else {
+
+            return true;
+        }
 
 
     }
+
+
+    public boolean isLocationPermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v("permission", "Permission is granted");
+                return true;
+            } else {
+
+                Log.v("permission", "Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                return false;
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.v("permission", "Permission is granted");
+            return true;
+        }
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Log.v("permission", "Permission: " + permissions[0] + "was " + grantResults[0]);
+            //resume tasks needing this permission
+            //imageClicked();
+
+        }
+    }
+
+
 
 
     public int networkStatus()
@@ -164,12 +288,13 @@ public class Login extends AppCompatActivity {
         {
             if(!storedUserid.equals(userid) || !storedPassword.equals(password))
             {
-                Log.v("login",storedUserid);
-                Log.v("login",storedPassword);
-                Log.v("login",userid);
-                Log.v("login",password);
+                //Log.v("login",storedUserid);
+                //Log.v("login",storedPassword);
+                //Log.v("login",userid);
+                //Log.v("login",password);
+                // Toast.makeText(this,"username or password is wrong",Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(this,"username or password is wrong",Toast.LENGTH_SHORT).show();
+                return false;
             }
 
         }
@@ -212,6 +337,7 @@ public class Login extends AppCompatActivity {
             message=jsonObject.getString("message");
             if(!errorStatus)
             {
+                storeCredenditials();
                 JSONArray jsonArray=jsonObject.getJSONArray("atms");
                 for(int i=0;i<jsonArray.length();i++)
                 {
