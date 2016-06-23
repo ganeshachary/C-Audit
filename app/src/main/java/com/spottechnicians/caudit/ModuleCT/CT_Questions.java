@@ -98,7 +98,7 @@ public class CT_Questions extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
-                        activity.finish();
+                        //   activity.finish();
 
                         dialog.cancel();
                     }
