@@ -1,6 +1,7 @@
 package com.spottechnicians.caudit;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -9,13 +10,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
+import com.spottechnicians.caudit.ModuleCT.CT_Questions;
+import com.spottechnicians.caudit.ModuleHK.HKQuestions;
 import com.spottechnicians.caudit.adapters.AtmList;
 import com.spottechnicians.caudit.models.Atm;
+import com.spottechnicians.caudit.utils.GetLocationService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +78,26 @@ public class HK_Fragment extends Fragment {
                 }
             });
         }
+
+
+        listViewHK.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                if (GetLocationService.isLocationOn(getActivity())) {
+
+                    Toast.makeText(getActivity(), "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
+                            GetLocationService.LONGITUDE_FROM_SERVICE + "On HK Ques", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getContext(), HKQuestions.class);
+                    startActivity(intent);
+                } else {
+                    CT_Questions.showLocationSettings(getActivity());
+                }
+
+            }
+        });
+
 
 
         return rootView;

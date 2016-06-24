@@ -54,6 +54,181 @@
     </string-array>
 
 
+    <!--HK Questions-->
+    <string-array name="HK_Questions">
+        <item>Q1.Signage/Lollypop clean?</item>
+        <item>Q2.Stains on main door,side glass and floor machine?</item>
+        <!--<item>Q3.ATM machine cleanliness?</item>
+        <item>Q4.Cleanliness on floor?</item>
+        <item>Q5.Dustbin and Doormat Cleanliness?</item>
+        <item>Q6.Ceiling and Cobweb Cleanliness?</item>-->
+        <item>Q3.Is ATM machine clean?</item>
+        <item>Q4.Is ATM floor clean?</item>
+        <item>Q5.Is doormat and dustbin clean?</item>
+        <item>Q6.Is ceiling and cobweb clean?</item>
+        <item>Q7.Inspect present in fitted Ceiling lights?</item>
+        <item>Q8.Stain on left hand side and right hand side wall?</item>
+        <item>Q9.Dust behind poster frame and brochure holder?</item>
+        <item>Q10.Dust on fire extinguisher?</item>
+        <!--<item>Q11.AC Cleanliness?</item>
+        <item>Q12.Backroom floor and Partition cleanliness</item>
+        <item>Q13.Dusting on UPS and Battery?</item>-->
+
+        <item>Q11.Dust on AC?</item>
+        <item>Q12.Dust on UPS and battery?</item>
+        <item>Q13.Is backroom floor and partition clean?</item>
+        <item>Q14.Is backroom ceiling clean?</item>
+
+        <item>Q15.Housekeeping material available at site?</item>
+
+        <item>Q16.Deep-cleaning done?</item>
+        <item>Q17.Pest-control done?</item>
+
+
+    </string-array>
+
+
+    <!--HK  SubQuestions-->
+    <string-array name="HK_NO_Q1">
+        <item>Proper cleaning require</item>
+        <item>It is on height</item>
+        <item>Flex damaged</item>
+        <item>Other</item>
+
+    </string-array>
+
+
+    <string-array name="HK_YES_Q2">
+        <item>Side Glass</item>
+        <item>Floor machine</item>
+        <item>Main door</item>
+        <item>Other</item>
+
+    </string-array>
+
+    <string-array name="HK_NO_Q3">
+        <item>Proper cleaning require</item>
+        <item>Other</item>
+
+    </string-array>
+
+    <string-array name="HK_NO_Q4">
+        <item>Floor damaged</item>
+        <item>Proper cleaning require</item>
+        <item>Other</item>
+
+    </string-array>
+
+    <string-array name="HK_NO_Q5">
+        <item>Doormat not available</item>
+        <item>Dustbin not available</item>
+        <item>Other</item>
+
+    </string-array>
+
+    <string-array name="HK_NO_Q6">
+        <item>Leakage spot</item>
+        <item>Proper cleaning require</item>
+        <item>Ladder require</item>
+        <item>Other</item>
+
+    </string-array>
+
+    <string-array name="HK_NO_Q7">
+        <item>Proper cleaning require</item>
+        <item>Ladder require</item>
+        <item>Other</item>
+
+    </string-array>
+
+    <string-array name="HK_YES_Q8">
+        <item>Painting require</item>
+        <item>Wall damaged</item>
+        <item>Proper cleaning require</item>
+        <item>Other</item>
+
+    </string-array>
+
+    <string-array name="HK_YES_Q9">
+        <item>Proper cleaning require</item>
+        <item>Poster frame not available</item>
+        <item>Brochure holder not available</item>
+        <item>Other</item>
+
+    </string-array>
+
+    <string-array name="HK_YES_Q10">
+        <item>Proper cleaning require</item>
+        <item>Fire bottle not available</item>
+        <item>Other</item>
+
+    </string-array>
+
+    <string-array name="HK_NO_Q11">
+        <item>Proper cleaning require</item>
+        <item>AC not available</item>
+        <item>Other</item>
+
+    </string-array>
+
+    <string-array name="HK_NO_Q12">
+        <item>Proper cleaning require</item>
+        <item>Open wiring</item>
+        <item>Other</item>
+
+    </string-array>
+
+    <string-array name="HK_NO_Q13">
+        <item>Backroom key not available</item>
+        <item>Proper cleaning require</item>
+        <item>Bank or CRA material available</item>
+        <item>Other</item>
+
+    </string-array>
+
+    <string-array name="HK_NO_Q14">
+        <item>Backroom key not available</item>
+        <item>Proper cleaning require</item>
+        <item>Bank or CRA material available</item>
+        <item>Other</item>
+
+    </string-array>
+
+
+    <string-array name="HK_NO_Q15">
+        <item>Phenyl not available</item>
+        <item>Collin not available</item>
+        <item>Broom not available</item>
+        <item>Duster not available</item>
+        <item>Other</item>
+
+    </string-array>
+
+
+    <!--SRM Questions-->
+
+    <string-array name="SRM_Questions">
+        <item>Q1.Main signage board is working?</item>
+        <item>Q2.Main signage board is in good condition?</item>
+        <item>Q3.Lollipop/Visa board is working?</item>
+        <item>Q4.Lollipop/Visa board is in good condition</item>
+        <item>Q5.Shutter and shutter box are in good condition</item>
+        <item>Q6.Main door is working properly?</item>
+        <item>Q7.Flooring tiles are in good condition?</item>
+        <item>Q8.Walls/Paneling are in good condition?</item>
+        <item>Q9.Ceiling/POP are in good condition?</item>
+        <item>Q10.Any seepage/water leakage from above at ATM site?</item>
+        <item>Q11.All Electrical appliances (CFL/PL/Tubes/Bulbs/Exhaust Fan) are working?</item>
+        <item>Q12.All AC are working and cooling properly?</item>
+        <item>Q13.Is writing ledge/Cheque drop box are in good conditions?</item>
+        <item>Q14.Backroom door is working properly?</item>
+        <item>Q15.Is fire extinguisher working (Green indicator) ?</item>
+        <item>Q16.Is UPS providing more than 1 hr backup during power failure?</item>
+        <item>Q17.Is Genset available at site with proper connections?</item>
+
+    </string-array>
+
+
     <!--button text for question    -->
 
     <string name="yes">YES</string>
@@ -75,4 +250,42 @@
     <string name="ctphoto1text2">Front signage,chair with caretaker</string>
 
     <string name="ctphoto1text3">Registers photo</string>
+
+    <!--for HK image-->
+    <string name="hkphototext1">*Front signage with main door view</string>
+
+    <string name="hkphototext2">*ATM machine top view</string>
+
+    <string name="hkphototext3">*ATM machine with doormat and dustbin view</string>
+
+    <string name="hkphototext4">*Floor view</string>
+
+    <string name="hkphototext5">*Right wall view</string>
+
+    <string name="hkphototext6">*Left wall view</string>
+
+    <string name="hkphototext7">*Ceiling view</string>
+
+    <string name="hkphototext8">AC indoor unit view</string>
+
+    <string name="hkphototext9">Fire extinguisher view</string>
+
+    <string name="hkphototext10">Backroom floor with HK materials view</string>
+
+    <string name="hkphototext11">Backroom ceiling view</string>
+
+
+    <string name="srmphototext1">*SRM issue 1</string>
+
+    <string name="srmphototext2">SRM issue 2</string>
+
+    <string name="srmphototext3">SRM issue 3</string>
+
+    <string name="srmphototext4">SRM issue 4</string>
+
+    <string name="srmphototext5">SRM issue 5</string>
+
+    <string name="srmphototext6">SRM issue 6</string>
+
+
 </resources>
