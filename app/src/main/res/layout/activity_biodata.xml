@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.spottechnicians.caudit.ModuleRecruitment.Biodata">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/RecruitmentHeading"
+            android:text="@string/biodata" />
+
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment18"
+                style="@style/RecruitmentTV" />
+
+            <DatePicker
+                android:id="@+id/datePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner" />
+        </LinearLayout>
+
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment19"
+                style="@style/RecruitmentTV" />
+
+            <Spinner
+                style="@style/RecruitmentSB"
+                android:entries="@array/Gender"></Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment20"
+                style="@style/RecruitmentTV" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    style="@style/WrapAll"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:maxLength="1" />
+
+                <TextView
+                    style="@style/WrapAll"
+                    android:layout_weight="1"
+                    android:text="ft" />
+
+                <EditText
+                    style="@style/WrapAll"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:maxLength="2" />
+
+                <TextView
+                    style="@style/WrapAll"
+                    android:layout_weight="1"
+                    android:text="inch" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment21"
+                style="@style/RecruitmentTV" />
+
+            <EditText
+                style="@style/MatchWrap"
+                android:hint="Weight(in Kg)"
+                android:inputType="number"
+
+                android:maxLength="3" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment22"
+                style="@style/RecruitmentTV" />
+
+            <EditText
+                style="@style/RecruitmentET"
+                android:hint="Birth Mark/ID" />
+
+        </LinearLayout>
+
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment23"
+                style="@style/RecruitmentTV" />
+
+            <Spinner
+                style="@style/RecruitmentSB"
+                android:entries="@array/Religion"></Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment24"
+                style="@style/RecruitmentTV" />
+
+            <Spinner
+                style="@style/RecruitmentSB"
+                android:entries="@array/MaritalStatus"></Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment25"
+                style="@style/RecruitmentTV" />
+
+            <Spinner
+                style="@style/RecruitmentSB"
+                android:entries="@array/MotherTongue"></Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment26"
+                style="@style/RecruitmentTV" />
+
+            <Spinner
+                style="@style/RecruitmentSB"
+                android:entries="@array/LanguageKnown"></Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment27"
+                style="@style/RecruitmentTV" />
+
+            <Spinner
+                style="@style/RecruitmentSB"
+                android:entries="@array/EducationQualification"></Spinner>
+
+        </LinearLayout>
+
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment28"
+                style="@style/RecruitmentTV" />
+
+            <EditText
+                style="@style/RecruitmentET"
+                android:hint="Present Occupation" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment29"
+                style="@style/RecruitmentTV" />
+
+            <EditText
+                style="@style/RecruitmentET"
+                android:hint="Total Work Exp (In Yrs)" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment30"
+                style="@style/RecruitmentTV" />
+
+            <EditText
+                style="@style/RecruitmentET"
+                android:hint="Salary/Wages(PM)" />
+
+        </LinearLayout>
+
+        <Button
+            style="@style/MatchWrap"
+            android:onClick="onNextBioData"
+            android:text="@string/next" />
+
+
+    </LinearLayout>
+
+</ScrollView>

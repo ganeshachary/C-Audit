@@ -286,6 +286,125 @@
     <string name="srmphototext5">SRM issue 5</string>
 
     <string name="srmphototext6">SRM issue 6</string>
+    <string name="residentAddress">Resident Address</string>
+    <string name="permanentAddress">Permanent Address</string>
+    <string name="sameAddress">Permanent Address same as Resident Address</string>
+    <string name="officialdetails">Official Details</string>
+    <string name="biodata">Bio Data</string>
+    <string name="declaration">Declaration</string>
+    <string name="sign">Sign</string>
+    <string name="passportSizePhoto">Passport Size Photo</string>
+    <string name="moreDocuments">More Documents</string>
+
+
+    <string-array name="Recruitment">
+        <item>Post Applied for</item>
+        <item>Joining Date</item>
+        <item>First Name</item>
+        <item>Middle Name</item>
+        <item>Last Name</item>
+        <item>Mobile No</item>
+        <item>Landline No</item>
+
+
+        <item>Room no/Flat no/House no</item>
+        <item>Bldg/Area/Locality name</item>
+        <item>Town/Station/Taluka</item>
+        <item>District/City</item>
+        <item>Pincode</item>
+
+
+        <!--<item>Same as Resident address</item>-->
+
+        <item>Room no/Flat no/House no</item>
+        <item>Bldg/Area/Locality name</item>
+        <item>Town/Station/Taluka</item>
+        <item>District/City</item>
+        <item>Pincode</item>
+
+
+        <item>Date of birth</item>
+        <item>Gender</item>
+        <item>Height</item>
+        <item>Weight(in Kg)</item>
+        <item>Birth Mark/ID</item>
+
+        <item>Religion</item>
+        <item>Marital status</item>
+        <item>Mother Tongue</item>
+        <item>Language Known</item>
+        <item>Education Qualification</item>
+        <item>Present Occupation</item>
+        <item>Total Work Experience(in Yrs)</item>
+        <item>Salary/Wages(PM)</item>
+
+        <item>Declaration</item>
+
+    </string-array>
+
+    <string-array name="PostAppliedFor">
+        <item>Caretaker</item>
+        <item>Housekeeper</item>
+        <item>Supervisor</item>
+    </string-array>
+
+    <string-array name="Gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="Religion">
+        <item>Hindu</item>
+        <item>Muslim</item>
+        <item>Sikh</item>
+        <item>Cristian</item>
+        <item>Parsi</item>
+        <item>other</item>
+    </string-array>
+
+    <string-array name="MaritalStatus">
+        <item>Single</item>
+        <item>Married</item>
+        <item>Widow</item>
+        <item>Widower</item>
+        <item>Divorced</item>
+
+    </string-array>
+
+
+    <string-array name="MotherTongue">
+        <item>Hindi</item>
+        <item>Urdu</item>
+        <item>Punjabi</item>
+        <item>Haryanvi</item>
+        <item>Nepali</item>
+        <item>Bhojpuri</item>
+        <item>Bengali</item>
+        <item>Assamese</item>
+        <item>Oriya</item>
+        <item>Marathi</item>
+        <item>Gujarati</item>
+        <item>Tamil</item>
+        <item>Telugu</item>
+        <item>Kannada</item>
+        <item>Malayalam</item>
+        <item>Tulu</item>
+        <item>Konkani</item>
+        <item>Other</item>
+
+    </string-array>
+
+    <string-array name="LanguageKnown">
+        <item>Hindi</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="EducationQualification">
+        <item>Under 10th</item>
+        <item>10th Pass</item>
+        <item>12th Pass</item>
+        <item>Graduate</item>
+    </string-array>
 
 
 </resources>

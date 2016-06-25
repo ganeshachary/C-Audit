@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.spottechnicians.caudit.ModuleRecruitment.Address">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/RecruitmentHeading"
+            android:text="@string/residentAddress" />
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment8"
+                style="@style/RecruitmentTV" />
+
+            <EditText
+                style="@style/RecruitmentET"
+                android:hint="Room No/Flat No/House No" />
+
+        </LinearLayout>
+
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment9"
+                style="@style/RecruitmentTV" />
+
+            <EditText
+                style="@style/RecruitmentET"
+                android:hint="Bldg/Area/Locality Name"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:maxLines="3"
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment10"
+                style="@style/RecruitmentTV" />
+
+            <EditText
+                style="@style/RecruitmentET"
+                android:hint="Town/Station/Taluka" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment11"
+                style="@style/RecruitmentTV" />
+
+            <EditText
+                style="@style/RecruitmentET"
+                android:hint="District/City" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/RecruitmentLL">
+
+            <TextView
+                android:id="@+id/recruitment12"
+                style="@style/RecruitmentTV" />
+
+            <EditText
+                style="@style/RecruitmentET"
+                android:hint="Pincode" />
+
+        </LinearLayout>
+
+
+        <TextView
+            style="@style/RecruitmentHeading"
+            android:layout_marginTop="15dp"
+            android:text="@string/permanentAddress" />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sameAddress" />
+
+        <!--In this layout whole resident address repeated-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/RecruitmentLL">
+
+                <TextView
+                    android:id="@+id/recruitment13"
+                    style="@style/RecruitmentTV" />
+
+                <EditText
+                    style="@style/RecruitmentET"
+                    android:hint="Room No/Flat No/House No" />
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/RecruitmentLL">
+
+                <TextView
+                    android:id="@+id/recruitment14"
+                    style="@style/RecruitmentTV" />
+
+                <EditText
+                    style="@style/RecruitmentET"
+                    android:hint="Bldg/Area/Locality Name"
+                    android:lines="3" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/RecruitmentLL">
+
+                <TextView
+                    android:id="@+id/recruitment15"
+                    style="@style/RecruitmentTV" />
+
+                <EditText
+                    style="@style/RecruitmentET"
+                    android:hint="Town/Station/Taluka" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/RecruitmentLL">
+
+                <TextView
+                    android:id="@+id/recruitment16"
+                    style="@style/RecruitmentTV" />
+
+                <EditText
+                    style="@style/RecruitmentET"
+                    android:hint="District/City" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/RecruitmentLL">
+
+                <TextView
+                    android:id="@+id/recruitment17"
+                    style="@style/RecruitmentTV" />
+
+                <EditText
+                    style="@style/RecruitmentET"
+                    android:hint="Pincode" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onNextAddress"
+            android:text="@string/next" />
+
+
+    </LinearLayout>
+
+</ScrollView>

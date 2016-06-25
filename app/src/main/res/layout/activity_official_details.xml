@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.spottechnicians.caudit.ModuleRecruitment.OfficialDetails">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/RecruitmentHeading"
+                android:text="@string/officialdetails" />
+
+            <LinearLayout style="@style/RecruitmentLL">
+
+                <TextView
+                    android:id="@+id/recruitment1"
+                    style="@style/RecruitmentTV"
+
+                    android:text="Recruit1"
+                    android:textColor="#111010" />
+
+                <Spinner
+                    style="@style/RecruitmentSB"
+                    android:entries="@array/PostAppliedFor">
+
+                </Spinner>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/RecruitmentLL">
+
+                <TextView
+                    android:id="@+id/recruitment2"
+                    style="@style/RecruitmentTV" />
+
+                <DatePicker
+                    android:id="@+id/datePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/RecruitmentLL">
+
+                <TextView
+                    android:id="@+id/recruitment3"
+                    style="@style/RecruitmentTV" />
+
+                <EditText
+                    style="@style/RecruitmentET"
+                    android:hint="First Name" />
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/RecruitmentLL">
+
+                <TextView
+                    android:id="@+id/recruitment4"
+                    style="@style/RecruitmentTV" />
+
+                <EditText
+                    style="@style/RecruitmentET"
+                    android:hint="Middle Name" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/RecruitmentLL">
+
+                <TextView
+                    android:id="@+id/recruitment5"
+                    style="@style/RecruitmentTV" />
+
+                <EditText
+                    style="@style/RecruitmentET"
+                    android:hint="Last Name" />
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/RecruitmentLL">
+
+                <TextView
+                    android:id="@+id/recruitment6"
+                    style="@style/RecruitmentTV" />
+
+                <EditText
+                    style="@style/RecruitmentET"
+                    android:hint="Mobile No"
+                    android:inputType="phone"
+                    android:maxLength="10" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/RecruitmentLL">
+
+                <TextView
+                    android:id="@+id/recruitment7"
+                    style="@style/RecruitmentTV" />
+
+                <EditText
+                    style="@style/RecruitmentET"
+                    android:hint="Mobile No"
+                    android:inputType="phone"
+                    android:maxLength="11" />
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onNextOfficialDetails"
+                android:text="@string/next" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</ScrollView>

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
+import com.spottechnicians.caudit.ModuleRecruitment.OfficialDetails;
 import com.spottechnicians.caudit.models.Visit;
 import com.spottechnicians.caudit.utils.GetLocationService;
 
@@ -85,6 +86,10 @@ public class Home extends AppCompatActivity {
     {
         Intent intent=new Intent(this,Daily_Audit.class);
         startActivity(intent);
+    }
+
+    public void openOtherReport(View v) {
+        startActivity(new Intent(this, OfficialDetails.class));
     }
 
 
