@@ -158,8 +158,8 @@ public class Photo_Of_CT extends AppCompatActivity {
             Paint paint = new Paint();
             paint.setColor(Color.RED);
             paint.setTextSize(10);
-            canvas.drawText("ATMID"+visit.getAtmId(), 10, 30, paint);
-            canvas.drawText("DATE"+visit.getDate()+"Time"+visit.getTime(), 10, 50, paint);
+            canvas.drawText("ATMID : " + visit.getAtmId(), 10, 30, paint);
+            canvas.drawText("DATETIME :" + visit.getDatetime(), 10, 50, paint);
             canvas.drawText("Lat: " + visit.getLatitude() + "Long: " + visit.getLongitude(), 10, 70, paint);
 
 

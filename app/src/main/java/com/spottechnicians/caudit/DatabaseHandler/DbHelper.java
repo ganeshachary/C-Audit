@@ -48,6 +48,7 @@ public class DbHelper extends SQLiteOpenHelper
     public static final String COLUMN_LOCATION="location";
     public static final String COLUMN_BANK_NAME="bank_name";
     public static final String COLUMN_CUSTOMER_NAME="customer_name";
+    public static final String COLUMN_DATE_TIME_OF_VIST = "date_time_of_visit";
     public static final String COLUMN_DATE_OF_VISIT="date_of_visit";
     public static final String COLUMN_TIME_OF_VISIT="time_of_visit";
     public static final String COLUMN_SYNC_STATUS="sync_status";
@@ -99,7 +100,7 @@ public class DbHelper extends SQLiteOpenHelper
     private static final String TYPE_T_HK = "ct_hk";
     private static final String TYPE_ALL = "all";
     private static final String DB_NAME = "CAudit";
-    private static final int DB_VERSION = 7;
+    private static final int DB_VERSION = 1;
     Visit visit;
 
     Visit visitt;
@@ -219,8 +220,7 @@ public class DbHelper extends SQLiteOpenHelper
                         cursor.getString(cursor.getColumnIndex(COLUMN_LOCATION)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_BANK_NAME)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_CUSTOMER_NAME)),
-                        cursor.getString(cursor.getColumnIndex(COLUMN_DATE_OF_VISIT))
-                        ,cursor.getString(cursor.getColumnIndex(COLUMN_TIME_OF_VISIT)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_DATE_TIME_OF_VIST)),
                         new String[] {
                                 cursor.getString(cursor.getColumnIndex(COLUMN_CTQ1)),
                                 cursor.getString(cursor.getColumnIndex(COLUMN_CTQ2)),
@@ -298,9 +298,7 @@ public class DbHelper extends SQLiteOpenHelper
             contentValues.put(COLUMN_LOCATION,visitList.getLocation());
             contentValues.put(COLUMN_BANK_NAME,visitList.getBankName());
             contentValues.put(COLUMN_CUSTOMER_NAME,visitList.getCustomerName());
-            contentValues.put(COLUMN_DATE_OF_VISIT,visitList.getDate());
-            contentValues.put(COLUMN_TIME_OF_VISIT,visitList.getTime());
-
+        contentValues.put(COLUMN_DATE_TIME_OF_VIST, visitList.getDatetime());
 
             String[] ctReport=visitList.getCt();
 
@@ -336,7 +334,7 @@ public class DbHelper extends SQLiteOpenHelper
             }
             else
             {
-                errorCode=insertAuditedAtm(visitList.getDate(),visitList.getAtmId(),TYPE_CT);
+                errorCode = insertAuditedAtm(visitList.getDatetime(), visitList.getAtmId(), TYPE_CT);
                 if(errorCode==-1)
                 {
                     insertStatus=false;
@@ -468,8 +466,7 @@ public class DbHelper extends SQLiteOpenHelper
                         + COLUMN_LOCATION + " TEXT ,"
                         + COLUMN_BANK_NAME + " TEXT ,"
                         + COLUMN_CUSTOMER_NAME + " TEXT ,"
-                        + COLUMN_DATE_OF_VISIT + " TEXT ,"
-                        + COLUMN_TIME_OF_VISIT + " TEXT ,"
+                        + COLUMN_DATE_TIME_OF_VIST + " DATETIME ,"
                         + COLUMN_CTQ1 + " TEXT ,"+ COLUMN_CTQ2 + " TEXT ," + COLUMN_CTQ3 + " TEXT ,"
                         + COLUMN_CTQ4 + " TEXT ,"+ COLUMN_CTQ5 + " TEXT ," + COLUMN_CTQ6 + " TEXT ,"
                         + COLUMN_CTQ7 + " TEXT ,"+ COLUMN_CTQ8 + " TEXT ," + COLUMN_CTQ9 + " TEXT ,"
@@ -485,7 +482,7 @@ public class DbHelper extends SQLiteOpenHelper
                 String createAtmAuditRecord = "CREATE TABLE " + TABLE_ATM_AUDITED + "(" + COLUMN_ID_ATM + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                         + COLUMN_AUDITED_ATM_ID + " TEXT, "
                         + COLUMN_AUDITED_ATM_TYPE + " TEXT, "
-                        + COLUMN_AUDITED_DATE + " TEXT )";
+                        + COLUMN_AUDITED_DATE + " DATETIME )";
 
                 sqLiteDatabase.execSQL(createDb);
                 sqLiteDatabase.execSQL(createCTReport);
@@ -532,8 +529,7 @@ public class DbHelper extends SQLiteOpenHelper
                         cursor.getString(cursor.getColumnIndex(COLUMN_LOCATION)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_BANK_NAME)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_CUSTOMER_NAME)),
-                        cursor.getString(cursor.getColumnIndex(COLUMN_DATE_OF_VISIT))
-                        ,cursor.getString(cursor.getColumnIndex(COLUMN_TIME_OF_VISIT)),
+                     cursor.getString(cursor.getColumnIndex(COLUMN_DATE_TIME_OF_VIST)),
                         new String[] {
                                 cursor.getString(cursor.getColumnIndex(COLUMN_CTQ1)),
                                 cursor.getString(cursor.getColumnIndex(COLUMN_CTQ2)),

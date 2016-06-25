@@ -13,7 +13,11 @@ import android.widget.TextView;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.Atm;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -86,32 +90,45 @@ public class AtmList extends BaseAdapter implements Filterable{
             viewHolder.city.setText(listOfAtms.get(position).getCity());
             viewHolder.state.setText(listOfAtms.get(position).getState());
             viewHolder.date.setText(listOfAtms.get(position).getLastaudited());
-            viewHolder.days.setText("0days");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
+        String TodayDateTime = sdf.format(c.getTime());
+        Date d1 = null;
+        Date d2 = null;
+
+        try {
+            d1 = format.parse(listOfAtms.get(position).getLastaudited());
+            d2 = format.parse(TodayDateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long diff = d2.getTime() - d1.getTime();
+        int diffInDays = (int) diff / (1000 * 60 * 60 * 24);
+
+        viewHolder.days.setText(diffInDays + " days Before");
             return  rootView;
 
 
 
     }
 
-
-
+    @Override
+    public Filter getFilter() {
+        if (valueFilter == null) {
+            valueFilter = new ValueFilter();
+        }
+        return valueFilter;
+    }
 
     static class ViewHolder
     {
         TextView atmID,bankName,cutomerName,address,city,state,date,days;
 
     }
-
-
-    @Override
-    public Filter getFilter() {
-        if(valueFilter==null)
-        {
-            valueFilter=new ValueFilter();
-        }
-        return valueFilter;
-    }
-
 
     class ValueFilter extends Filter{
 
