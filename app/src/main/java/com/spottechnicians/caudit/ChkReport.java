@@ -114,8 +114,7 @@ public class ChkReport extends AppCompatActivity {
                 Selectedvisit=dbHelper.getVisitFromId(i+1);
 
 
-
-                reportView.setText(Selectedvisit.getBankName()+"\n"+Selectedvisit.getDate()+" "+Selectedvisit.getTime()+"\n "+Selectedvisit.getCt()[0]
+                reportView.setText(Selectedvisit.getBankName() + "\n" + Selectedvisit.getDatetime() + "\n " + Selectedvisit.getCt()[0]
                                             +"\n"+Selectedvisit.getCt()[1]+"Lat: "+Selectedvisit.getLatitude()
                                     +" Long: "+Selectedvisit.getLongitude());
 

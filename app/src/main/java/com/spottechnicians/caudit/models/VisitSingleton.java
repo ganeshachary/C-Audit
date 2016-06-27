@@ -11,7 +11,13 @@ import java.util.HashMap;
 public class VisitSingleton {
 
 
+    /*
 
+        private  static  VisitSingleton visitSingleton=new VisitSingleton();
+        private VisitSingleton() {
+        }
+    */
+    private static VisitSingleton visitSingleton = null;
     private HashMap<String, Bitmap> PicList=new HashMap<>();
     private String[] hk, ct, srm;
     private  String viewPhotos;
@@ -24,8 +30,9 @@ public class VisitSingleton {
     private  String location;
     private  String bankName;
     private  String customerName;
-    private  String date;
-    private  String time;
+    private String datetime;
+    // private  String date;
+    // private  String time;
     private  String caretakerName;
     private  String caretakerNumber;
     private  String housekeeperName;
@@ -34,16 +41,6 @@ public class VisitSingleton {
     private  String SrmNumber;
     private  String latitude;
     private  String longitude;
-
-
-
-    /*
-
-        private  static  VisitSingleton visitSingleton=new VisitSingleton();
-        private VisitSingleton() {
-        }
-    */
-    private  static  VisitSingleton visitSingleton=null;
     private VisitSingleton() {
     }
 
@@ -54,6 +51,14 @@ public class VisitSingleton {
             visitSingleton=new VisitSingleton();
         }
         return visitSingleton;
+    }
+
+    public static VisitSingleton getVisitSingleton() {
+        return visitSingleton;
+    }
+
+    public static void setVisitSingleton(VisitSingleton visitSingleton) {
+        VisitSingleton.visitSingleton = visitSingleton;
     }
 
     public boolean checkCTComplete()
@@ -68,6 +73,13 @@ public class VisitSingleton {
         return status;
     }
 
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
 
     public String getSiteId() {
         return siteid;
@@ -96,6 +108,7 @@ public class VisitSingleton {
     public HashMap<String, Bitmap> getPicList() {
         return PicList;
     }
+
     public Bitmap getPicListByKey(String key) {
         return PicList.get(key);
     }
@@ -192,22 +205,6 @@ public class VisitSingleton {
         this.customerName = customerName;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public String getCaretakerName() {
         return caretakerName;
     }
@@ -270,13 +267,5 @@ public class VisitSingleton {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
-    }
-
-    public static VisitSingleton getVisitSingleton() {
-        return visitSingleton;
-    }
-
-    public static void setVisitSingleton(VisitSingleton visitSingleton) {
-        VisitSingleton.visitSingleton = visitSingleton;
     }
 }

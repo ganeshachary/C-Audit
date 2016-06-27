@@ -368,7 +368,7 @@ public class Login extends AppCompatActivity {
             }
             else
             {
-                Toast.makeText(getBaseContext(),message.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), message.toString(), Toast.LENGTH_SHORT).show();
             }
 
 
@@ -463,6 +463,7 @@ public class Login extends AppCompatActivity {
             if(jsonString==null||jsonString=="")
             {
                Toast.makeText(getBaseContext(),"Network call failed",Toast.LENGTH_SHORT).show();
+
             }
             else
             {

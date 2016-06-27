@@ -1,5 +1,6 @@
 package com.spottechnicians.caudit.utils;
 
+import android.app.Activity;
 import android.widget.TextView;
 
 import com.spottechnicians.caudit.ModuleCT.CT_Questions;
@@ -59,6 +60,15 @@ public class UtilCT {
 
     }
 
+    //this method cab be used to set TextViews form any one activity
+    //HK and SRM Questions are getting set on Textview's using this method
+    public static void setEnglishQuestionUsingActivity(String questionArray[], int textViewIds[], Activity context) {
+
+        for (int i = 0; i < textViewIds.length; i++) {
+            ((TextView) context.findViewById(textViewIds[i])).setText(questionArray[i]);
+        }
+
+    }
     public static int getPositionOfYesButton(long id, int buttonType) {
         int array[];
         if (buttonType == 1) {

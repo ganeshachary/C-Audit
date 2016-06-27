@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ModuleSRM.SRMQuestions">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--question 1-->
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion1"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes1"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo1"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--question2-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion2"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes2"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo2"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--question 3-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion3"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes3"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo3"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--question 4-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion4"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes4"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo4"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--question 5-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion5"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes5"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo5"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--question 6-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion6"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes6"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo6"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--question 7-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion7"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes7"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo7"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--question 8-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion8"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes8"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo8"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--question 9-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion9"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes9"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo9"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--question 10-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion10"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes10"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo10"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--question 11-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion11"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes11"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo11"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--question 12-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion12"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes12"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo12"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--question 13-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion13"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes13"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo13"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--question 14-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion14"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes14"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo14"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--question 15-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion15"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes15"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo15"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--question 16-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion16"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes16"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo16"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--question 17-->
+
+        <LinearLayout style="@style/linearlayoutparent">
+
+            <TextView
+                android:id="@+id/tvSRMQuestion17"
+                style="@style/headingtext" />
+
+            <LinearLayout style="@style/linearlayoutparent.childlinearlayout">
+
+                <Button
+                    android:id="@+id/btnSRMQuestionYes17"
+                    style="@style/btnyes" />
+
+                <Button
+                    android:id="@+id/btnSRMQuestionNo17"
+                    style="@style/btnno" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnSrmNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:onClick="onNext"
+            android:text="Next" />
+
+
+    </LinearLayout>
+
+</ScrollView>

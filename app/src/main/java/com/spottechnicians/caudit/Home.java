@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
+import com.spottechnicians.caudit.ModuleRecruitment.OfficialDetails;
 import com.spottechnicians.caudit.models.Visit;
 import com.spottechnicians.caudit.utils.GetLocationService;
 
@@ -85,6 +86,10 @@ public class Home extends AppCompatActivity {
     {
         Intent intent=new Intent(this,Daily_Audit.class);
         startActivity(intent);
+    }
+
+    public void openOtherReport(View v) {
+        startActivity(new Intent(this, OfficialDetails.class));
     }
 
 
@@ -205,7 +210,7 @@ public class Home extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Void... params) {
-            String upload_url = "http://www.cleartask.in/caudit/AndroidWebServices/SaveCTVisitData.aspx";
+            String upload_url = "http://www.cleartask.in/caudit_weblink/WebServices/SaveCTVisitData.aspx";
             HttpURLConnection httpURLConnection=null;
             URL url;
             try {
@@ -220,10 +225,30 @@ public class Home extends AppCompatActivity {
 
                 BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
                 String data = URLEncoder.encode("visit_id", "UTF-8") + "=" + URLEncoder.encode(visitid, "UTF-8") + "&"
-                        +URLEncoder.encode("img1", "UTF-8")+"="+URLEncoder.encode(visit.getCtPhoto1String(),"UTF-8")+"&"
-                        +URLEncoder.encode("img2", "UTF-8")+"="+URLEncoder.encode(visit.getCtPhoto2String(),"UTF-8")+"&"
-                        +URLEncoder.encode("img3", "UTF-8")+"="+URLEncoder.encode(visit.getCtPhoto3String(),"UTF-8")+"&"
-                        + URLEncoder.encode("img4", "UTF-8") + "=" + URLEncoder.encode(visit.getCtPhoto1String(), "UTF-8");
+                        + URLEncoder.encode("atm_id", "UTF-8") + "=" + URLEncoder.encode(visit.getAtmId(), "UTF-8") + "&"
+                        + URLEncoder.encode("login_id", "UTF-8") + "=" + URLEncoder.encode(visit.getAtmId(), "UTF-8") + "&"
+                        + URLEncoder.encode("date_of_capture", "UTF-8") + "=" + URLEncoder.encode(visit.getDatetime(), "UTF-8") + "&"
+                        + URLEncoder.encode("caretaker_name", "UTF-8") + "=" + URLEncoder.encode(visit.getCaretakeName(), "UTF-8") + "&"
+                        + URLEncoder.encode("caretaker_number", "UTF-8") + "=" + URLEncoder.encode(visit.getCaretakerNumber(), "UTF-8") + "&"
+
+                        + URLEncoder.encode("caretaker_img", "UTF-8") + "=" + URLEncoder.encode(visit.getCtPhoto1String(), "UTF-8") + "&"
+                        + URLEncoder.encode("front_signage_img", "UTF-8") + "=" + URLEncoder.encode(visit.getCtPhoto2String(), "UTF-8") + "&"
+                        + URLEncoder.encode("registers_img", "UTF-8") + "=" + URLEncoder.encode(visit.getCtPhoto3String(), "UTF-8") + "&"
+
+                        + URLEncoder.encode("q1", "UTF-8") + "=" + URLEncoder.encode(visit.getCt()[0], "UTF-8") + "&"
+                        + URLEncoder.encode("q2", "UTF-8") + "=" + URLEncoder.encode(visit.getCt()[1], "UTF-8") + "&"
+                        + URLEncoder.encode("q3", "UTF-8") + "=" + URLEncoder.encode(visit.getCt()[2], "UTF-8") + "&"
+                        + URLEncoder.encode("q4", "UTF-8") + "=" + URLEncoder.encode(visit.getCt()[3], "UTF-8") + "&"
+                        + URLEncoder.encode("q5", "UTF-8") + "=" + URLEncoder.encode(visit.getCt()[4], "UTF-8") + "&"
+                        + URLEncoder.encode("q6", "UTF-8") + "=" + URLEncoder.encode(visit.getCt()[5], "UTF-8") + "&"
+                        + URLEncoder.encode("q7", "UTF-8") + "=" + URLEncoder.encode(visit.getCt()[6], "UTF-8") + "&"
+                        + URLEncoder.encode("q8", "UTF-8") + "=" + URLEncoder.encode(visit.getCt()[7], "UTF-8") + "&"
+                        + URLEncoder.encode("q9", "UTF-8") + "=" + URLEncoder.encode(visit.getCt()[8], "UTF-8") + "&"
+                        + URLEncoder.encode("q10", "UTF-8") + "=" + URLEncoder.encode(visit.getCt()[9], "UTF-8") + "&"
+                        + URLEncoder.encode("q11", "UTF-8") + "=" + URLEncoder.encode(visit.getCt()[10], "UTF-8") + "&"
+                        + URLEncoder.encode("q12", "UTF-8") + "=" + URLEncoder.encode(visit.getCt()[11], "UTF-8");
+
+                Log.e("images", visit.getCtPhoto1String());
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
                 if(bufferedWriter!=null)
@@ -267,15 +292,21 @@ public class Home extends AppCompatActivity {
 
             pDialog.dismiss();
             JSONObject jsonObject;
-            try {
-                jsonObject = new JSONObject(result);
-                if(!jsonObject.getBoolean("error"))
-                {
-                    dbHelper.deleteSyncedData(visitid);
-                    notifySync();
+            if (result != null) {
+                try {
+                    jsonObject = new JSONObject(result);
+                    if (!jsonObject.getBoolean("error")) {
+                        dbHelper.deleteSyncedData(visitid);
+                        Toast.makeText(Home.this, "loaded", Toast.LENGTH_LONG).show();
+                        notifySync();
+                    } else {
+                        Toast.makeText(Home.this, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+            } else if (result == null) {
+                Toast.makeText(Home.this, "no json data return", Toast.LENGTH_LONG).show();
             }
 
 

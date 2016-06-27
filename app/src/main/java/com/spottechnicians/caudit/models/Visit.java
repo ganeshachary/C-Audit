@@ -28,9 +28,12 @@ public class Visit{
     private String location;
     private String bankName;
     private String customerName;
-    private String date;
-    private String time;
+    //private String date;
+    //private String time;
+    private String datetime;
     private String caretakeName;
+
+
     private String caretakerNumber;
     private String housekeeperName;
     private String housekeeperNumber;
@@ -39,8 +42,8 @@ public class Visit{
     private String latitude;
     private String longitude;
 
-    public Visit(String visitId, String atmId, String userId, String siteid, String city, String state, String location, String bankName, String customerName, String date,
-                 String time, String[] ct, String caretakeName, String caretakerNumber, String latitude, String longitude,
+    public Visit(String visitId, String atmId, String userId, String siteid, String city, String state, String location, String bankName, String customerName, String datetime
+            , String[] ct, String caretakeName, String caretakerNumber, String latitude, String longitude,
                  Bitmap ctphoto1, Bitmap ctphoto2, Bitmap ctphoto3) {
 
 
@@ -53,8 +56,9 @@ public class Visit{
         this.location = location;
         this.bankName = bankName;
         this.customerName = customerName;
-        this.date = date;
-        this.time = time;
+        // this.date = date;
+        //this.time = time;
+        this.datetime = datetime;
         this.ct = ct;
         this.caretakeName = caretakeName;
         this.caretakerNumber = caretakerNumber;
@@ -66,8 +70,7 @@ public class Visit{
 
     }
 
-    public Visit(String visitId, String atmId, String userId, String location, String bankName, String customerName, String date,
-                 String time, String caretakeName, String caretakerNumber, String latitude, String longitude) {
+    public Visit(String visitId, String atmId, String userId, String location, String bankName, String customerName, String datetime, String caretakeName, String caretakerNumber, String latitude, String longitude) {
 
 
         this.visitId = visitId;
@@ -76,8 +79,6 @@ public class Visit{
         this.location = location;
         this.bankName = bankName;
         this.customerName = customerName;
-        this.date = date;
-        this.time = time;
         this.ct = ct;
         this.caretakeName = caretakeName;
         this.caretakerNumber = caretakerNumber;
@@ -175,6 +176,13 @@ public class Visit{
     }
 
 
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
     public Bitmap getCtphoto1() {
         return ctphoto1;
     }
@@ -275,21 +283,6 @@ public class Visit{
         this.customerName = customerName;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
 
     public String getCaretakeName() {
         return caretakeName;

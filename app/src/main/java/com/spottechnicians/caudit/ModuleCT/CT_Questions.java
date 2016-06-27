@@ -180,15 +180,15 @@ public class CT_Questions extends AppCompatActivity {
             if (answer == 1 || answer2 == 1) {
                 Calendar c = Calendar.getInstance();
                // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
-                String strDate = sdf.format(c.getTime());
-                SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm:ss a");
-                String Time = sdf2.format(c.getTime());
-                visit.setTime(Time);
-                visit.setDate(strDate);
-                Toast.makeText(this,Time+","+strDate,Toast.LENGTH_LONG).show();
+                String strDateTime = sdf.format(c.getTime());
+                //SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm:ss a");
+                //String Time = sdf2.format(c.getTime());
+                visit.setDatetime(strDateTime);
+
+                Toast.makeText(this, strDateTime, Toast.LENGTH_LONG).show();
 
             }
         } catch (Settings.SettingNotFoundException e) {
@@ -202,7 +202,7 @@ public class CT_Questions extends AppCompatActivity {
         sharedPreferences=getSharedPreferences(Login.USER_ID_LOGIN_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         String userIDEnterd=sharedPreferences.getString(Login.UserIdEntered,null);
-        visit.setVisitId(userIDEnterd+"_"+visit.getDate()+"_"+visit.getTime());
+        visit.setVisitId(userIDEnterd + "_" + visit.getDatetime());
         visit.setUserId(userIDEnterd);
         //visit.setLatitude("0");
         // visit.setLongitude("0");
