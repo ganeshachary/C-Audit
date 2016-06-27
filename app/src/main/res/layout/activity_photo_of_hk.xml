@@ -26,7 +26,7 @@
                 android:id="@+id/ivHkPhoto1"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template"
+                android:src="@drawable/ic_template"
 
                 />
 
@@ -44,7 +44,7 @@
                 android:id="@+id/ivHkPhoto2"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template"
+                android:src="@drawable/ic_template"
 
                 />
 
@@ -62,7 +62,7 @@
                 android:id="@+id/ivHkPhoto3"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template" />
+                android:src="@drawable/ic_template" />
 
             <TextView
                 android:id="@+id/tvHKPhoto3"
@@ -80,7 +80,7 @@
                 android:id="@+id/ivHkPhoto4"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template"
+                android:src="@drawable/ic_template"
 
                 />
 
@@ -98,7 +98,7 @@
                 android:id="@+id/ivHkPhoto5"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template"
+                android:src="@drawable/ic_template"
 
                 />
 
@@ -116,7 +116,7 @@
                 android:id="@+id/ivHkPhoto6"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template" />
+                android:src="@drawable/ic_template" />
 
             <TextView
                 android:id="@+id/tvHKPhoto6"
@@ -133,7 +133,7 @@
                 android:id="@+id/ivHkPhoto7"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template"
+                android:src="@drawable/ic_template"
 
                 />
 
@@ -151,7 +151,7 @@
                 android:id="@+id/ivHkPhoto8"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template"
+                android:src="@drawable/ic_template"
 
                 />
 
@@ -169,7 +169,7 @@
                 android:id="@+id/ivHkPhoto9"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template" />
+                android:src="@drawable/ic_template" />
 
             <TextView
                 android:id="@+id/tvHKPhoto9"
@@ -186,7 +186,7 @@
                 android:id="@+id/ivHkPhoto10"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template"
+                android:src="@drawable/ic_template"
 
                 />
 
@@ -204,7 +204,7 @@
                 android:id="@+id/ivHkPhoto11"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template"
+                android:src="@drawable/ic_template"
 
                 />
 
@@ -218,7 +218,7 @@
 
 
         <EditText
-            android:id="@+id/etCtName"
+            android:id="@+id/etHkName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Housekeeper Name"
@@ -233,7 +233,7 @@
 
 
             <EditText
-                android:id="@+id/etCtNumber"
+                android:id="@+id/etHkNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Phone Number"

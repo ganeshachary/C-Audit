@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.spottechnicians.caudit.ModuleHK.HKQuestions;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.utils.UtilCT;
 
@@ -20,7 +19,7 @@ public class OfficialDetails extends AppCompatActivity {
         setContentView(R.layout.activity_official_details);
 
         questionEnglishArray = getResources().getStringArray(R.array.Recruitment);
-        textViewIds = HKQuestions.getTextViewIdsFromName("recruitment", 7, this);
+        // textViewIds = HKQuestions.getTextViewIdsFromName("recruitment", 7, this);
         UtilCT.setEnglishQuestionUsingActivity(questionEnglishArray, textViewIds, this);
 
     }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,9 +53,7 @@ public class CT_Fragment extends Fragment {
         listOfAtms=new ArrayList<>();
 
 
-
-
-       //listOfAtms=createDummyList();
+        //listOfAtms=createDummyList();
         listOfAtms=getAtmsTypeCT();
         atmListAdapter=new AtmList(getContext(),listOfAtms);
         listViewCT.setAdapter(atmListAdapter);
@@ -84,7 +83,7 @@ public class CT_Fragment extends Fragment {
                     Intent intent = new Intent(getContext(), CT_Questions.class);
                     startActivity(intent);
                 } else {
-                    CT_Questions.showLocationSettings(getActivity());
+                    GetLocationService.showLocationSettings(getActivity());
                 }
 
 
@@ -111,7 +110,7 @@ public class CT_Fragment extends Fragment {
         return rootView;
     }
 
-    /*public List<Atm> createDummyList()
+    public List<Atm> createDummyList()
     {
         List<Atm> listOfAtms1=new ArrayList<>();
         Atm atmObject;
@@ -136,7 +135,7 @@ public class CT_Fragment extends Fragment {
         Log.d("listdata",atmid);
         listOfAtms1.add(atmObject);
         return listOfAtms1;
-    }*/
+    }
 
     public List<Atm> getAtmsTypeCT()
     {

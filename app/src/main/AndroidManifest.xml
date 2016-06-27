@@ -51,11 +51,6 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ChkReport" />
 
-        <service
-            android:name=".utils.GetLocationService"
-            android:enabled="true"
-            android:exported="true" />
-
         <activity android:name=".ModuleHK.HKQuestions" />
         <activity android:name=".ModuleHK.PhotoOfHK" />
         <activity android:name=".ModuleSRM.SRMQuestions" />
@@ -64,6 +59,14 @@
         <activity android:name=".ModuleRecruitment.Address" />
         <activity android:name=".ModuleRecruitment.Biodata" />
         <activity android:name=".ModuleRecruitment.Declaration"></activity>
+
+
+        <!--services-->
+
+        <service
+            android:name=".utils.GetLocationService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

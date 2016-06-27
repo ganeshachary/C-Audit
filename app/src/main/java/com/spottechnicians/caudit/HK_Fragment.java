@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
-import com.spottechnicians.caudit.ModuleCT.CT_Questions;
 import com.spottechnicians.caudit.ModuleHK.HKQuestions;
 import com.spottechnicians.caudit.adapters.AtmList;
 import com.spottechnicians.caudit.models.Atm;
@@ -92,7 +91,7 @@ public class HK_Fragment extends Fragment {
                     Intent intent = new Intent(getContext(), HKQuestions.class);
                     startActivity(intent);
                 } else {
-                    CT_Questions.showLocationSettings(getActivity());
+                    GetLocationService.showLocationSettings(getActivity());
                 }
 
             }

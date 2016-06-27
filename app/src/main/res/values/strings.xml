@@ -55,7 +55,7 @@
 
 
     <!--HK Questions-->
-    <string-array name="HK_Questions">
+    <string-array name="hk_question">
         <item>Q1.Signage/Lollypop clean?</item>
         <item>Q2.Stains on main door,side glass and floor machine?</item>
         <!--<item>Q3.ATM machine cleanliness?</item>
@@ -90,117 +90,78 @@
 
     <!--HK  SubQuestions-->
     <string-array name="HK_NO_Q1">
-        <item>Proper cleaning require</item>
-        <item>It is on height</item>
-        <item>Flex damaged</item>
-        <item>Other</item>
+        <item>Proper cleaning require-It is on height-Flex damaged-Other</item>
 
     </string-array>
 
 
     <string-array name="HK_YES_Q2">
-        <item>Side Glass</item>
-        <item>Floor machine</item>
-        <item>Main door</item>
-        <item>Other</item>
+        <item>Side Glass-Floor machine-Main door-Other</item>
 
     </string-array>
 
     <string-array name="HK_NO_Q3">
-        <item>Proper cleaning require</item>
-        <item>Other</item>
+        <item>Proper cleaning require-Other</item>
 
     </string-array>
 
     <string-array name="HK_NO_Q4">
-        <item>Floor damaged</item>
-        <item>Proper cleaning require</item>
-        <item>Other</item>
+        <item>Floor damaged-Proper cleaning require-Other</item>
 
     </string-array>
 
     <string-array name="HK_NO_Q5">
-        <item>Doormat not available</item>
-        <item>Dustbin not available</item>
-        <item>Other</item>
+        <item>Doormat not available-Dustbin not available-Other</item>
 
     </string-array>
 
     <string-array name="HK_NO_Q6">
-        <item>Leakage spot</item>
-        <item>Proper cleaning require</item>
-        <item>Ladder require</item>
-        <item>Other</item>
+        <item>Leakage spot-Proper cleaning-require-Ladder require-Other</item>
 
     </string-array>
 
     <string-array name="HK_NO_Q7">
-        <item>Proper cleaning require</item>
-        <item>Ladder require</item>
-        <item>Other</item>
+        <item>Proper cleaning require-Ladder require-Other</item>
 
     </string-array>
 
     <string-array name="HK_YES_Q8">
-        <item>Painting require</item>
-        <item>Wall damaged</item>
-        <item>Proper cleaning require</item>
-        <item>Other</item>
+        <item>Painting require-Wall damaged-Proper cleaning require-Other</item>
 
     </string-array>
 
     <string-array name="HK_YES_Q9">
-        <item>Proper cleaning require</item>
-        <item>Poster frame not available</item>
-        <item>Brochure holder not available</item>
-        <item>Other</item>
-
+        <item>Proper cleaning require-Poster frame not available-Brochure holder not available-Other</item>
     </string-array>
 
     <string-array name="HK_YES_Q10">
-        <item>Proper cleaning require</item>
-        <item>Fire bottle not available</item>
-        <item>Other</item>
+        <item>Proper cleaning require-Fire bottle not available-Other</item>
 
     </string-array>
 
     <string-array name="HK_NO_Q11">
-        <item>Proper cleaning require</item>
-        <item>AC not available</item>
-        <item>Other</item>
+        <item>Proper cleaning require-AC not available-Other</item>
 
     </string-array>
 
     <string-array name="HK_NO_Q12">
-        <item>Proper cleaning require</item>
-        <item>Open wiring</item>
-        <item>Other</item>
+        <item>Proper cleaning require-Open wiring-Other</item>
 
     </string-array>
 
     <string-array name="HK_NO_Q13">
-        <item>Backroom key not available</item>
-        <item>Proper cleaning require</item>
-        <item>Bank or CRA material available</item>
-        <item>Other</item>
+        <item>Backroom key not available-Proper cleaning require-Bank or CRA material available-Other</item>
 
     </string-array>
 
     <string-array name="HK_NO_Q14">
-        <item>Backroom key not available</item>
-        <item>Proper cleaning require</item>
-        <item>Bank or CRA material available</item>
-        <item>Other</item>
+        <item>Backroom key not available-Proper cleaning require-Bank or CRA material available-Other</item>
 
     </string-array>
 
 
     <string-array name="HK_NO_Q15">
-        <item>Phenyl not available</item>
-        <item>Collin not available</item>
-        <item>Broom not available</item>
-        <item>Duster not available</item>
-        <item>Other</item>
+        <item>Phenyl not available-Collin not available-Broom not available-Duster not available-Other</item>
 
     </string-array>
 

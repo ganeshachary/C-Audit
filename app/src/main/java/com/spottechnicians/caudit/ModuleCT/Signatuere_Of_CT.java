@@ -74,9 +74,11 @@ public class Signatuere_Of_CT extends AppCompatActivity {
             if (ctName != null && ctNumber != null) {
                 visit.setCaretakerName(ctName);
                 visit.setCaretakerNumber(ctNumber);
-            } else if (ctName == "") {
+            } else if (ctName.equals("")) {
+                status = false;
                 Toast.makeText(this, "Enter the Name", Toast.LENGTH_LONG).show();
-            } else if (ctNumber == "") {
+            } else if (ctNumber.equals("")) {
+                status = false;
                 Toast.makeText(this, "Enter the Phone Number", Toast.LENGTH_LONG).show();
             } else {
                 status = false;

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.spottechnicians.caudit.ModuleHK.HKQuestions;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.utils.UtilCT;
 
@@ -22,7 +21,7 @@ public class SRMQuestions extends AppCompatActivity {
         questionEnglishArray = getResources().getStringArray(R.array.SRM_Questions);
 
 
-        textViewIds = HKQuestions.getTextViewIdsFromName("tvSRMQuestion", 17, this);
+        //textViewIds = HKQuestions.getTextViewIdsFromName("tvSRMQuestion", 17, this);
 
 
         UtilCT.setEnglishQuestionUsingActivity(questionEnglishArray, textViewIds, this);

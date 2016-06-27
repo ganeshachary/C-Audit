@@ -26,7 +26,7 @@
                 android:id="@+id/ivSrmPhoto1"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template"
+                android:src="@drawable/ic_template"
 
                 />
 
@@ -45,7 +45,7 @@
                 android:id="@+id/ivSrmPhoto2"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template"
+                android:src="@drawable/ic_template"
 
                 />
 
@@ -63,7 +63,7 @@
                 android:id="@+id/ivSrmPhoto3"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template" />
+                android:src="@drawable/ic_template" />
 
             <TextView
                 android:id="@+id/tvSRMPhoto3"
@@ -80,7 +80,7 @@
                 android:id="@+id/ivSrmPhoto4"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template"
+                android:src="@drawable/ic_template"
 
                 />
 
@@ -98,7 +98,7 @@
                 android:id="@+id/ivSrmPhoto5"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template"
+                android:src="@drawable/ic_template"
 
                 />
 
@@ -117,7 +117,7 @@
                 android:id="@+id/ivSrmPhoto6"
                 style="@style/photoMenuIV"
                 android:onClick="imageClicked"
-                android:src="@drawable/template"
+                android:src="@drawable/ic_template"
 
                 />
 

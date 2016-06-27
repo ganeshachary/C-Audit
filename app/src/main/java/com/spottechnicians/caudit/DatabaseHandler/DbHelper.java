@@ -94,17 +94,46 @@ public class DbHelper extends SQLiteOpenHelper
     public static final String COLUMN_CT_PHOTO2="CT_Photo2";
     public static final String COLUMN_CT_PHOTO3="CT_Photo3";
     public static final String COLUMN_CT_SIGNATURE="CT_Signature";
+    public static final String TABLE_HK_REPORT = "HKreport";
+    public static final String COLUMN_HKQ1 = "Q1";
+    public static final String COLUMN_HKQ2 = "Q2";
+    public static final String COLUMN_HKQ3 = "Q3";
+    public static final String COLUMN_HKQ4 = "Q4";
+    public static final String COLUMN_HKQ5 = "Q5";
+    public static final String COLUMN_HKQ6 = "Q6";
+    public static final String COLUMN_HKQ7 = "Q7";
+    public static final String COLUMN_HKQ8 = "Q8";
+    public static final String COLUMN_HKQ9 = "Q9";
+    public static final String COLUMN_HKQ10 = "Q10";
+    public static final String COLUMN_HKQ11 = "Q11";
+    public static final String COLUMN_HKQ12 = "Q12";
+    public static final String COLUMN_HKQ13 = "Q13";
+    public static final String COLUMN_HKQ14 = "Q14";
+    public static final String COLUMN_HKQ15 = "Q15";
+    public static final String COLUMN_HKQ16 = "Q16";
+    public static final String COLUMN_HKQ17 = "Q17";
+    public static final String COLUMN_HK_NAME = "housekeeper_name";
+    public static final String COLUMN_HK_NO = "houseleeper_number";
+    public static final String COLUMN_HK_PHOTO1 = "HK_Photo1";
+    public static final String COLUMN_HK_PHOTO2 = "HK_Photo2";
+    public static final String COLUMN_HK_PHOTO3 = "HK_Photo3";
+    public static final String COLUMN_HK_PHOTO4 = "HK_Photo4";
+    public static final String COLUMN_HK_PHOTO5 = "HK_Photo5";
+    public static final String COLUMN_HK_PHOTO6 = "HK_Photo6";
+    public static final String COLUMN_HK_PHOTO7 = "HK_Photo7";
+    public static final String COLUMN_HK_PHOTO8 = "HK_Photo8";
+    public static final String COLUMN_HK_PHOTO9 = "HK_Photo9";
+    public static final String COLUMN_HK_PHOTO10 = "HK_Photo10";
+    public static final String COLUMN_HK_PHOTO11 = "HK_Photo11";
     private static final String TYPE_CT = "ct";
     private static final String TYPE_HK = "hk";
     private static final String TYPE_SRM = "srm";
     private static final String TYPE_T_HK = "ct_hk";
     private static final String TYPE_ALL = "all";
     private static final String DB_NAME = "CAudit";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 3;
     Visit visit;
-
     Visit visitt;
-
 
 
     public DbHelper(Context context) {
@@ -362,10 +391,19 @@ public class DbHelper extends SQLiteOpenHelper
             do{
 
 
-                atmAuditedList.add(new AtmAudited(cursor.getString(cursor.getColumnIndex(COLUMN_AUDITED_ATM_ID)),
-                        cursor.getString(cursor.getColumnIndex(COLUMN_AUDITED_DATE)),
-                        cursor.getString(cursor.getColumnIndex(COLUMN_AUDITED_ATM_TYPE)))
-                );
+                if (cursor.getString(cursor.getColumnIndex(COLUMN_AUDITED_DATE)) != "") {
+                    atmAuditedList.add(new AtmAudited(cursor.getString(cursor.getColumnIndex(COLUMN_AUDITED_ATM_ID)),
+                            cursor.getString(cursor.getColumnIndex(COLUMN_AUDITED_DATE)),
+                            cursor.getString(cursor.getColumnIndex(COLUMN_AUDITED_ATM_TYPE)))
+                    );
+
+                } else {
+                    atmAuditedList.add(new AtmAudited(cursor.getString(cursor.getColumnIndex(COLUMN_AUDITED_ATM_ID)),
+                            "Not audited",
+                            cursor.getString(cursor.getColumnIndex(COLUMN_AUDITED_ATM_TYPE)))
+                    );
+
+                }
 
             }while(cursor.moveToNext());
         }
@@ -385,7 +423,10 @@ public class DbHelper extends SQLiteOpenHelper
         {
             do{
 
-                lastupdateddate=cursor.getString(cursor.getColumnIndex(COLUMN_AUDITED_DATE));
+                if (cursor.getString(cursor.getColumnIndex(COLUMN_AUDITED_DATE)) != "" && cursor.getString(cursor.getColumnIndex(COLUMN_AUDITED_DATE)) != null) {
+                    lastupdateddate = cursor.getString(cursor.getColumnIndex(COLUMN_AUDITED_DATE));
+
+                }
 
             }while(cursor.moveToNext());
         }
@@ -439,6 +480,96 @@ public class DbHelper extends SQLiteOpenHelper
         databaseUpdate.delete(TABLE_CT_REPORT,whereClause,whereArgs);
 
     }
+
+
+    public boolean insertHKReport(VisitSingleton visitList) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        long errorCode;
+        boolean insertStatus = true;
+        ContentValues contentValues = new ContentValues();
+
+
+        contentValues.put(COLUMN_VISIT_ID, visitList.getVisitId().replace(" ", "_").replace("-", "_").replace(":", "_"));
+        contentValues.put(COLUMN_ATM_ID, visitList.getAtmId());
+        contentValues.put(COLUMN_USER_ID, visitList.getUserId());
+        contentValues.put(COLUMN_SITE_ID, visitList.getSiteId());
+        contentValues.put(COLUMN_CITY, visitList.getCity());
+        contentValues.put(COLUMN_STATE, visitList.getState());
+        contentValues.put(COLUMN_LOCATION, visitList.getLocation());
+        contentValues.put(COLUMN_BANK_NAME, visitList.getBankName());
+        contentValues.put(COLUMN_CUSTOMER_NAME, visitList.getCustomerName());
+        contentValues.put(COLUMN_DATE_TIME_OF_VIST, visitList.getDatetime());
+
+        String[] hkReport = visitList.getHk();
+
+
+        contentValues.put(COLUMN_HKQ1, hkReport[0]);
+        contentValues.put(COLUMN_HKQ2, hkReport[1]);
+        contentValues.put(COLUMN_HKQ3, hkReport[2]);
+        contentValues.put(COLUMN_HKQ4, hkReport[3]);
+        contentValues.put(COLUMN_HKQ5, hkReport[4]);
+        contentValues.put(COLUMN_HKQ6, hkReport[5]);
+        contentValues.put(COLUMN_HKQ7, hkReport[6]);
+        contentValues.put(COLUMN_HKQ8, hkReport[7]);
+        contentValues.put(COLUMN_HKQ9, hkReport[8]);
+        contentValues.put(COLUMN_HKQ10, hkReport[9]);
+        contentValues.put(COLUMN_HKQ11, hkReport[10]);
+        contentValues.put(COLUMN_HKQ12, hkReport[11]);
+        contentValues.put(COLUMN_HKQ13, hkReport[12]);
+        contentValues.put(COLUMN_HKQ14, hkReport[13]);
+        contentValues.put(COLUMN_HKQ15, hkReport[14]);
+        contentValues.put(COLUMN_HKQ16, hkReport[15]);
+        contentValues.put(COLUMN_HKQ17, hkReport[16]);
+
+
+        contentValues.put(COLUMN_HK_NAME, visitList.getCaretakerName());
+        contentValues.put(COLUMN_HK_NO, visitList.getCaretakerNumber());
+        contentValues.put(COLUMN_LATITUDE, visitList.getLatitude());
+        contentValues.put(COLUMN_LONGITUDE, visitList.getLongitude());
+        contentValues.put(COLUMN_HK_PHOTO1, visitList.getCtphotoByteArray("img0"));
+        contentValues.put(COLUMN_HK_PHOTO2, visitList.getCtphotoByteArray("img1"));
+        contentValues.put(COLUMN_HK_PHOTO3, visitList.getCtphotoByteArray("img2"));
+        contentValues.put(COLUMN_HK_PHOTO4, visitList.getCtphotoByteArray("img3"));
+        contentValues.put(COLUMN_HK_PHOTO5, visitList.getCtphotoByteArray("img4"));
+        contentValues.put(COLUMN_HK_PHOTO6, visitList.getCtphotoByteArray("img5"));
+        contentValues.put(COLUMN_HK_PHOTO7, visitList.getCtphotoByteArray("img6"));
+        contentValues.put(COLUMN_HK_PHOTO8, visitList.getCtphotoByteArray("img7"));
+        contentValues.put(COLUMN_HK_PHOTO9, visitList.getCtphotoByteArray("img8"));
+        contentValues.put(COLUMN_HK_PHOTO10, visitList.getCtphotoByteArray("img9"));
+        contentValues.put(COLUMN_HK_PHOTO11, visitList.getCtphotoByteArray("img10"));
+        contentValues.put(COLUMN_SYNC_STATUS, "unsynced");
+
+
+        errorCode = database.insert(TABLE_HK_REPORT, null, contentValues);
+        if (errorCode == -1) {
+            insertStatus = false;
+        } else {
+            errorCode = insertAuditedAtm(visitList.getDatetime(), visitList.getAtmId(), TYPE_CT);
+            if (errorCode == -1) {
+                insertStatus = false;
+            }
+        }
+
+
+        return insertStatus;
+    }
+
+
+    public int getUnsyncedRecordsFromHK() {
+        String selectQuery = "SELECT * FROM " + TABLE_HK_REPORT + " WHERE " + COLUMN_SYNC_STATUS + " = 'unsynced'";
+        SQLiteDatabase databaseRead = this.getReadableDatabase();
+        Cursor cursor = databaseRead.rawQuery(selectQuery, null);
+        return cursor.getCount();
+    }
+
+    public void deleteSyncedDataFromHK(String atmid) {
+
+        SQLiteDatabase databaseUpdate = this.getReadableDatabase();
+        String whereClause = COLUMN_VISIT_ID + "=?";
+        String[] whereArgs = new String[]{String.valueOf(atmid)};
+        databaseUpdate.delete(TABLE_HK_REPORT, whereClause, whereArgs);
+
+    }
     
     
     @Override
@@ -479,6 +610,35 @@ public class DbHelper extends SQLiteOpenHelper
                         + COLUMN_SYNC_STATUS + " TEXT ,"
                         + COLUMN_TYPE_ATM+" TEXT)";
 
+                String createHKReport = "CREATE TABLE " + TABLE_HK_REPORT + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
+                        + COLUMN_VISIT_ID + " TEXT ,"
+                        + COLUMN_ATM_ID + " TEXT ,"
+                        + COLUMN_USER_ID + " TEXT ,"
+                        + COLUMN_SITE_ID + " TEXT ,"
+                        + COLUMN_CITY + " TEXT ,"
+                        + COLUMN_STATE + " TEXT ,"
+                        + COLUMN_LOCATION + " TEXT ,"
+                        + COLUMN_BANK_NAME + " TEXT ,"
+                        + COLUMN_CUSTOMER_NAME + " TEXT ,"
+                        + COLUMN_DATE_TIME_OF_VIST + " DATETIME ,"
+                        + COLUMN_HKQ1 + " TEXT ," + COLUMN_HKQ2 + " TEXT ," + COLUMN_HKQ3 + " TEXT ,"
+                        + COLUMN_HKQ4 + " TEXT ," + COLUMN_HKQ5 + " TEXT ," + COLUMN_HKQ6 + " TEXT ,"
+                        + COLUMN_HKQ7 + " TEXT ," + COLUMN_HKQ8 + " TEXT ," + COLUMN_HKQ9 + " TEXT ,"
+                        + COLUMN_HKQ10 + " TEXT ," + COLUMN_HKQ11 + " TEXT ," + COLUMN_HKQ12 + " TEXT ,"
+                        + COLUMN_HKQ13 + " TEXT ," + COLUMN_HKQ14 + " TEXT ," + COLUMN_HKQ15 + " TEXT ,"
+                        + COLUMN_HKQ16 + " TEXT ," + COLUMN_HKQ17 + " TEXT ,"
+                        + COLUMN_HK_NAME + " TEXT ,"
+                        + COLUMN_HK_NO + " TEXT ,"
+                        + COLUMN_LATITUDE + " TEXT ,"
+                        + COLUMN_LONGITUDE + " TEXT ,"
+                        + COLUMN_HK_PHOTO1 + " BLOB ," + COLUMN_HK_PHOTO2 + " BLOB ," + COLUMN_HK_PHOTO3 + " BLOB ,"
+                        + COLUMN_HK_PHOTO4 + " BLOB ," + COLUMN_HK_PHOTO5 + " BLOB ," + COLUMN_HK_PHOTO6 + " BLOB ,"
+                        + COLUMN_HK_PHOTO7 + " BLOB ," + COLUMN_HK_PHOTO8 + " BLOB ," + COLUMN_HK_PHOTO9 + " BLOB ,"
+                        + COLUMN_HK_PHOTO10 + " BLOB ," + COLUMN_HK_PHOTO11 + " BLOB ,"
+                        + COLUMN_SYNC_STATUS + " TEXT ,"
+                        + COLUMN_TYPE_ATM + " TEXT)";
+
+
                 String createAtmAuditRecord = "CREATE TABLE " + TABLE_ATM_AUDITED + "(" + COLUMN_ID_ATM + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                         + COLUMN_AUDITED_ATM_ID + " TEXT, "
                         + COLUMN_AUDITED_ATM_TYPE + " TEXT, "
@@ -486,6 +646,7 @@ public class DbHelper extends SQLiteOpenHelper
 
                 sqLiteDatabase.execSQL(createDb);
                 sqLiteDatabase.execSQL(createCTReport);
+                sqLiteDatabase.execSQL(createHKReport);
                 sqLiteDatabase.execSQL(createAtmAuditRecord);
 
                 Log.e("MangalB","Table ATM create successfully");
@@ -505,6 +666,8 @@ public class DbHelper extends SQLiteOpenHelper
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+TABLE_ATM);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+TABLE_CT_REPORT);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_HK_REPORT);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_ATM_AUDITED);
 
         onCreate(sqLiteDatabase);
 

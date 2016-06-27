@@ -227,6 +227,15 @@ public class Visit{
         return status;
     }
 
+    public boolean checkHKComplete() {
+        boolean status = true;
+        for (int i = 0; i < ct.length; i++) {
+            if (ct[i] == "") {
+                status = false;
+            }
+        }
+        return status;
+    }
     public String getViewPhotos() {
         return viewPhotos;
     }

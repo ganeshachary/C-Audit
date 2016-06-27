@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,9 +17,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
-import com.spottechnicians.caudit.ModuleCT.CT_Questions;
 import com.spottechnicians.caudit.models.Atm;
+import com.spottechnicians.caudit.utils.DummyData;
 import com.spottechnicians.caudit.utils.GetLocationService;
+import com.spottechnicians.caudit.utils.NetworkStatus;
+import com.spottechnicians.caudit.utils.StatusCode;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,10 +50,14 @@ public class Login extends AppCompatActivity {
     EditText etPassword, etUserid;
     DbHelper dbHelper;
     String password,userid;
+    SharedPreferences networkStatusPreference;
+    SharedPreferences.Editor networkPrefEditor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        networkStatusPreference = getSharedPreferences(StatusCode.STATUS_LOGIN, Context.MODE_PRIVATE);
+        networkPrefEditor = networkStatusPreference.edit();
         etUserid=(EditText)findViewById(R.id.etUserid);
         etPassword=(EditText)findViewById(R.id.etpassword);
         setUsernamePassword();
@@ -66,52 +70,11 @@ public class Login extends AppCompatActivity {
 
         userid = etUserid.getText().toString();
         password = etPassword.getText().toString();
-    /*    if (!checkOfflineLogin())
-        {
-
-
-            if (networkStatus() != 0 && GetLocationService.isLocationOn(this))
-            {
-
-                startService(new Intent(this, GetLocationService.class));
-                ValidateLoginDeatails validateLoginDeatails=new ValidateLoginDeatails();
-                validateLoginDeatails.execute(userid,password);
-
-
-            } else if (!GetLocationService.isLocationOn(this))
-            {
-
-
-                CT_Questions.showLocationSettings(this);
-
-            } else {
-
-                Toast.makeText(this, "Turn on the mobile data or wifi", Toast.LENGTH_LONG).show();
-                //Toast.makeText(this,"username or password is wrong",Toast.LENGTH_SHORT).show();
-
-            }
-
-        }
-        else
-        {
-            if (GetLocationService.isLocationOn(this)) {
-                startService(new Intent(this, GetLocationService.class));
-                logIn();
-                Toast.makeText(this, "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
-                        GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
-
-            } else {
-                CT_Questions.showLocationSettings(this);
-            }
-
-
-        }
-*/
         if (inputValidation()) {
 
             if (isLocationPermissionGranted()) {  //if permission is granted then do login checks
 
-                if (networkStatus() != 0) {
+                if (NetworkStatus.networkStatus(this) != 0) {
                    /* if (GetLocationService.isLocationOn(this)) {
 
                         startService(new Intent(this, GetLocationService.class));
@@ -132,10 +95,10 @@ public class Login extends AppCompatActivity {
                                     GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
 
                         } else {
-                            CT_Questions.showLocationSettings(this);
+                            GetLocationService.showLocationSettings(this);
                         }
                     } else {
-                        //    Toast.makeText(this, "Username of Password is wrong OR turn on data to check online", Toast.LENGTH_LONG).show();
+                        // Toast.makeText(this, "Username of Password is wrong OR turn on data to check online", Toast.LENGTH_LONG).show();
 
                         if (GetLocationService.isLocationOn(this)) {
 
@@ -143,8 +106,9 @@ public class Login extends AppCompatActivity {
                             ValidateLoginDeatails validateLoginDeatails = new ValidateLoginDeatails();
                             validateLoginDeatails.execute(userid, password);
 
+
                         } else {
-                            CT_Questions.showLocationSettings(this);
+                            GetLocationService.showLocationSettings(this);
                         }
 
                     }
@@ -161,7 +125,7 @@ public class Login extends AppCompatActivity {
                                     GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
 
                         } else {
-                            CT_Questions.showLocationSettings(this);
+                            GetLocationService.showLocationSettings(this);
                         }
                     } else {
                         Toast.makeText(this, "Username of Password is wrong OR turn on data to check online", Toast.LENGTH_LONG).show();
@@ -224,8 +188,6 @@ public class Login extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Log.v("permission", "Permission: " + permissions[0] + "was " + grantResults[0]);
-            //resume tasks needing this permission
-            //imageClicked();
 
         }
     }
@@ -233,35 +195,7 @@ public class Login extends AppCompatActivity {
 
 
 
-    public int networkStatus()
-    {
-        ConnectivityManager cm= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo networkInfo=cm.getActiveNetworkInfo();
-
-        if(networkInfo!=null&&networkInfo.isConnected())
-        {
-            if(networkInfo.getTypeName().equalsIgnoreCase("MOBILE"))
-            {
-                return 2;
-            }
-
-            else if(networkInfo.getTypeName().equalsIgnoreCase("WIFI"))
-            {
-                return 3;
-
-            }
-
-           return 1;
-        }
-        else {
-
-            return 0;
-
-        }
-
-
-    }
     public void setUsernamePassword()
     {
         sharedPreferences=getSharedPreferences(USER_ID_LOGIN_PREFERENCES,MODE_PRIVATE);
@@ -288,11 +222,6 @@ public class Login extends AppCompatActivity {
         {
             if(!storedUserid.equals(userid) || !storedPassword.equals(password))
             {
-                //Log.v("login",storedUserid);
-                //Log.v("login",storedPassword);
-                //Log.v("login",userid);
-                //Log.v("login",password);
-                // Toast.makeText(this,"username or password is wrong",Toast.LENGTH_SHORT).show();
 
                 return false;
             }
@@ -337,6 +266,7 @@ public class Login extends AppCompatActivity {
             message=jsonObject.getString("message");
             if(!errorStatus)
             {
+                networkPrefEditor.putString(StatusCode.ATM_DATA_CALL, StatusCode.STATUS_OK + "");
                 storeCredenditials();
                 JSONArray jsonArray=jsonObject.getJSONArray("atms");
                 for(int i=0;i<jsonArray.length();i++)
@@ -368,6 +298,7 @@ public class Login extends AppCompatActivity {
             }
             else
             {
+                networkPrefEditor.putString(StatusCode.ATM_DATA_CALL, StatusCode.STATUS_ERROR + "");
                 Toast.makeText(getBaseContext(), message.toString(), Toast.LENGTH_SHORT).show();
             }
 
@@ -388,7 +319,7 @@ public class Login extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog=new ProgressDialog(Login.this);
-            pDialog.setTitle("Fetching data from .NET Webservice...");
+            pDialog.setTitle("Validating the account");
             pDialog.setMessage("Please wait...");
             pDialog.setIndeterminate(true);
             pDialog.setCancelable(false);
@@ -398,6 +329,7 @@ public class Login extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
+
 
             localUserid=params[0];
             localPassword=params[1];
@@ -430,6 +362,9 @@ public class Login extends AppCompatActivity {
                 InputStream io=httpURLConnection.getInputStream();
                 BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(io));
                 StringBuilder stringBuilder=new StringBuilder();
+                if (bufferedReader == null) {
+                    networkPrefEditor.putString(StatusCode.ATM_DATA_CALL, StatusCode.STATUS_NULL + "");
+                }
                 while((jsonStream=bufferedReader.readLine())!=null)
                 {
                     stringBuilder.append(jsonStream);
@@ -449,8 +384,10 @@ public class Login extends AppCompatActivity {
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
+                networkPrefEditor.putString(StatusCode.ATM_DATA_CALL, StatusCode.STATUS_SERVER_DOWN + "");
             } catch (IOException e) {
                 e.printStackTrace();
+                networkPrefEditor.putString(StatusCode.ATM_DATA_CALL, StatusCode.STATUS_SERVER_MALFUNCTION + "");
             }
 
             return null;
@@ -462,7 +399,10 @@ public class Login extends AppCompatActivity {
 
             if(jsonString==null||jsonString=="")
             {
-               Toast.makeText(getBaseContext(),"Network call failed",Toast.LENGTH_SHORT).show();
+                DummyData dummyData = new DummyData();
+                dummyData.addDummyData(dbHelper, Login.this);
+
+                Toast.makeText(getBaseContext(), "Server cannot be reached", Toast.LENGTH_SHORT).show();
 
             }
             else

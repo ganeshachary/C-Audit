@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.spottechnicians.caudit.Login;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.VisitSingleton;
+import com.spottechnicians.caudit.utils.GetLocationService;
 import com.spottechnicians.caudit.utils.LocationFetch;
 import com.spottechnicians.caudit.utils.UtilCT;
 
@@ -27,7 +28,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public class CT_Questions extends AppCompatActivity {
-    //Visit visit;
     VisitSingleton visit;
 
     String ansewers[] = {"", "", "", "", "", "", "", "", "", "", "", ""};
@@ -72,42 +72,6 @@ public class CT_Questions extends AppCompatActivity {
         builder.create().show();
     }
 
-    //made this method static so can be called easily while checking location availability
-    public static void showLocationSettings(final Activity activity) {
-
-
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-
-        alertDialog.setTitle("Location SETTINGS");
-
-        alertDialog
-                .setMessage("Location" + " is not enabled! Want to go to settings menu?");
-
-        alertDialog.setPositiveButton("Settings",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-
-                        activity.startActivity(intent);
-                        //   activity.finish();
-                        dialog.dismiss();
-                    }
-                });
-
-        alertDialog.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        //   activity.finish();
-
-                        dialog.cancel();
-                    }
-                });
-
-        alertDialog.show();
-
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +109,7 @@ public class CT_Questions extends AppCompatActivity {
 
             if(latlong.length==1)
             {
-                showLocationSettings(this);
+                GetLocationService.showLocationSettings(this);
 
                 Toast.makeText(this,latlong[0],Toast.LENGTH_LONG).show();
             }
@@ -200,12 +164,10 @@ public class CT_Questions extends AppCompatActivity {
     public void setVisitID()
     {
         sharedPreferences=getSharedPreferences(Login.USER_ID_LOGIN_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
+        // SharedPreferences.Editor editor=sharedPreferences.edit();
         String userIDEnterd=sharedPreferences.getString(Login.UserIdEntered,null);
         visit.setVisitId(userIDEnterd + "_" + visit.getDatetime());
         visit.setUserId(userIDEnterd);
-        //visit.setLatitude("0");
-        // visit.setLongitude("0");
     }
 
     public void onNext(View view) {

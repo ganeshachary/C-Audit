@@ -100,7 +100,13 @@ public class AtmList extends BaseAdapter implements Filterable{
         Date d2 = null;
 
         try {
-            d1 = format.parse(listOfAtms.get(position).getLastaudited());
+            if (listOfAtms.get(position).getLastaudited() != null && listOfAtms.get(position).getLastaudited() != "not audited") {
+                d1 = format.parse(listOfAtms.get(position).getLastaudited());
+
+            } else {
+                d1 = format.parse(TodayDateTime);
+            }
+
             d2 = format.parse(TodayDateTime);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -113,6 +119,9 @@ public class AtmList extends BaseAdapter implements Filterable{
             return  rootView;
 
 
+    }
+
+    public void setDaysBefore() {
 
     }
 

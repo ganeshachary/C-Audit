@@ -73,6 +73,16 @@ public class VisitSingleton {
         return status;
     }
 
+    public boolean checkHKComplete() {
+        boolean status = true;
+        for (int i = 0; i < hk.length; i++) {
+            if (hk[i] == "") {
+                status = false;
+            }
+        }
+        return status;
+    }
+
     public String getDatetime() {
         return datetime;
     }

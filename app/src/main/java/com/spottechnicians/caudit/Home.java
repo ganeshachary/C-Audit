@@ -64,6 +64,7 @@ public class Home extends AppCompatActivity {
     public void notifySync()
     {
        int count= dbHelper.getUnsyncedRecords();
+        count = count + dbHelper.getUnsyncedRecordsFromHK();
         ((TextView)findViewById(R.id.tvNoficaiton)).setText(count+"");
 
     }

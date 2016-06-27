@@ -69,6 +69,8 @@ public class UtilCT {
         }
 
     }
+
+
     public static int getPositionOfYesButton(long id, int buttonType) {
         int array[];
         if (buttonType == 1) {

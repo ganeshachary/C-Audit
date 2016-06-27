@@ -1,14 +1,18 @@
 package com.spottechnicians.caudit.utils;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -42,6 +46,44 @@ public class GetLocationService extends Service implements LocationListener,
 
 
     public GetLocationService() {
+    }
+
+
+    //made this method static so can be called easily while checking location availability
+    public static void showLocationSettings(final Activity activity) {
+
+
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+
+        alertDialog.setTitle("Location SETTINGS");
+
+        alertDialog
+                .setMessage("Location" + " is not enabled! Want to go to settings menu?");
+
+        alertDialog.setPositiveButton("Settings",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+
+                        activity.startActivity(intent);
+                        //   activity.finish();
+                        dialog.dismiss();
+                    }
+                });
+
+        alertDialog.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        //   activity.finish();
+
+                        dialog.cancel();
+                    }
+                });
+
+        alertDialog.show();
+
+
     }
 
     public static boolean isLocationOn(Context ctx) {
