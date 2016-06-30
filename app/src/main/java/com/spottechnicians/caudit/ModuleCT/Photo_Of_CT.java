@@ -66,9 +66,16 @@ public class Photo_Of_CT extends AppCompatActivity {
         if (status) {
             try
             {
+                if (visit.getSiteType() != null && visit.getSiteType().equals("CTHK")) {
+                    visit.setPicList("ctimg0", bitmap[0]);
+                    visit.setPicList("ctimg1", bitmap[1]);
+                    visit.setPicList("ctimg2", bitmap[2]);
+
+                } else {
                 visit.setPicList("img0",bitmap[0]);
                 visit.setPicList("img1",bitmap[1]);
-                visit.setPicList("img2",bitmap[2]);
+                    visit.setPicList("img2", bitmap[2]);
+                }
                 Intent intent = new Intent(this, Signatuere_Of_CT.class);
                 Log.v("atmid", visit.getAtmId());
                // intent.putExtra("Visit2", visit);

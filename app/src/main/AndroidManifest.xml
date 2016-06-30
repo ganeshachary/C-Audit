@@ -29,7 +29,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".Home"
@@ -49,7 +48,9 @@
         <activity
             android:name=".ModuleCT.SignatureCanvas"
             android:screenOrientation="portrait" />
-        <activity android:name=".ChkReport" />
+        <activity android:name=".ChkReport">
+
+        </activity>
 
         <activity android:name=".ModuleHK.HKQuestions" />
         <activity android:name=".ModuleHK.PhotoOfHK" />

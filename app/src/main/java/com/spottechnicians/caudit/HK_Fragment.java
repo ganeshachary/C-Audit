@@ -13,12 +13,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
 import com.spottechnicians.caudit.ModuleHK.HKQuestions;
 import com.spottechnicians.caudit.adapters.AtmList;
 import com.spottechnicians.caudit.models.Atm;
+import com.spottechnicians.caudit.models.VisitSingleton;
 import com.spottechnicians.caudit.utils.GetLocationService;
 
 import java.util.ArrayList;
@@ -33,6 +35,8 @@ public class HK_Fragment extends Fragment {
     EditText etSearchBarHK;
     List<Atm> listOfAtms;
     AtmList atmListAdapter;
+    VisitSingleton visit;
+
     public HK_Fragment() {
         // Required empty public constructor
     }
@@ -47,6 +51,7 @@ public class HK_Fragment extends Fragment {
         etSearchBarHK=(EditText)rootView.findViewById(R.id.etSearchBarHK);
         listOfAtms=new ArrayList<>();
 
+        visit = VisitSingleton.getInstance();
 
 
 
@@ -83,6 +88,22 @@ public class HK_Fragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+
+                String stringAtmId = ((TextView) view.findViewById(R.id.tvAtmId)).getText().toString();
+                String stringSiteId = view.findViewById(R.id.tvAtmId).getTag().toString();
+                String location = ((TextView) view.findViewById(R.id.tvAddress)).getText().toString();
+                String city = ((TextView) view.findViewById(R.id.tvCity)).getText().toString();
+                String state = ((TextView) view.findViewById(R.id.tvState)).getText().toString();
+                String bankname = ((TextView) view.findViewById(R.id.tvBankName)).getText().toString();
+                String customer = ((TextView) view.findViewById(R.id.tvCustomerName)).getText().toString();
+
+                visit.setSiteid(stringSiteId);
+                visit.setAtmId(stringAtmId);
+                visit.setCity(city);
+                visit.setState(state);
+                visit.setLocation(location);
+                visit.setBankName(bankname);
+                visit.setCustomerName(customer);
 
                 if (GetLocationService.isLocationOn(getActivity())) {
 

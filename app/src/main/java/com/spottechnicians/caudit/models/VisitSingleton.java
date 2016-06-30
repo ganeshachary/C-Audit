@@ -41,6 +41,8 @@ public class VisitSingleton {
     private  String SrmNumber;
     private  String latitude;
     private  String longitude;
+    private String siteType;
+
     private VisitSingleton() {
     }
 
@@ -59,6 +61,14 @@ public class VisitSingleton {
 
     public static void setVisitSingleton(VisitSingleton visitSingleton) {
         VisitSingleton.visitSingleton = visitSingleton;
+    }
+
+    public String getSiteType() {
+        return siteType;
+    }
+
+    public void setSiteType(String siteType) {
+        this.siteType = siteType;
     }
 
     public boolean checkCTComplete()
@@ -132,6 +142,21 @@ public class VisitSingleton {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         getPicListByKey(key).compress(Bitmap.CompressFormat.JPEG, 80, stream);
         return stream.toByteArray();
+
+    }
+
+    public byte[] getHkphotoByteArray(String key) {
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        Bitmap img = getPicListByKey(key);
+
+        if (img != null) {
+            img.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+
+            return stream.toByteArray();
+        } else
+            return null;
 
     }
 

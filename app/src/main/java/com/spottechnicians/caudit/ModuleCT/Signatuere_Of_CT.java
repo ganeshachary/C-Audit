@@ -6,12 +6,14 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
 import com.spottechnicians.caudit.Home;
+import com.spottechnicians.caudit.ModuleHK.HKQuestions;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.VisitSingleton;
 
@@ -35,6 +37,18 @@ public class Signatuere_Of_CT extends AppCompatActivity {
         //bitmap = visit.getCtphoto1();
         //ivSignature.setVisibility(View.VISIBLE);
         //ivSignature.setImageBitmap(bitmap);
+
+        Button btnSave = (Button) findViewById(R.id.btnSave);
+        Button btnUpload = (Button) findViewById(R.id.btnUpload);
+        Button btnToHK = (Button) findViewById(R.id.btnHkQuestions);
+
+
+        if (visit.getSiteType() != null && visit.getSiteType().equals("CTHK")) {
+            btnSave.setVisibility(View.GONE);
+            btnUpload.setVisibility(View.GONE);
+            btnToHK.setVisibility(View.VISIBLE);
+
+        }
 
         dbHelper=new DbHelper(this);
 
@@ -111,5 +125,36 @@ public class Signatuere_Of_CT extends AppCompatActivity {
     }
 
 
+    public void proceedToHk(View view) {
 
+        boolean status = true;
+
+
+        String ctName = etName.getText().toString();
+        String ctNumber = etNumber.getText().toString();
+        if (ctName != null && ctNumber != null) {
+            visit.setCaretakerName(ctName);
+            visit.setCaretakerNumber(ctNumber);
+        } else if (ctName.equals("")) {
+            status = false;
+            Toast.makeText(this, "Enter the Name", Toast.LENGTH_LONG).show();
+        } else if (ctNumber.equals("")) {
+            status = false;
+            Toast.makeText(this, "Enter the Phone Number", Toast.LENGTH_LONG).show();
+        } else {
+            status = false;
+            Toast.makeText(this, "Enter Name and Number", Toast.LENGTH_LONG).show();
+        }
+
+
+        if (status) {
+
+
+            startActivity(new Intent(this, HKQuestions.class));
+
+
+        }
+
+
+    }
 }

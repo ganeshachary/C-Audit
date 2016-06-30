@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.spottechnicians.caudit.adapters.ViewPagerAdapter;
+import com.spottechnicians.caudit.fragments.CTHK;
 
 public class Daily_Audit extends AppCompatActivity {
 
@@ -32,7 +33,7 @@ public class Daily_Audit extends AppCompatActivity {
         adapter.addFragment(new CT_Fragment(), "Caretaker");
         adapter.addFragment(new HK_Fragment(), "Housekeeping");
         adapter.addFragment(new SRM_Fragment(), "SRM");
-        adapter.addFragment(new CT_Fragment(), "CT/HK");
+        adapter.addFragment(new CTHK(), "CT/HK");
         adapter.addFragment(new HK_Fragment(), "ALL");
         viewPager.setAdapter(adapter);
 

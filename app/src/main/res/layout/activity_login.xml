@@ -27,8 +27,9 @@
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:drawableLeft="@drawable/ic_username"
-
-        android:hint="@string/username"/>
+        android:hint="@string/username"
+        android:nextFocusDown="@+id/etpassword"
+        android:singleLine="true" />
 
     <EditText
         android:id="@+id/etpassword"
@@ -37,7 +38,9 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/ic_lock"
-        android:hint="@string/password"/>
+        android:hint="@string/password"
+        android:nextFocusDown="@+id/btnLogin"
+        android:singleLine="true" />
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"

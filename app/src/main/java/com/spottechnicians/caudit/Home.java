@@ -3,6 +3,7 @@ package com.spottechnicians.caudit;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -42,6 +43,8 @@ public class Home extends AppCompatActivity {
 
     DbHelper dbHelper;
 
+    ArrayList<Visit> visitt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +53,54 @@ public class Home extends AppCompatActivity {
         dbHelper=new DbHelper(this);
         notifySync();
 
+
+        //   printHk();
+        //   printCTHK();
         //After uploading to github
 
       //  Toast.makeText(this,s,Toast.LENGTH_LONG).show();
 
         Toast.makeText(this, "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
                 GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
+
+
+    }
+
+    private void printCTHK() {//to check retreive data from CtHkReport table
+
+        //  visitt=new ArrayList<>();
+        ArrayList<Visit> visitCtHkReport = dbHelper.fetchCtHkReport();
+
+
+        if (visitCtHkReport.size() > 0) {
+            for (int i = 0; i < visitCtHkReport.size(); i++) {
+                String anss = visitCtHkReport.get(i).getHk()[0] + " " + visitCtHkReport.get(i).getHk()[1] + " " + visitCtHkReport.get(i).getHk()[2] + " "
+                        + visitCtHkReport.get(i).getHk()[3] + " " + visitCtHkReport.get(i).getHk()[4] + " " + visitCtHkReport.get(i).getHk()[5] + " " + visitCtHkReport.get(i).getHk()[6] + " "
+                        + visitCtHkReport.get(i).getHk()[7] + " " + visitCtHkReport.get(i).getHk()[8] + " " + visitCtHkReport.get(i).getHk()[10] + " "
+                        + visitCtHkReport.get(i).getHk()[11] + " " + visitCtHkReport.get(i).getHk()[12] + " " + visitCtHkReport.get(i).getHk()[13] + " "
+                        + visitCtHkReport.get(i).getHk()[14] + " " + visitCtHkReport.get(i).getHk()[15] + " " + visitCtHkReport.get(i).getHk()[16];
+
+                String ctAns = "";
+                for (int j = 0; j < visitCtHkReport.get(i).getCt().length; j++) {
+                    ctAns = ctAns + " " + visitCtHkReport.get(i).getCt()[j];
+                }
+
+                String aa = "Atm id: " + visitCtHkReport.get(i).getAtmId() + "Date time: " + visitCtHkReport.get(i).getDatetime() +
+                        "Ct Answers " + ctAns +
+                        "CareTaker name: " + visitCtHkReport.get(i).getCaretakeName() +
+                        "CT no: " + visitCtHkReport.get(i).getCaretakerNumber() +
+                        "Hk Answers " + anss +
+                        "HouseKeeper name: " + visitCtHkReport.get(i).getHousekeeperName() +
+                        "HK no: " + visitCtHkReport.get(i).getHousekeeperNumber() +
+                        "lat long " + visitCtHkReport.get(i).getLatitude() + "," + visitCtHkReport.get(i).getLongitude();
+
+
+                Log.e("HK report man", aa);
+            }
+
+        } else {
+            Toast.makeText(this, "No report to sync", Toast.LENGTH_LONG).show();
+        }
 
 
     }
@@ -185,6 +230,38 @@ public class Home extends AppCompatActivity {
 
     }
 
+    private void printHk() {//to check data retreive from HkReport Table
+
+        visitt = new ArrayList<>();
+        // ArrayList<Visit> visitHkReport=dbHelper.fetchHKReport();
+
+        visitt = dbHelper.fetchHKReport();
+
+        if (visitt.size() > 0) {
+            for (int i = 0; i < visitt.size(); i++) {
+                String anss = visitt.get(i).getHk()[0] + " " + visitt.get(i).getHk()[1] + " " + visitt.get(i).getHk()[2] + " "
+                        + visitt.get(i).getHk()[3] + " " + visitt.get(i).getHk()[4] + " " + visitt.get(i).getHk()[5] + " " + visitt.get(i).getHk()[6] + " "
+                        + visitt.get(i).getHk()[7] + " " + visitt.get(i).getHk()[8] + " " + visitt.get(i).getHk()[10] + " "
+                        + visitt.get(i).getHk()[11] + " " + visitt.get(i).getHk()[12] + " " + visitt.get(i).getHk()[13] + " "
+                        + visitt.get(i).getHk()[14] + " " + visitt.get(i).getHk()[15] + " " + visitt.get(i).getHk()[16];
+
+
+                String aa = "Atm id: " + visitt.get(i).getAtmId() + "Date time: " + visitt.get(i).getDatetime() +
+                        "HouseKeeper name: " + visitt.get(i).getHousekeeperName() +
+                        "HK no: " + visitt.get(i).getHousekeeperNumber() +
+                        "lat long " + visitt.get(i).getLatitude() + "," + visitt.get(i).getLongitude() +
+                        "Answers " + anss;
+
+
+                Log.e("HK report man", aa);
+            }
+
+        } else {
+            Toast.makeText(this, "No report to sync", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
 
     public class UploadToServer extends AsyncTask<Void,Void,String> {
         Visit visit;
@@ -211,7 +288,8 @@ public class Home extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Void... params) {
-            String upload_url = "http://www.cleartask.in/caudit_weblink/WebServices/SaveCTVisitData.aspx";
+            // String upload_url = "http://www.cleartask.in/caudit_weblink/WebServices/SaveCTVisitData.aspx";
+            String upload_url = Resources.getSystem().getString(R.string.ct_webservice_link);
             HttpURLConnection httpURLConnection=null;
             URL url;
             try {

@@ -55,4 +55,13 @@
         android:onClick="onUpload"
         android:text="Upload" />
 
+    <Button
+        android:id="@+id/btnHkQuestions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="proceedToHk"
+        android:text="Proceed to HK Questions"
+        android:visibility="gone" />
+
+
 </LinearLayout>

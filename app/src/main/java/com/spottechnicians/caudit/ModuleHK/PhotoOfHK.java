@@ -88,15 +88,31 @@ public class PhotoOfHK extends AppCompatActivity {
     public void onSave(View view) {
 
         boolean status = true;
-        //for (int i = 0; i < bitmap.length-4; i++) {
-        //  if (bitmap[i] == null) {
 
-        //status = false;
-        //}
-        //}
+        for (int i = 0; i < bitmap.length - 4; i++) {
+            if (bitmap[i] == null) {
+
+                status = false;
+            }
+        }
+
+
 
         if (status) {
             try {
+                if (visit.getSiteType() != null && visit.getSiteType().equals("CTHK")) {
+                    visit.setPicList("hkimg0", bitmap[0]);
+                    visit.setPicList("hkimg1", bitmap[1]);
+                    visit.setPicList("hkimg2", bitmap[2]);
+                    visit.setPicList("hkimg3", bitmap[3]);
+                    visit.setPicList("hkimg4", bitmap[4]);
+                    visit.setPicList("hkimg5", bitmap[5]);
+                    visit.setPicList("hkimg6", bitmap[6]);
+                    visit.setPicList("hkimg7", bitmap[7]);
+                    visit.setPicList("hkimg8", bitmap[8]);
+                    visit.setPicList("hkimg9", bitmap[9]);
+                    visit.setPicList("hkimg10", bitmap[10]);
+                } else {
                 visit.setPicList("img0", bitmap[0]);
                 visit.setPicList("img1", bitmap[1]);
                 visit.setPicList("img2", bitmap[2]);
@@ -107,7 +123,8 @@ public class PhotoOfHK extends AppCompatActivity {
                 visit.setPicList("img7", bitmap[7]);
                 visit.setPicList("img8", bitmap[8]);
                 visit.setPicList("img9", bitmap[9]);
-                visit.setPicList("img10", bitmap[10]);
+                    visit.setPicList("img10", bitmap[10]);
+                }
 //                Intent intent = new Intent(this, Signatuere_Of_CT.class);
 //                Log.v("atmid", visit.getAtmId());
 //                // intent.putExtra("Visit2", visit);
@@ -116,8 +133,8 @@ public class PhotoOfHK extends AppCompatActivity {
                 String ctName = etName.getText().toString().trim();
                 String ctNumber = etNumber.getText().toString().trim();
                 if (ctName != null && ctNumber != null && !ctName.equals("") && !ctNumber.equals("")) {
-                    visit.setCaretakerName(ctName);
-                    visit.setCaretakerNumber(ctNumber);
+                    visit.setHousekeeperName(ctName);
+                    visit.setHousekeeperNumber(ctNumber);
                 } else if (ctName == "") {
                     status = false;
                     Toast.makeText(this, "Enter the Name", Toast.LENGTH_LONG).show();
@@ -131,6 +148,19 @@ public class PhotoOfHK extends AppCompatActivity {
 
 
                 if (status) {
+
+                    if (visit.getSiteType() != null && visit.getSiteType().equals("CTHK")) {
+                        if (dbHelper.insertCTHKReport(visit)) {
+                            Toast.makeText(this, "CT/HK Report inserted successfully", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(this, Home.class);
+                            startActivity(intent);
+                            this.finish();
+                        } else {
+                            Toast.makeText(this, "Report insertion was unsuccessfull try again", Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
                     if (dbHelper.insertHKReport(visit)) {
                         Toast.makeText(this, "HK Report inserted successfully", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(this, Home.class);

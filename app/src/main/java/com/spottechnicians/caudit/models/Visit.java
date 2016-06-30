@@ -18,6 +18,18 @@ public class Visit{
     Bitmap signature;
     HashMap<String, Bitmap> ctPicList;
     String[] hk, ct, srm;
+    Bitmap hkphoto1;
+    Bitmap hkphoto2;
+    Bitmap hkphoto3;
+    Bitmap hkphoto4;
+    Bitmap hkphoto5;
+    Bitmap hkphoto6;
+    Bitmap hkphoto7;
+    Bitmap hkphoto8;
+    Bitmap hkphoto9;
+    Bitmap hkphoto10;
+    Bitmap hkphoto11;
+    Bitmap hkphoto12;
     private String viewPhotos;
     private String visitId;
     private String atmId;
@@ -32,8 +44,6 @@ public class Visit{
     //private String time;
     private String datetime;
     private String caretakeName;
-
-
     private String caretakerNumber;
     private String housekeeperName;
     private String housekeeperNumber;
@@ -41,6 +51,7 @@ public class Visit{
     private String SrmNumber;
     private String latitude;
     private String longitude;
+
 
     public Visit(String visitId, String atmId, String userId, String siteid, String city, String state, String location, String bankName, String customerName, String datetime
             , String[] ct, String caretakeName, String caretakerNumber, String latitude, String longitude,
@@ -84,21 +95,156 @@ public class Visit{
         this.caretakerNumber = caretakerNumber;
         this.latitude = latitude;
         this.longitude = longitude;
+      /*  this.ctphoto1 = ctphoto1;
+        this.ctphoto2 = ctphoto2;
+        this.ctphoto3 = ctphoto3;
+        this.signature = signature;*/
+    }
+
+    public Visit(String visitId, String atmId, String userId, String siteid, String city, String state, String location, String bankName, String customerName, String datetime
+            , String[] hk, String housekeeperName, String housekeeperNumber, String latitude, String longitude,
+                 Bitmap hkphoto1, Bitmap hkphoto2, Bitmap hkphoto3, Bitmap hkphoto4, Bitmap hkphoto5, Bitmap hkphoto6,
+                 Bitmap hkphoto7, Bitmap hkphoto8, Bitmap hkphoto9, Bitmap hkphoto10, Bitmap hkphoto11)
+
+    {
+        this.visitId = visitId;
+        this.atmId = atmId;
+        this.userId = userId;
+        this.siteid = siteid;
+        this.city = city;
+        this.state = state;
+        this.location = location;
+        this.bankName = bankName;
+        this.customerName = customerName;
+        this.datetime = datetime;
+        this.hk = hk;
+        this.housekeeperName = housekeeperName;
+        this.housekeeperNumber = housekeeperNumber;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.hkphoto1 = hkphoto1;
+        this.hkphoto2 = hkphoto2;
+        this.hkphoto3 = hkphoto3;
+        this.hkphoto4 = hkphoto4;
+        this.hkphoto5 = hkphoto5;
+        this.hkphoto6 = hkphoto6;
+        this.hkphoto7 = hkphoto7;
+        this.hkphoto8 = hkphoto8;
+        this.hkphoto9 = hkphoto9;
+        this.hkphoto10 = hkphoto10;
+        this.hkphoto11 = hkphoto11;
+
+
+    }
+
+    public Visit(String visitId, String atmId, String userId, String siteid, String city, String state, String location,
+                 String bankName, String customerName, String datetime, String[] ct, Bitmap ctphoto1, Bitmap ctphoto2, Bitmap ctphoto3,
+                 String caretakeName, String caretakerNumber,
+                 String[] hk, Bitmap hkphoto1, Bitmap hkphoto2, Bitmap hkphoto3, Bitmap hkphoto4, Bitmap hkphoto5,
+                 Bitmap hkphoto6, Bitmap hkphoto7, Bitmap hkphoto8, Bitmap hkphoto9, Bitmap hkphoto10, Bitmap hkphoto11,
+                 String housekeeperName, String housekeeperNumber,
+                 String latitude, String longitude)
+
+    {
+        this.visitId = visitId;
+        this.atmId = atmId;
+        this.userId = userId;
+        this.siteid = siteid;
+        this.city = city;
+        this.state = state;
+        this.location = location;
+        this.bankName = bankName;
+        this.customerName = customerName;
+        this.datetime = datetime;
+
+        this.ct = ct;
         this.ctphoto1 = ctphoto1;
         this.ctphoto2 = ctphoto2;
         this.ctphoto3 = ctphoto3;
-        this.signature = signature;
+        this.caretakeName = caretakeName;
+        this.caretakerNumber = caretakerNumber;
+
+        this.hk = hk;
+        this.hkphoto1 = hkphoto1;
+        this.hkphoto2 = hkphoto2;
+        this.hkphoto3 = hkphoto3;
+        this.hkphoto4 = hkphoto4;
+        this.hkphoto5 = hkphoto5;
+        this.hkphoto6 = hkphoto6;
+        this.hkphoto7 = hkphoto7;
+        this.hkphoto8 = hkphoto8;
+        this.hkphoto9 = hkphoto9;
+        this.hkphoto10 = hkphoto10;
+        this.hkphoto11 = hkphoto11;
+        this.housekeeperName = housekeeperName;
+        this.housekeeperNumber = housekeeperNumber;
+
+        this.latitude = latitude;
+        this.longitude = longitude;
+
     }
-
-
-
-
-
     public Visit() {
     }
 
+    public Bitmap getHkphoto1() {
+        return hkphoto1;
+    }
 
+    public Bitmap getHkphoto2() {
+        return hkphoto2;
+    }
 
+    public Bitmap getHkphoto3() {
+        return hkphoto3;
+    }
+
+    public Bitmap getHkphoto4() {
+        return hkphoto4;
+    }
+
+    public Bitmap getHkphoto5() {
+        return hkphoto5;
+    }
+
+    public Bitmap getHkphoto6() {
+        return hkphoto6;
+    }
+
+    public Bitmap getHkphoto7() {
+        return hkphoto7;
+    }
+
+    public Bitmap getHkphoto8() {
+        return hkphoto8;
+    }
+
+    public Bitmap getHkphoto9() {
+        return hkphoto9;
+    }
+
+    public Bitmap getHkphoto10() {
+        return hkphoto10;
+    }
+
+    public Bitmap getHkphoto11() {
+        return hkphoto11;
+    }
+
+    public Bitmap getHkphoto12() {
+        return hkphoto12;
+    }
+
+    public String getSiteid() {
+        return siteid;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getState() {
+        return state;
+    }
 
     public byte[] getCtphoto1ByteArray() {
 

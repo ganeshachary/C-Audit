@@ -14,6 +14,10 @@
     <string name="unaudited">UnAdudited</string>
     <string name="sync">Sync to Server</string>
 
+
+    //WebLinks
+    <string name="ct_webservice_link">http://www.cleartask.in/caudit_weblink/WebServices/SaveCTVisitData.aspx</string>
+
     //Textview in hindi
     <string name="daily_visit_hindi">दैनिक जाएँ रिपोर्ट</string>
     <string name="srm_report_hindi">अन्य रिपोर्ट</string>
