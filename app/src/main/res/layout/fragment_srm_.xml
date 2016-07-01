@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.spottechnicians.caudit.SRM_Fragment">
+    tools:context=".fragments.SRM_Fragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -12,16 +12,16 @@
         android:orientation="vertical">
         <EditText
             android:id="@+id/etSearchBarSRM"
-            android:hint="@string/listsearchhint"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:hint="@string/listsearchhint" />
 
         <ListView
             android:id="@+id/listviewSRM"
-            android:dividerHeight="2dp"
-            android:divider="#8EC7FF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:divider="#8EC7FF"
+            android:dividerHeight="2dp"
             />
     </LinearLayout>
 

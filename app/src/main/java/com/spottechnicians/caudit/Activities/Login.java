@@ -1,4 +1,4 @@
-package com.spottechnicians.caudit;
+package com.spottechnicians.caudit.Activities;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
+import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.Atm;
 import com.spottechnicians.caudit.utils.DummyData;
 import com.spottechnicians.caudit.utils.GetLocationService;

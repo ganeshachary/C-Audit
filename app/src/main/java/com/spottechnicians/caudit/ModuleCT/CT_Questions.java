@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.spottechnicians.caudit.Login;
+import com.spottechnicians.caudit.Activities.Login;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.VisitSingleton;
 import com.spottechnicians.caudit.utils.GetLocationService;

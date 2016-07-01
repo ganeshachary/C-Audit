@@ -1,4 +1,4 @@
-package com.spottechnicians.caudit;
+package com.spottechnicians.caudit.fragments;
 
 
 import android.content.Intent;
@@ -17,7 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
-import com.spottechnicians.caudit.ModuleHK.HKQuestions;
+import com.spottechnicians.caudit.ModuleCT.CT_Questions;
+import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.adapters.AtmList;
 import com.spottechnicians.caudit.models.Atm;
 import com.spottechnicians.caudit.models.VisitSingleton;
@@ -30,72 +31,43 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HK_Fragment extends Fragment {
-    ListView listViewHK;
-    EditText etSearchBarHK;
-    List<Atm> listOfAtms;
+public class CT_Fragment extends Fragment {
+    ListView listViewCT;
     AtmList atmListAdapter;
+    List<Atm> listOfAtms;
+    EditText etSearchBar;
     VisitSingleton visit;
-
-    public HK_Fragment() {
+    public CT_Fragment() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView= inflater.inflate(R.layout.fragment_hk_, container, false);
-        listViewHK=(ListView)rootView.findViewById(R.id.listviewHK);
-        etSearchBarHK=(EditText)rootView.findViewById(R.id.etSearchBarHK);
+
+        View rootView=inflater.inflate(R.layout.fragment_ct_, container, false);
+        listViewCT=(ListView)rootView.findViewById(R.id.listviewCT);
+        etSearchBar=(EditText)rootView.findViewById(R.id.etSearchBarCT);
+        visit=VisitSingleton.getInstance();
         listOfAtms=new ArrayList<>();
 
-        visit = VisitSingleton.getInstance();
 
-
-
-       // listOfAtms=createDummyList();
-        listOfAtms=getAtmsTypeHK();
-        if(listOfAtms==null)
-        {
-            Toast.makeText(getContext(),"no atms for this service is assigned",Toast.LENGTH_LONG).show();
-        }
-        else
-        {
-            atmListAdapter=new AtmList(getContext(),listOfAtms);
-            listViewHK.setAdapter(atmListAdapter);
-            etSearchBarHK.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    atmListAdapter.getFilter().filter(etSearchBarHK.getText());
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-        }
-
-
-        listViewHK.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //listOfAtms=createDummyList();
+        listOfAtms=getAtmsTypeCT();
+        atmListAdapter=new AtmList(getContext(),listOfAtms);
+        listViewCT.setAdapter(atmListAdapter);
+        listViewCT.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String stringAtmId = ((TextView) view.findViewById(R.id.tvAtmId)).getText().toString();
                 String stringSiteId = view.findViewById(R.id.tvAtmId).getTag().toString();
-                String location = ((TextView) view.findViewById(R.id.tvAddress)).getText().toString();
-                String city = ((TextView) view.findViewById(R.id.tvCity)).getText().toString();
-                String state = ((TextView) view.findViewById(R.id.tvState)).getText().toString();
-                String bankname = ((TextView) view.findViewById(R.id.tvBankName)).getText().toString();
-                String customer = ((TextView) view.findViewById(R.id.tvCustomerName)).getText().toString();
+                String location=((TextView) view.findViewById(R.id.tvAddress)).getText().toString();
+                String city=((TextView) view.findViewById(R.id.tvCity)).getText().toString();
+                String state=((TextView) view.findViewById(R.id.tvState)).getText().toString();
+                String bankname=((TextView) view.findViewById(R.id.tvBankName)).getText().toString();
+                String customer=((TextView) view.findViewById(R.id.tvCustomerName)).getText().toString();
 
                 visit.setSiteid(stringSiteId);
                 visit.setAtmId(stringAtmId);
@@ -108,17 +80,33 @@ public class HK_Fragment extends Fragment {
                 if (GetLocationService.isLocationOn(getActivity())) {
 
                     Toast.makeText(getActivity(), "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
-                            GetLocationService.LONGITUDE_FROM_SERVICE + "On HK Ques", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getContext(), HKQuestions.class);
+                            GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getContext(), CT_Questions.class);
                     startActivity(intent);
                 } else {
                     GetLocationService.showLocationSettings(getActivity());
                 }
 
+
+
             }
         });
+        etSearchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    atmListAdapter.getFilter().filter(etSearchBar.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         return rootView;
     }
@@ -150,9 +138,9 @@ public class HK_Fragment extends Fragment {
         return listOfAtms1;
     }
 
-    public List<Atm> getAtmsTypeHK()
+    public List<Atm> getAtmsTypeCT()
     {
-        List<Atm> listOfAtms1=new DbHelper(getContext()).fetchAtmsByType("hk");
+       List<Atm> listOfAtms1=new DbHelper(getContext()).fetchAtmsByType("ct");
         return listOfAtms1;
     }
 

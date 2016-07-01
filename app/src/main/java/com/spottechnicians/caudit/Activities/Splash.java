@@ -1,8 +1,10 @@
-package com.spottechnicians.caudit;
+package com.spottechnicians.caudit.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.spottechnicians.caudit.R;
 
 public class Splash extends AppCompatActivity {
     private static int SPLASH_TIME_OUT=3000;

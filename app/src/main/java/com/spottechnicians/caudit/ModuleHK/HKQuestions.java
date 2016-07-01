@@ -1,29 +1,36 @@
 package com.spottechnicians.caudit.ModuleHK;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.spottechnicians.caudit.Login;
+import com.spottechnicians.caudit.Activities.Login;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.VisitSingleton;
 import com.spottechnicians.caudit.utils.LocationFetch;
 import com.spottechnicians.caudit.utils.UtilHK;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class HKQuestions extends AppCompatActivity {
@@ -37,6 +44,8 @@ public class HKQuestions extends AppCompatActivity {
     String questionEnglishArray[];
     String questionHindiArray[];
     int textViewIds[];
+
+    int month, day, year;
 
     LocationFetch locationFetch;
 
@@ -185,7 +194,7 @@ public class HKQuestions extends AppCompatActivity {
         String yesSubQuestion[] = UtilHK.getYesSubQuestion();
         for (int i = 0; i < 17; i++) {
 
-            if (!yesSubQuestion[i].equals("null")) {
+            if (!yesSubQuestion[i].equals("null") && !yesSubQuestion[i].equals("date")) {
 
 
                 findViewById(btnYesArray[i]).setOnClickListener(new View.OnClickListener() {
@@ -200,6 +209,26 @@ public class HKQuestions extends AppCompatActivity {
                         showPopup(getCurrentButtonPressed());
                     }
                 });
+            } else if (yesSubQuestion[i].equals("date"))//if yes button selected for which date is to be shown
+            {
+                findViewById(btnYesArray[i]).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setButtonType(1);
+                        setCurrentButtonPressed(UtilHK.getPositionOfYesButton(v.getId(), getButtonType()));
+                        // Toast.makeText(getBaseContext(), "This is normal button", Toast.LENGTH_SHORT).show();
+                        // ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.green));
+                        //  ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+
+                        //ansewers[currentButtonPressed] = "yes";
+                        otherText[currentButtonPressed] = "";
+                        showDatePopup(getCurrentButtonPressed());
+                        // Toast.makeText(getBaseContext(),ansewers[currentButtonPressed]+"", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+
             } else {
 
                 findViewById(btnYesArray[i]).setOnClickListener(new View.OnClickListener() {
@@ -221,6 +250,106 @@ public class HKQuestions extends AppCompatActivity {
 
 
         }
+
+    }
+
+
+    //method will be used to show date dialog for date Selection
+    private void showDatePopup(final int currentButtonPressed) {
+
+
+        if (ansewers[currentButtonPressed].equals(" ")) {
+            Calendar calendarCurrent = Calendar.getInstance();
+
+            month = calendarCurrent.get(Calendar.MONTH);
+            day = calendarCurrent.get(Calendar.DAY_OF_MONTH);
+            year = calendarCurrent.get(Calendar.YEAR);
+
+        } else {
+            String lastDateString = ansewers[currentButtonPressed];
+            DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+
+            try {
+                Date lastDate = df.parse(lastDateString);
+
+                Calendar calendarSelected = Calendar.getInstance();
+
+                calendarSelected.setTime(lastDate);
+
+                month = calendarSelected.get(Calendar.MONTH);
+                day = calendarSelected.get(Calendar.DAY_OF_MONTH);
+                year = calendarSelected.get(Calendar.YEAR);
+
+
+            } catch (ParseException e) {
+                Log.e("Man HKQ: ", e.toString() + " Error coverting string to date");
+            }
+
+
+        }
+
+
+        final DatePickerDialog datePicker;
+
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+                Toast.makeText(getApplicationContext(), i + " " + i1 + " " + i2, Toast.LENGTH_LONG).show();
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, i);
+                calendar.set(Calendar.MONTH, i1);
+                calendar.set(Calendar.DAY_OF_MONTH, i2);
+
+                Date pickedDate = calendar.getTime();
+
+                // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+
+                String strDateTime = sdf.format(pickedDate);
+
+
+                ansewers[currentButtonPressed] = strDateTime;
+                ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.green));
+                ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+
+
+            }
+
+        };
+
+
+        if (Build.VERSION.SDK_INT < 11) {
+            datePicker = new DatePickerDialog(this, dateSetListener, year, month, day);
+        } else {
+            // specify the Holo Light Theme for this dialog on Honeycomb+
+            datePicker = new DatePickerDialog(this, DatePickerDialog.THEME_HOLO_LIGHT, dateSetListener, year, month, day);
+        }
+        String dateTitle;
+        if (currentButtonPressed == 14) {
+            dateTitle = "Select date on which HK materials were placed on site";
+        } else {
+            dateTitle = "Select Date";
+        }
+
+        datePicker.setTitle(dateTitle);
+
+        datePicker.getDatePicker().setMaxDate(System.currentTimeMillis());
+
+        datePicker.show();
+
+        datePicker.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+
+
+                // ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+                datePicker.cancel();
+
+            }
+        });
+
 
     }
 
@@ -248,54 +377,6 @@ public class HKQuestions extends AppCompatActivity {
     }
 */
 
-
-    public void assignPopupToNOButton() {
-        // int btnYesArray[]=getYesButtonIdsArray();
-        int btnNoArray[] = UtilHK.getNoButtonIdsArray();
-        String noSubQuestion[] = UtilHK.getNoSubQuestion();
-        for (int i = 0; i < 17; i++) {
-            setCurrentButtonPressed(i);
-            if (noSubQuestion[i].equals("null")) {
-
-                findViewById(btnNoArray[i]).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // Toast.makeText(getBaseContext(), "This is normal button", Toast.LENGTH_SHORT).show();
-                        setButtonType(0);
-                        setCurrentButtonPressed(UtilHK.getPositionOfYesButton(v.getId(), getButtonType()));
-                        ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
-                        ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.green));
-
-                        ansewers[currentButtonPressed] = "no";
-                        otherText[currentButtonPressed] = "";
-                        //Toast.makeText(getBaseContext(),ansewers[currentButtonPressed]+"", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-            } else {
-                findViewById(btnNoArray[i]).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setButtonType(0);
-                        setCurrentButtonPressed(UtilHK.getPositionOfYesButton(v.getId(), getButtonType()));
-                        //showTextPopUp();
-                        ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
-                        ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
-
-                        showPopup(getCurrentButtonPressed());
-                        //((Button)v).setTextColor(getResources().getColor(R.color.red));
-
-
-                    }
-                });
-
-            }
-
-
-        }
-
-
-    }
 
     public void showPopup(final int buttonPressed) {
 
@@ -393,6 +474,73 @@ public class HKQuestions extends AppCompatActivity {
 
     }
 
+
+
+
+    public void assignPopupToNOButton() {
+        // int btnYesArray[]=getYesButtonIdsArray();
+        int btnNoArray[] = UtilHK.getNoButtonIdsArray();
+        String noSubQuestion[] = UtilHK.getNoSubQuestion();
+        for (int i = 0; i < 17; i++) {
+            setCurrentButtonPressed(i);
+            if (noSubQuestion[i].equals("null")) {
+
+                findViewById(btnNoArray[i]).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Toast.makeText(getBaseContext(), "This is normal button", Toast.LENGTH_SHORT).show();
+                        setButtonType(0);
+                        setCurrentButtonPressed(UtilHK.getPositionOfYesButton(v.getId(), getButtonType()));
+                        ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+                        ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.green));
+
+                        ansewers[currentButtonPressed] = "no";
+                        otherText[currentButtonPressed] = "";
+                        //Toast.makeText(getBaseContext(),ansewers[currentButtonPressed]+"", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+            } else if (noSubQuestion[i].equals("no date")) //if no button selected for which no date is to be shown
+            {
+                findViewById(btnNoArray[i]).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Toast.makeText(getBaseContext(), "This is normal button", Toast.LENGTH_SHORT).show();
+                        setButtonType(0);
+                        setCurrentButtonPressed(UtilHK.getPositionOfYesButton(v.getId(), getButtonType()));
+                        ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+                        ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
+
+                        ansewers[currentButtonPressed] = "no";
+                        otherText[currentButtonPressed] = "";
+                        //Toast.makeText(getBaseContext(),ansewers[currentButtonPressed]+"", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+            } else {
+                findViewById(btnNoArray[i]).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setButtonType(0);
+                        setCurrentButtonPressed(UtilHK.getPositionOfYesButton(v.getId(), getButtonType()));
+                        //showTextPopUp();
+                        ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+                        ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
+
+                        showPopup(getCurrentButtonPressed());
+                        //((Button)v).setTextColor(getResources().getColor(R.color.red));
+
+
+                    }
+                });
+
+            }
+
+
+        }
+
+
+    }
 
     public void showTextPopUp() {
         AlertDialog dialog2;

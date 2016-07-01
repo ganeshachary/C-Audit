@@ -1,4 +1,4 @@
-package com.spottechnicians.caudit;
+package com.spottechnicians.caudit.fragments;
 
 
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.widget.ListView;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
 import com.spottechnicians.caudit.ModuleSRM.SRMQuestions;
+import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.adapters.AtmList;
 import com.spottechnicians.caudit.models.Atm;
 

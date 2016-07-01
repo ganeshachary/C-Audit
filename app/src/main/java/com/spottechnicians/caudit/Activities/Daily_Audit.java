@@ -1,4 +1,4 @@
-package com.spottechnicians.caudit;
+package com.spottechnicians.caudit.Activities;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -6,8 +6,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.adapters.ViewPagerAdapter;
 import com.spottechnicians.caudit.fragments.CTHK;
+import com.spottechnicians.caudit.fragments.CT_Fragment;
+import com.spottechnicians.caudit.fragments.HK_Fragment;
+import com.spottechnicians.caudit.fragments.SRM_Fragment;
 
 public class Daily_Audit extends AppCompatActivity {
 

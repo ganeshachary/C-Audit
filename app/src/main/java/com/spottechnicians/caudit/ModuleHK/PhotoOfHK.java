@@ -17,8 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.spottechnicians.caudit.Activities.Home;
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
-import com.spottechnicians.caudit.Home;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.VisitSingleton;
 import com.spottechnicians.caudit.utils.GetLocationService;

@@ -1,4 +1,4 @@
-package com.spottechnicians.caudit;
+package com.spottechnicians.caudit.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
+import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.Visit;
 import com.spottechnicians.caudit.utils.LocationFetch;
 

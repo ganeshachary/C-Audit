@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.spottechnicians.caudit.Activities.Home;
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
-import com.spottechnicians.caudit.Home;
 import com.spottechnicians.caudit.models.Atm;
 
 import java.util.ArrayList;

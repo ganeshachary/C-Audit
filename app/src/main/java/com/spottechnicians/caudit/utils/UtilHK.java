@@ -39,7 +39,7 @@ public class UtilHK {
     public static String[] getYesSubQuestion() {
         String Yes[] = {"null", "Side Glass-Floor machine-Main door-Other", "null", "null", "null",
                 "null", "null", "Painting require-Wall damaged-Proper cleaning require-Other", "Proper cleaning require-Poster frame not available-Brochure holder not available-Other",
-                "Proper cleaning require-Fire bottle not available-Other", "null", "null", "null", "null", "null", "null", "null"};
+                "Proper cleaning require-Fire bottle not available-Other", "Proper cleaning require-AC not available-Other", "Proper cleaning require-Open wiring-Other", "null", "null", "date", "date", "date"};
 
         return Yes;
     }
@@ -48,9 +48,9 @@ public class UtilHK {
         String No[] = {"Proper cleaning require-It is on height-Flex damaged-Other", "null", "Proper cleaning require-Other",
                 "Floor damaged-Proper cleaning require-Other", "Doormat not available-Dustbin not available-Other", "Leakage spot-Proper cleaning-require-Ladder require-Other",
                 "Proper cleaning require-Ladder require-Other", "null", "null", "null",
-                "Proper cleaning require-AC not available-Other", "Proper cleaning require-Open wiring-Other", "Backroom key not available-Proper cleaning require-Bank or CRA material available-Other"
+                "null", "null", "Backroom key not available-Proper cleaning require-Bank or CRA material available-Other"
                 , "Backroom key not available-Proper cleaning require-Bank or CRA material available-Other", "Phenyl not available-Collin not available-Broom not available-Duster not available-Other"
-                , "null", "null"};
+                , "no date", "no date"};
         return No;
     }
 
