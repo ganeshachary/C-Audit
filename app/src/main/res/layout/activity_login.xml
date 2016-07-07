@@ -28,6 +28,7 @@
         android:layout_marginTop="50dp"
         android:drawableLeft="@drawable/ic_username"
         android:hint="@string/username"
+        android:maxLength="20"
         android:nextFocusDown="@+id/etpassword"
         android:singleLine="true" />
 
@@ -39,6 +40,7 @@
         android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/ic_lock"
         android:hint="@string/password"
+        android:maxLength="20"
         android:nextFocusDown="@+id/btnLogin"
         android:singleLine="true" />
     <Button

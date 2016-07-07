@@ -9,10 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvCtAudit"
+            style="@style/AtmAuditTv"
+            android:text="Audited" />
         <EditText
             android:id="@+id/etSearchBarCT"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/searchBar"
             android:hint="@string/listsearchhint" />
 
         <ListView
@@ -21,7 +25,19 @@
             android:layout_height="wrap_content"
             android:divider="#8EC7FF"
             android:dividerHeight="2dp"
+
             />
+
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="No ATM's are allotted to you for this service"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/grey"
+            android:textStyle="bold" />
     </LinearLayout>
 
 

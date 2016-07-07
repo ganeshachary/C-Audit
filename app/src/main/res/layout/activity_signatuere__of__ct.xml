@@ -27,16 +27,14 @@
 
     <EditText
         android:id="@+id/etCtName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/matchWrapSingle"
         android:hint="Caretaker Name"
         android:inputType="textPersonName"
         android:maxLength="25" />
 
     <EditText
         android:id="@+id/etCtNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/matchWrapSingle"
         android:hint="Phone Number"
         android:inputType="phone"
         android:maxLength="10" />

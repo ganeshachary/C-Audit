@@ -70,7 +70,7 @@
         <item>Q4.Is ATM floor clean?</item>
         <item>Q5.Is doormat and dustbin clean?</item>
         <item>Q6.Is ceiling and cobweb clean?</item>
-        <item>Q7.Inspect present in fitted Ceiling lights?</item>
+        <item>Q7.Insect present in fitted Ceiling lights?</item>
         <item>Q8.Stain on left hand side and right hand side wall?</item>
         <item>Q9.Dust behind poster frame and brochure holder?</item>
         <item>Q10.Dust on fire extinguisher?</item>
@@ -214,7 +214,7 @@
 
     <string name="ctphoto1text2">Front signage,chair with caretaker</string>
 
-    <string name="ctphoto1text3">Registers photo</string>
+    <string name="ctphoto1text3">Opened Registers photo</string>
 
     <!--for HK image-->
     <string name="hkphototext1">*Front signage with main door view</string>
@@ -260,6 +260,8 @@
     <string name="sign">Sign</string>
     <string name="passportSizePhoto">Passport Size Photo</string>
     <string name="moreDocuments">More Documents</string>
+    <string name="ctNameNo">CT Name and No</string>
+    <string name="hkNameNo">HK Name and No</string>
 
 
     <string-array name="Recruitment">

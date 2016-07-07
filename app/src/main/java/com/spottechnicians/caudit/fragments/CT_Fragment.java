@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,11 @@ import com.spottechnicians.caudit.models.Atm;
 import com.spottechnicians.caudit.models.VisitSingleton;
 import com.spottechnicians.caudit.utils.GetLocationService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -36,6 +39,7 @@ public class CT_Fragment extends Fragment {
     AtmList atmListAdapter;
     List<Atm> listOfAtms;
     EditText etSearchBar;
+    TextView tvCTAudit;
     VisitSingleton visit;
     public CT_Fragment() {
         // Required empty public constructor
@@ -49,13 +53,51 @@ public class CT_Fragment extends Fragment {
 
         View rootView=inflater.inflate(R.layout.fragment_ct_, container, false);
         listViewCT=(ListView)rootView.findViewById(R.id.listviewCT);
+
+        listViewCT.setEmptyView(rootView.findViewById(R.id.tvEmpty));
+
         etSearchBar=(EditText)rootView.findViewById(R.id.etSearchBarCT);
+
+        tvCTAudit = (TextView) rootView.findViewById(R.id.tvCtAudit);
         visit=VisitSingleton.getInstance();
         listOfAtms=new ArrayList<>();
 
 
-        //listOfAtms=createDummyList();
+        // listOfAtms=createDummyList();
         listOfAtms=getAtmsTypeCT();
+        if (listOfAtms.size() == 0) {
+            etSearchBar.setVisibility(View.GONE);
+            tvCTAudit.setVisibility(View.GONE);
+        } else {
+            int counter = 0;
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            String TodayDateTime = sdf.format(c.getTime());
+            Date d1 = null;
+            Date d2 = null;
+
+
+            for (int i = 0; i < listOfAtms.size(); i++) {
+                if (listOfAtms.get(i).getLastaudited() != null && listOfAtms.get(i).getLastaudited() != "not audited") {
+                    try {
+                        d1 = format.parse(listOfAtms.get(i).getLastaudited());
+                        d2 = format.parse(TodayDateTime);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    long diff = d2.getTime() - d1.getTime();
+                    int diffInDays = (int) diff / (1000 * 60 * 60 * 24);
+
+                    if (diffInDays >= 0 && diffInDays < 31) {
+                        counter++;
+                    }
+                }
+            }
+            tvCTAudit.setText("Audited: " + counter + " Out of " + listOfAtms.size());
+        }
         atmListAdapter=new AtmList(getContext(),listOfAtms);
         listViewCT.setAdapter(atmListAdapter);
         listViewCT.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -79,7 +121,10 @@ public class CT_Fragment extends Fragment {
 
                 if (GetLocationService.isLocationOn(getActivity())) {
 
-                    Toast.makeText(getActivity(), "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
+                    //starting service again
+                    getContext().startService(new Intent(getActivity(), GetLocationService.class));
+
+                    Toast.makeText(getActivity(), "new Started  Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
                             GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getContext(), CT_Questions.class);
                     startActivity(intent);
@@ -114,7 +159,7 @@ public class CT_Fragment extends Fragment {
     public List<Atm> createDummyList()
     {
         List<Atm> listOfAtms1=new ArrayList<>();
-        Atm atmObject;
+       /* Atm atmObject;
         atmObject=new Atm();
         String atmid="ab89797";
         atmObject.setAtmId(atmid);
@@ -134,7 +179,7 @@ public class CT_Fragment extends Fragment {
         atmObject.setState("maharasthra");
         atmObject.setCity("pune");
         Log.d("listdata",atmid);
-        listOfAtms1.add(atmObject);
+        listOfAtms1.add(atmObject);  */
         return listOfAtms1;
     }
 

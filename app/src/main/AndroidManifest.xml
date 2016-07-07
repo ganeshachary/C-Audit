@@ -29,16 +29,21 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
         <activity
             android:name=".Activities.Home"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+
+        </activity>
         <activity
             android:name=".Activities.Daily_Audit"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ModuleCT.CT_Questions"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ModuleCT.Photo_Of_CT"
             android:screenOrientation="portrait" />
@@ -48,26 +53,23 @@
         <activity
             android:name=".ModuleCT.SignatureCanvas"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.ChkReport">
-
-        </activity>
-
+        <activity android:name=".Activities.ChkReport"></activity>
         <activity android:name=".ModuleHK.HKQuestions" />
         <activity android:name=".ModuleHK.PhotoOfHK" />
         <activity android:name=".ModuleSRM.SRMQuestions" />
         <activity android:name=".ModuleSRM.PhotoOfSRM" />
-        <activity android:name=".ModuleRecruitment.OfficialDetails"></activity>
+        <activity android:name=".ModuleRecruitment.OfficialDetails" />
         <activity android:name=".ModuleRecruitment.Address" />
         <activity android:name=".ModuleRecruitment.Biodata" />
-        <activity android:name=".ModuleRecruitment.Declaration"></activity>
+        <activity android:name=".ModuleRecruitment.Declaration" />
 
-
-        <!--services-->
+        <!-- services -->
 
         <service
             android:name=".utils.GetLocationService"
             android:enabled="true"
             android:exported="true" />
+
     </application>
 
 </manifest>

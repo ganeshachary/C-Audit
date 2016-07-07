@@ -84,6 +84,30 @@ public class PhotoOfHK extends AppCompatActivity {
 
     }
 
+    private boolean validateNameNo() {
+
+        boolean status = true;
+        String ctName = etName.getText().toString().trim();
+        String ctNumber = etNumber.getText().toString().trim();
+        if (ctName.equals("") && ctNumber.equals("")) {
+            status = false;
+            Toast.makeText(this, "Enter Name and Number", Toast.LENGTH_LONG).show();
+
+        } else if (ctName.equals("")) {
+            status = false;
+            Toast.makeText(this, "Enter the Name", Toast.LENGTH_LONG).show();
+        } else if (ctNumber.equals("")) {
+            status = false;
+            Toast.makeText(this, "Enter the Mobile Number", Toast.LENGTH_LONG).show();
+        } else if (ctNumber.length() != 10) {
+            status = false;
+            Toast.makeText(this, "Enter valid Mobile Number", Toast.LENGTH_LONG).show();
+        } else {
+            visit.setHousekeeperName(ctName);
+            visit.setHousekeeperNumber(ctNumber);
+        }
+        return status;
+    }
 
     public void onSave(View view) {
 
@@ -130,24 +154,8 @@ public class PhotoOfHK extends AppCompatActivity {
 //                // intent.putExtra("Visit2", visit);
 //                startActivity(intent);
 
-                String ctName = etName.getText().toString().trim();
-                String ctNumber = etNumber.getText().toString().trim();
-                if (ctName != null && ctNumber != null && !ctName.equals("") && !ctNumber.equals("")) {
-                    visit.setHousekeeperName(ctName);
-                    visit.setHousekeeperNumber(ctNumber);
-                } else if (ctName == "") {
-                    status = false;
-                    Toast.makeText(this, "Enter the Name", Toast.LENGTH_LONG).show();
-                } else if (ctNumber == "") {
-                    status = false;
-                    Toast.makeText(this, "Enter the Phone Number", Toast.LENGTH_LONG).show();
-                } else {
-                    status = false;
-                    Toast.makeText(this, "Enter Name and Number", Toast.LENGTH_LONG).show();
-                }
 
-
-                if (status) {
+                if (validateNameNo()) {
 
                     if (visit.getSiteType() != null && visit.getSiteType().equals("CTHK")) {
                         if (dbHelper.insertCTHKReport(visit)) {

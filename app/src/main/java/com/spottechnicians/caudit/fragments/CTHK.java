@@ -77,7 +77,8 @@ public class CTHK extends Fragment {
 
 
                 if (GetLocationService.isLocationOn(getActivity())) {
-
+                    //starting servic again
+                    getContext().startService(new Intent(getActivity(), GetLocationService.class));
                     Toast.makeText(getActivity(), "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
                             GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getContext(), CT_Questions.class);

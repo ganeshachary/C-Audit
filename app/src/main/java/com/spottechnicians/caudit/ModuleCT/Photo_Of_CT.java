@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,9 +14,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.spottechnicians.caudit.Activities.Home;
+import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.VisitSingleton;
 import com.spottechnicians.caudit.utils.GetLocationService;
@@ -26,7 +31,9 @@ public class Photo_Of_CT extends AppCompatActivity {
     ImageView ivCtPhoto1, ivCtPhoto2, ivCtPhoto3;
     Bitmap bitmap[] = new Bitmap[3];
     int imageViewIds[] = {R.id.ivCtPhoto1, R.id.ivCtPhoto2, R.id.ivCtPhoto3};
+    EditText etName, etNumber;
     VisitSingleton visit;
+    DbHelper dbHelper;
     private byte[] img = null;
 
     @Override
@@ -38,11 +45,26 @@ public class Photo_Of_CT extends AppCompatActivity {
        // visit = getIntent().getExtras().getParcelable("Visit");
         Toast.makeText(this, visit.getSiteId(), Toast.LENGTH_SHORT).show();
 
+        dbHelper = new DbHelper(this);
+
         ivCtPhoto1 = (ImageView) findViewById(R.id.ivCtPhoto1);
 
         ivCtPhoto2 = (ImageView) findViewById(R.id.ivCtPhoto2);
 
         ivCtPhoto3 = (ImageView) findViewById(R.id.ivCtPhoto3);
+
+        etName = (EditText) findViewById(R.id.etCtName);
+        etNumber = (EditText) findViewById(R.id.etCtNumber);
+        Button btnSave = (Button) findViewById(R.id.btnSave);
+        Button btnUpload = (Button) findViewById(R.id.btnUpload);
+        Button btnToHK = (Button) findViewById(R.id.btnHkQuestions);
+
+        if (visit.getSiteType() != null && visit.getSiteType().equals("CTHK")) {
+            btnSave.setVisibility(View.GONE);
+            btnUpload.setVisibility(View.GONE);
+            btnToHK.setVisibility(View.VISIBLE);
+
+        }
 
         Toast.makeText(this, "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
                 GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
@@ -50,10 +72,90 @@ public class Photo_Of_CT extends AppCompatActivity {
         visit.setLatitude(GetLocationService.LATITUDE_FROM_SERVICE);
         visit.setLongitude(GetLocationService.LONGITUDE_FROM_SERVICE);
 
+        if (visit.getCt()[1].trim().toString().equals("NA")) {
+            ivCtPhoto1.setImageResource(R.mipmap.ic_launcher);
+            bitmap[0] = BitmapFactory.decodeResource(getResources(),
+                    R.mipmap.ic_launcher);
+
+
+            ivCtPhoto1.setClickable(false);
+        }
+
 
     }
 
-    public void next(View view) {
+    private boolean validateNameNo() {
+        boolean status = true;
+
+
+        String ctName = etName.getText().toString();
+        String ctNumber = etNumber.getText().toString();
+
+        if (ctName.equals("") && ctNumber.equals("")) {
+            status = false;
+            Toast.makeText(this, "Enter Name and Number", Toast.LENGTH_LONG).show();
+
+        } else if (ctName.equals("")) {
+            status = false;
+            Toast.makeText(this, "Enter the Name", Toast.LENGTH_LONG).show();
+        } else if (ctNumber.equals("")) {
+            status = false;
+            Toast.makeText(this, "Enter the Phone Number", Toast.LENGTH_LONG).show();
+        } else if (ctNumber.length() != 10) {
+            status = false;
+            Toast.makeText(this, "Enter valid Phone Number", Toast.LENGTH_LONG).show();
+        } else {
+            visit.setCaretakerName(ctName);
+            visit.setCaretakerNumber(ctNumber);
+        }
+
+        return status;
+    }
+
+    public void onSave(View view) {
+
+        if (checkImage()) {
+
+            if (validateNameNo()) {
+                if (dbHelper.insertCTReport(visit)) {
+                    Toast.makeText(this, "CT Report inserted successfully", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(this, Home.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "CT Report inserted unsuccessfull try again", Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        } else {
+            Home.printToast("Take All photos", this);
+        }
+
+
+    }
+
+    public void onUpload(View view) {
+        onSave(view);
+        Intent intent = new Intent(this, Home.class);
+        startActivity(intent);
+    }
+
+
+    public void proceedToHk(View view) {
+
+        if (checkImage()) {
+
+            if (validateNameNo()) {
+                startActivity(new Intent(this, CT_Questions.class));
+            }
+        } else {
+            Home.printToast("Take All photos", this);
+        }
+
+
+    }
+
+    public boolean checkImage() {
         boolean status = true;
         for (int i = 0; i < bitmap.length; i++) {
             if (bitmap[i] == null) {
@@ -76,10 +178,8 @@ public class Photo_Of_CT extends AppCompatActivity {
                 visit.setPicList("img1",bitmap[1]);
                     visit.setPicList("img2", bitmap[2]);
                 }
-                Intent intent = new Intent(this, Signatuere_Of_CT.class);
-                Log.v("atmid", visit.getAtmId());
-               // intent.putExtra("Visit2", visit);
-                startActivity(intent);
+
+                return status;
 
             }
             catch (Exception e)
@@ -88,10 +188,11 @@ public class Photo_Of_CT extends AppCompatActivity {
             }
 
         } else {
-            Toast.makeText(this, "Take all the photo", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Take all the photo", Toast.LENGTH_SHORT).show();
+            return status;
         }
 
-
+        return status;
     }
 
     public void captureImage(View v) {

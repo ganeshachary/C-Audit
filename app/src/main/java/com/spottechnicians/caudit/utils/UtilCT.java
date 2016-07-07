@@ -44,9 +44,9 @@ public class UtilCT {
     }
 
     public static String[] getNoSubQuestion() {
-        String No[] = {"Went for nature call-went for lunchordinner-medical emergency-Other", "Not Provided-ID misplaced-Forgot to bring",
+        String No[] = {"Went for nature call-went for lunch or dinner-medical emergency-Other", "Not Provided-ID misplaced-Forgot to bring",
                 "Not provided-Under washing-Torn-Other", "Not provided-Technical issue-Other", "Damaged-Not provided-Other", "null",
-                "Attendence reg n/a-Break reg n/a-Vendor reg n/a-LogBook n/a-Other", "New Caretaker-Other", "New Caretaker-Other",
+                "Attendance reg n/a-Break reg n/a-Vendor reg n/a-LogBook n/a-Other", "New Caretaker-Other", "New Caretaker-Other",
                 "New Caretaker-Other", "Not provided by bank-Other", "null"};
         return No;
     }

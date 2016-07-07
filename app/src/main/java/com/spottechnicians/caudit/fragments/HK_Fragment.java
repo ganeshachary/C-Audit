@@ -107,6 +107,8 @@ public class HK_Fragment extends Fragment {
                 visit.setCustomerName(customer);
 
                 if (GetLocationService.isLocationOn(getActivity())) {
+                    //starting service again
+                    getContext().startService(new Intent(getActivity(), GetLocationService.class));
 
                     Toast.makeText(getActivity(), "Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
                             GetLocationService.LONGITUDE_FROM_SERVICE + "On HK Ques", Toast.LENGTH_LONG).show();

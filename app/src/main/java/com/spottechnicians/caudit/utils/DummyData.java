@@ -22,12 +22,12 @@ public class DummyData {
         atmList = new ArrayList<>();
 
         atmObjects = new Atm();
-        atmObjects.setAtmId("ATM101");
+        atmObjects.setAtmId("ATMABCCC9008101CC458");
         atmObjects.setAddress("sion west opp to sies college");
         atmObjects.setBankName("ICICI");
         atmObjects.setCustomerName("HITACHI");
-        atmObjects.setCity("MUMBAI");
-        atmObjects.setState("MAHARASHTRA");
+        atmObjects.setCity("Thiruvananthapuram");
+        atmObjects.setState("Thiruvananthapuram-Tn");
         atmObjects.setSiteId("s101");
         atmObjects.setType("ct");
         atmList.add(atmObjects);
@@ -43,6 +43,31 @@ public class DummyData {
         atmObjects.setType("ct");
 
         atmList.add(atmObjects);
+
+        atmObjects = new Atm();
+        atmObjects.setAtmId("1RDDMUM89");
+        atmObjects.setAddress("36,Sion House,Sion Kurla Road,Sion(W)");
+        atmObjects.setBankName("BOB");
+        atmObjects.setCustomerName("DIEBOLD");
+        atmObjects.setCity("MUMBAI");
+        atmObjects.setState("MAHARASHTRA");
+        atmObjects.setSiteId("s102");
+        atmObjects.setType("ct");
+
+        atmList.add(atmObjects);
+
+        atmObjects = new Atm();
+        atmObjects.setAtmId("KBL12046");
+        atmObjects.setAddress("Shop No.1,Plot No.8,Suryodaya Buidling,Near Sion Railway Station");
+        atmObjects.setBankName("KBL");
+        atmObjects.setCustomerName("FIS");
+        atmObjects.setCity("MUMBAI");
+        atmObjects.setState("MAHARASHTRA");
+        atmObjects.setSiteId("s102");
+        atmObjects.setType("ct");
+
+        atmList.add(atmObjects);
+
 
         atmObjects = new Atm();
         atmObjects.setAtmId("ATM102");

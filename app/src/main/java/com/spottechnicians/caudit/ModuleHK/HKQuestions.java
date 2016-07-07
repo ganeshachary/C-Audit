@@ -19,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.spottechnicians.caudit.Activities.Home;
 import com.spottechnicians.caudit.Activities.Login;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.VisitSingleton;
@@ -203,9 +204,9 @@ public class HKQuestions extends AppCompatActivity {
                         setButtonType(1);
                         setCurrentButtonPressed(UtilHK.getPositionOfYesButton(v.getId(), getButtonType()));
                         //Toast.makeText(getBaseContext(),getCurrentButtonPressed()+"", Toast.LENGTH_SHORT).show();
-                        ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+                     /*   ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
                         ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
-
+*/
                         showPopup(getCurrentButtonPressed());
                     }
                 });
@@ -333,10 +334,11 @@ public class HKQuestions extends AppCompatActivity {
             dateTitle = "Select Date";
         }
 
-        datePicker.setTitle(dateTitle);
+
 
         datePicker.getDatePicker().setMaxDate(System.currentTimeMillis());
 
+        datePicker.setTitle(dateTitle);
         datePicker.show();
 
         datePicker.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -418,8 +420,14 @@ public class HKQuestions extends AppCompatActivity {
                         if (!(itemsSelected.size() == 0)) {
                             if (getButtonType() == 1) {
                                 oneAnswer = "yes";
+                                ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
+                                ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+
                             } else {
                                 oneAnswer = "no";
+                                ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+                                ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
+
                             }
 
 
@@ -443,11 +451,13 @@ public class HKQuestions extends AppCompatActivity {
                             }
 
                         } else {
-                            if (getButtonType() == 1) {
+                            Home.printToast("No option Selected", HKQuestions.this);
+                          /*  if (getButtonType() == 1) {
                                 ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
                             } else {
                                 ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
-                            }
+                            }*/
+
                             ansewers[buttonPressed] = buttonPressed + 1 + "";
 
                         }
@@ -457,12 +467,15 @@ public class HKQuestions extends AppCompatActivity {
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        if (getButtonType() == 1) {
+
+                       /* if (getButtonType() == 1) {
                             ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
                         } else {
                             ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
-                        }
+                        }*/
+
                         ansewers[buttonPressed] = buttonPressed + 1 + "";
+                        dialog.dismiss();
 
 
                     }
@@ -524,9 +537,9 @@ public class HKQuestions extends AppCompatActivity {
                         setButtonType(0);
                         setCurrentButtonPressed(UtilHK.getPositionOfYesButton(v.getId(), getButtonType()));
                         //showTextPopUp();
-                        ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+                      /*  ((Button) findViewById((UtilHK.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
                         ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
-
+*/
                         showPopup(getCurrentButtonPressed());
                         //((Button)v).setTextColor(getResources().getColor(R.color.red));
 

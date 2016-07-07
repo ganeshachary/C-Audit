@@ -86,7 +86,7 @@ public class VisitSingleton {
     public boolean checkHKComplete() {
         boolean status = true;
         for (int i = 0; i < hk.length; i++) {
-            if (hk[i] == "") {
+            if (hk[i].equals(" ")) {
                 status = false;
             }
         }

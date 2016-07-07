@@ -102,20 +102,29 @@ public class AtmList extends BaseAdapter implements Filterable{
         try {
             if (listOfAtms.get(position).getLastaudited() != null && listOfAtms.get(position).getLastaudited() != "not audited") {
                 d1 = format.parse(listOfAtms.get(position).getLastaudited());
+                d2 = format.parse(TodayDateTime);
+                long diff = d2.getTime() - d1.getTime();
+                int diffInDays = (int) diff / (1000 * 60 * 60 * 24);
+
+                if (diffInDays > 2) {
+                    viewHolder.days.setTextColor(context.getResources().getColor(R.color.red));
+                    viewHolder.date.setTextColor(context.getResources().getColor(R.color.red));
+                }
+                viewHolder.days.setText(diffInDays + " days Before");
 
             } else {
-                d1 = format.parse(TodayDateTime);
+                // d1 = format.parse(TodayDateTime);
+                viewHolder.days.setText("");
+
+
             }
 
-            d2 = format.parse(TodayDateTime);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        long diff = d2.getTime() - d1.getTime();
-        int diffInDays = (int) diff / (1000 * 60 * 60 * 24);
 
-        viewHolder.days.setText(diffInDays + " days Before");
             return  rootView;
 
 

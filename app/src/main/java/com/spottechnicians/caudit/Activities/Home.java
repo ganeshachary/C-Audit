@@ -3,13 +3,13 @@ package com.spottechnicians.caudit.Activities;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
-import com.spottechnicians.caudit.ModuleRecruitment.OfficialDetails;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.Visit;
 import com.spottechnicians.caudit.utils.GetLocationService;
@@ -46,6 +45,10 @@ public class Home extends AppCompatActivity {
 
     ArrayList<Visit> visitt;
 
+    public static void printToast(String s, Context c) {
+        Toast.makeText(c, s, Toast.LENGTH_LONG).show();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +139,12 @@ public class Home extends AppCompatActivity {
     }
 
     public void openOtherReport(View v) {
-        startActivity(new Intent(this, OfficialDetails.class));
+
+
+        Toast toast = Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM, 0, 50);
+        toast.show();
+        //sartActivity(new Intent(this, OfficialDetails.class));
     }
 
 
@@ -289,8 +297,8 @@ public class Home extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Void... params) {
-            // String upload_url = "http://www.cleartask.in/caudit_weblink/WebServices/SaveCTVisitData.aspx";
-            String upload_url = Resources.getSystem().getString(R.string.ct_webservice_link);
+            String upload_url = "http://www.cleartask.in/caudit_weblink/WebServices/SaveCTVisitData.aspx";
+            //String upload_url = Resources.getSystem().getString(R.string.ct_webservice_link);
             HttpURLConnection httpURLConnection=null;
             URL url;
             try {

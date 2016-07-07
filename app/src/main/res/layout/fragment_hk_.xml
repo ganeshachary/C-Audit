@@ -9,10 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvHkAudit"
+            style="@style/AtmAuditTv"
+            android:text="Audited" />
         <EditText
             android:id="@+id/etSearchBarHK"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/searchBar"
             android:hint="@string/listsearchhint" />
 
         <ListView

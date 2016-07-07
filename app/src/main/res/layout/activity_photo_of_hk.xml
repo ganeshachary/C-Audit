@@ -216,11 +216,19 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/hkNameNo"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold" />
+
 
         <EditText
             android:id="@+id/etHkName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/matchWrapSingle"
             android:hint="Housekeeper Name"
             android:inputType="textPersonName"
             android:maxLength="25" />
@@ -234,8 +242,7 @@
 
             <EditText
                 android:id="@+id/etHkNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/matchWrapSingle"
                 android:hint="Phone Number"
                 android:inputType="phone"
                 android:maxLength="10" />

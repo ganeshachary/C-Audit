@@ -15,10 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.spottechnicians.caudit.Activities.Home;
 import com.spottechnicians.caudit.Activities.Login;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.VisitSingleton;
-import com.spottechnicians.caudit.utils.GetLocationService;
 import com.spottechnicians.caudit.utils.LocationFetch;
 import com.spottechnicians.caudit.utils.UtilCT;
 
@@ -32,6 +32,9 @@ public class CT_Questions extends AppCompatActivity {
 
     String ansewers[] = {"", "", "", "", "", "", "", "", "", "", "", ""};
     String otherText[]={"","","","","","","","","","","",""};
+
+    //will be used to store checked states of dialog checkboxes
+    boolean[][] checkedStates = new boolean[12][];
     int currentButtonPressed;
     int buttonType;
     String questionEnglishArray[];
@@ -40,10 +43,11 @@ public class CT_Questions extends AppCompatActivity {
 
     LocationFetch locationFetch;
 
+    int CtAffectedButtons[] = {R.id.btnCTQuestionYes2, R.id.btnCTQuestionYes3, R.id.btnCTQuestionYes8, R.id.btnCTQuestionYes9,
+            R.id.btnCTQuestionYes10, R.id.btnCTQuestionNo2, R.id.btnCTQuestionNo3, R.id.btnCTQuestionNo8, R.id.btnCTQuestionNo9,
+            R.id.btnCTQuestionNo10};
 
     String[] latlong;
-
-
 
     SharedPreferences sharedPreferences;
 
@@ -95,7 +99,7 @@ public class CT_Questions extends AppCompatActivity {
 
     }
 
-    private void setLatLong() {
+   /* private void setLatLong() {
 
 
         locationFetch=new LocationFetch(this);
@@ -129,6 +133,7 @@ public class CT_Questions extends AppCompatActivity {
 
 
     }
+*/
 
     public void setTimeDate() {
         try {
@@ -235,8 +240,9 @@ public class CT_Questions extends AppCompatActivity {
                         setButtonType(1);
                         setCurrentButtonPressed(UtilCT.getPositionOfYesButton(v.getId(), getButtonType()));
                         //Toast.makeText(getBaseContext(),getCurrentButtonPressed()+"", Toast.LENGTH_SHORT).show();
-                        ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
-                        ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
+                        //  ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+
+                        //  ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
 
                         showPopup(getCurrentButtonPressed());
                     }
@@ -251,9 +257,19 @@ public class CT_Questions extends AppCompatActivity {
                         setButtonType(1);
                         setCurrentButtonPressed(UtilCT.getPositionOfYesButton(v.getId(), getButtonType()));
                        // Toast.makeText(getBaseContext(), "This is normal button", Toast.LENGTH_SHORT).show();
+                        if (currentButtonPressed == 0) {
+                            enableNoCtButtons();
+                        }
                         ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.green));
                         ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
 
+                        //for storing checked checkbox info=>CBI
+                       /* if(checkedStates[currentButtonPressed]!=null)
+                        {
+                            for(int i=0;i<checkedStates[currentButtonPressed].length;i++)
+                        {checkedStates[currentButtonPressed][i]=false;}
+                        }
+*/
                         ansewers[currentButtonPressed]="yes";
                         otherText[currentButtonPressed]="";
                         // Toast.makeText(getBaseContext(),ansewers[currentButtonPressed]+"", Toast.LENGTH_SHORT).show();
@@ -261,8 +277,6 @@ public class CT_Questions extends AppCompatActivity {
                     }
                 });
             }
-
-
         }
 
     }
@@ -311,6 +325,11 @@ public class CT_Questions extends AppCompatActivity {
                         ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
                         ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.green));
 
+                        //CBI
+                      /*  if(checkedStates[currentButtonPressed]!=null)
+                        {for(int i=0;i<checkedStates[currentButtonPressed].length;i++)
+                        {checkedStates[currentButtonPressed][i]=false;}}*/
+
                         ansewers[currentButtonPressed]="no";
                         otherText[currentButtonPressed]="";
                         //Toast.makeText(getBaseContext(),ansewers[currentButtonPressed]+"", Toast.LENGTH_SHORT).show();
@@ -326,9 +345,10 @@ public class CT_Questions extends AppCompatActivity {
                         setButtonType(0);
                         setCurrentButtonPressed(UtilCT.getPositionOfYesButton(v.getId(), getButtonType()));
                             //showTextPopUp();
-                        ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
-                        ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
+                        /*((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
 
+                        ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
+*/
                         showPopup(getCurrentButtonPressed());
                         //((Button)v).setTextColor(getResources().getColor(R.color.red));
 
@@ -363,6 +383,10 @@ public class CT_Questions extends AppCompatActivity {
 
         final String[] items=array[buttonPressed].split("-");
         final List<String> itemsSelected = new ArrayList();
+        //CBI
+       /* if(checkedStates[currentButtonPressed]==null)
+        {checkedStates[currentButtonPressed]=new boolean[items.length];}*/
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Select Reasons");
         builder.setMultiChoiceItems(items, null,
@@ -370,12 +394,20 @@ public class CT_Questions extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int selectedItemId,
                                         boolean isSelected) {
+
+                        //    Home.printToast(checkedStates[currentButtonPressed][0]+" "+checkedStates[currentButtonPressed][1]+" "+checkedStates[currentButtonPressed][2],CT_Questions.this);
+
                         if (isSelected) {
                             // Toast.makeText(getBaseContext(),items[selectedItemId].toString()+"",Toast.LENGTH_SHORT).show();
                             itemsSelected.add(items[selectedItemId]);
 
+                            //  checkedStates[currentButtonPressed][selectedItemId]=true;
+
+
                         } else if (itemsSelected.contains(items[selectedItemId])) {
                             itemsSelected.remove(items[selectedItemId]);
+
+                            //  checkedStates[currentButtonPressed][selectedItemId]=false;
                         }
 
 
@@ -385,12 +417,26 @@ public class CT_Questions extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         String oneAnswer;
+                        if (getButtonType() != 1 && buttonPressed == 0 && itemsSelected.size() != 0) {
+                            disableNoCtButtons();
+                        }
+
+                        //     Home.printToast(checkedStates[currentButtonPressed][0]+" "+checkedStates[currentButtonPressed][1]+" "+checkedStates[currentButtonPressed][2],CT_Questions.this);
 
                         if (!(itemsSelected.size() == 0)) {
                             if (getButtonType() == 1) {
                                 oneAnswer = "yes";
+
+                                ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
+                                ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+
                             } else {
                                 oneAnswer = "no";
+
+
+                                ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+                                ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
+
                             }
 
 
@@ -412,30 +458,38 @@ public class CT_Questions extends AppCompatActivity {
                                 ansewers[buttonPressed] = oneAnswer;
                                 Toast.makeText(getBaseContext(), ansewers[buttonPressed] + "", Toast.LENGTH_SHORT).show();
                             }
-
                         }
                         else
                         {
-                            if (getButtonType() == 1) {
+                            Home.printToast("No option Selected", CT_Questions.this);
+                           /* if (getButtonType() == 1) {
                                 ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
                             } else {
                                 ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
-                            }
+                            }*/
                             ansewers[buttonPressed] = buttonPressed + 1 + "";
 
                         }
+
+
                     }
 
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        if (getButtonType() == 1) {
+                      /*  if (getButtonType() == 1) {
                             ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
                         } else {
                             ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
-                        }
+                        }*/
+
+                      /*  for(int i=0;i<checkedStates[currentButtonPressed].length;i++)
+                        {checkedStates[currentButtonPressed][i]=false;}*/
+
                         ansewers[buttonPressed] = buttonPressed + 1 + "";
+                        dialog.dismiss();
+
 
 
                     }
@@ -447,9 +501,45 @@ public class CT_Questions extends AppCompatActivity {
 
     }
 
+    private void enableNoCtButtons() {
+        for (int i = 0; i < CtAffectedButtons.length; i++) {
+
+            findViewById(CtAffectedButtons[i]).setEnabled(true);
+            ((Button) findViewById(CtAffectedButtons[i])).setTextColor(getResources().getColor(R.color.black));
+
+        }
+        for (int j = 0; j < ansewers.length; j++) {
+            if (j == 1 || j == 2 || j == 7 || j == 8 || j == 9) {
+                ansewers[j] = "";
+                otherText[j] = "";
+            }
+
+        }
+    }
+
+    private void disableNoCtButtons() {
+        //Button bb=(Button)findViewById(R.id.btnCTQuestionYes2);
+
+        for (int i = 0; i < CtAffectedButtons.length; i++) {
+
+            findViewById(CtAffectedButtons[i]).setEnabled(false);
+            ((Button) findViewById(CtAffectedButtons[i])).setTextColor(getResources().getColor(R.color.grey));
 
 
-        public void showTextPopUp()
+        }
+
+        for (int j = 0; j < ansewers.length; j++) {
+            if (j == 1 || j == 2 || j == 7 || j == 8 || j == 9) {
+                ansewers[j] = "NA";
+                otherText[j] = "";
+            }
+        }
+
+
+    }
+
+
+    public void showTextPopUp()
         {
             AlertDialog dialog2;
             final EditText editView=new EditText(this);

@@ -45,8 +45,8 @@ public class UtilHK {
     }
 
     public static String[] getNoSubQuestion() {
-        String No[] = {"Proper cleaning require-It is on height-Flex damaged-Other", "null", "Proper cleaning require-Other",
-                "Floor damaged-Proper cleaning require-Other", "Doormat not available-Dustbin not available-Other", "Leakage spot-Proper cleaning-require-Ladder require-Other",
+        String No[] = {"Proper cleaning require-It is on height-Flex damaged-Other", "null", "Proper cleaning require-Dust on top of ATM machine-Other",
+                "Floor damaged-Proper cleaning require-Other", "Doormat not available-Dustbin not available-Other", "Leakage spot-Proper cleaning require-Ladder require-Other",
                 "Proper cleaning require-Ladder require-Other", "null", "null", "null",
                 "null", "null", "Backroom key not available-Proper cleaning require-Bank or CRA material available-Other"
                 , "Backroom key not available-Proper cleaning require-Bank or CRA material available-Other", "Phenyl not available-Collin not available-Broom not available-Duster not available-Other"
