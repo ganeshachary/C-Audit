@@ -389,92 +389,104 @@ public class CT_Questions extends AppCompatActivity {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Select Reasons");
-        builder.setMultiChoiceItems(items, null,
-                new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int selectedItemId,
-                                        boolean isSelected) {
+        if (buttonPressed == 1 && buttonType == 1) {
+            builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    itemsSelected.add(items[i]);
+                }
+            });
 
-                        //    Home.printToast(checkedStates[currentButtonPressed][0]+" "+checkedStates[currentButtonPressed][1]+" "+checkedStates[currentButtonPressed][2],CT_Questions.this);
+        } else {
+            builder.setMultiChoiceItems(items, null,
+                    new DialogInterface.OnMultiChoiceClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int selectedItemId,
+                                            boolean isSelected) {
 
-                        if (isSelected) {
-                            // Toast.makeText(getBaseContext(),items[selectedItemId].toString()+"",Toast.LENGTH_SHORT).show();
-                            itemsSelected.add(items[selectedItemId]);
+                            //    Home.printToast(checkedStates[currentButtonPressed][0]+" "+checkedStates[currentButtonPressed][1]+" "+checkedStates[currentButtonPressed][2],CT_Questions.this);
 
-                            //  checkedStates[currentButtonPressed][selectedItemId]=true;
+                            if (isSelected) {
+                                // Toast.makeText(getBaseContext(),items[selectedItemId].toString()+"",Toast.LENGTH_SHORT).show();
+                                itemsSelected.add(items[selectedItemId]);
+
+                                //  checkedStates[currentButtonPressed][selectedItemId]=true;
 
 
-                        } else if (itemsSelected.contains(items[selectedItemId])) {
-                            itemsSelected.remove(items[selectedItemId]);
+                            } else if (itemsSelected.contains(items[selectedItemId])) {
+                                itemsSelected.remove(items[selectedItemId]);
 
-                            //  checkedStates[currentButtonPressed][selectedItemId]=false;
+                                //  checkedStates[currentButtonPressed][selectedItemId]=false;
+                            }
+
+
                         }
+                    });
+        }
+        builder.setPositiveButton("Done!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                String oneAnswer;
+                if (getButtonType() != 1 && buttonPressed == 0 && itemsSelected.size() != 0) {
+                    disableNoCtButtons();
+                }
 
+                //     Home.printToast(checkedStates[currentButtonPressed][0]+" "+checkedStates[currentButtonPressed][1]+" "+checkedStates[currentButtonPressed][2],CT_Questions.this);
+
+                if (!(itemsSelected.size() == 0)) {
+                    if (getButtonType() == 1) {
+                        oneAnswer = "yes";
+
+                        if (buttonPressed == 1 && itemsSelected.contains(items[1])) {
+                            ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.green));
+                        } else {
+                            ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
+                        }
+                        ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+
+                    } else {
+                        oneAnswer = "no";
+
+
+                        ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
+                        ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
 
                     }
-                })
-                .setPositiveButton("Done!", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        String oneAnswer;
-                        if (getButtonType() != 1 && buttonPressed == 0 && itemsSelected.size() != 0) {
-                            disableNoCtButtons();
+
+
+                    if (itemsSelected.contains("Other")) {
+                        //Toast.makeText(getBaseContext(),"other is selected", Toast.LENGTH_SHORT).show();
+                        showTextPopUp();
+                        for (int i = 0; i < itemsSelected.size(); i++) {
+                            oneAnswer = oneAnswer + "," + itemsSelected.get(i);
                         }
-
-                        //     Home.printToast(checkedStates[currentButtonPressed][0]+" "+checkedStates[currentButtonPressed][1]+" "+checkedStates[currentButtonPressed][2],CT_Questions.this);
-
-                        if (!(itemsSelected.size() == 0)) {
-                            if (getButtonType() == 1) {
-                                oneAnswer = "yes";
-
-                                ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
-                                ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
-
-                            } else {
-                                oneAnswer = "no";
+                        ansewers[buttonPressed] = oneAnswer;
+                        Toast.makeText(getBaseContext(), ansewers[buttonPressed] + "", Toast.LENGTH_SHORT).show();
 
 
-                                ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
-                                ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.red));
+                    } else {
 
-                            }
-
-
-                            if (itemsSelected.contains("Other")) {
-                                //Toast.makeText(getBaseContext(),"other is selected", Toast.LENGTH_SHORT).show();
-                                showTextPopUp();
-                                for (int i = 0; i < itemsSelected.size(); i++) {
-                                    oneAnswer = oneAnswer + "," + itemsSelected.get(i);
-                                }
-                                ansewers[buttonPressed] = oneAnswer;
-                                Toast.makeText(getBaseContext(), ansewers[buttonPressed] + "", Toast.LENGTH_SHORT).show();
-
-
-                            } else {
-
-                                for (int i = 0; i < itemsSelected.size(); i++) {
-                                    oneAnswer = oneAnswer + "," + itemsSelected.get(i);
-                                }
-                                ansewers[buttonPressed] = oneAnswer;
-                                Toast.makeText(getBaseContext(), ansewers[buttonPressed] + "", Toast.LENGTH_SHORT).show();
-                            }
+                        for (int i = 0; i < itemsSelected.size(); i++) {
+                            oneAnswer = oneAnswer + "," + itemsSelected.get(i);
                         }
-                        else
-                        {
-                            Home.printToast("No option Selected", CT_Questions.this);
+                        ansewers[buttonPressed] = oneAnswer;
+                        Toast.makeText(getBaseContext(), ansewers[buttonPressed] + "", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Home.printToast("No option Selected", CT_Questions.this);
                            /* if (getButtonType() == 1) {
                                 ((Button) findViewById((UtilCT.getYesButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
                             } else {
                                 ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
                             }*/
-                            ansewers[buttonPressed] = buttonPressed + 1 + "";
+                    ansewers[buttonPressed] = buttonPressed + 1 + "";
 
-                        }
+                }
 
 
-                    }
+            }
 
-                })
+        })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
@@ -491,13 +503,11 @@ public class CT_Questions extends AppCompatActivity {
                         dialog.dismiss();
 
 
-
                     }
                 });
         dialog = builder.create();
         dialog.setCancelable(false);
         dialog.show();
-
 
     }
 

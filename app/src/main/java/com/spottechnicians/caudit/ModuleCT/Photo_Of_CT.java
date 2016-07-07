@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.spottechnicians.caudit.Activities.Home;
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
+import com.spottechnicians.caudit.ModuleHK.HKQuestions;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.VisitSingleton;
 import com.spottechnicians.caudit.utils.GetLocationService;
@@ -146,7 +147,7 @@ public class Photo_Of_CT extends AppCompatActivity {
         if (checkImage()) {
 
             if (validateNameNo()) {
-                startActivity(new Intent(this, CT_Questions.class));
+                startActivity(new Intent(this, HKQuestions.class));
             }
         } else {
             Home.printToast("Take All photos", this);

@@ -57,6 +57,11 @@
         <item>12.Is the ATM down due to any major problem</item>
     </string-array>
 
+    <string-array name="CT_YES_Q2">
+        <item>ID expired</item>
+        <item>ID is valid</item>
+    </string-array>
+
 
     <!--HK Questions-->
     <string-array name="hk_question">
