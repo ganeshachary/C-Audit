@@ -1,13 +1,11 @@
 package com.spottechnicians.caudit.ModuleCT;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,23 +19,23 @@ import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.VisitSingleton;
 import com.spottechnicians.caudit.utils.LocationFetch;
 import com.spottechnicians.caudit.utils.UtilCT;
+import com.spottechnicians.caudit.utils.Utility;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class CT_Questions extends AppCompatActivity {
+    public String arrayE[], itemsSubQ[];
     VisitSingleton visit;
-
     String ansewers[] = {"", "", "", "", "", "", "", "", "", "", "", ""};
     String otherText[]={"","","","","","","","","","","",""};
-
+    String allAns[];
     //will be used to store checked states of dialog checkboxes
     boolean[][] checkedStates = new boolean[12][];
     int currentButtonPressed;
     int buttonType;
     String questionEnglishArray[];
+    String ctQuestionHindiArray[];
     String questionHindiArray[];
     int textViewIds[];
 
@@ -48,34 +46,8 @@ public class CT_Questions extends AppCompatActivity {
             R.id.btnCTQuestionNo10};
 
     String[] latlong;
-
     SharedPreferences sharedPreferences;
-
-    public static void displayPromptForEnablingDateTime(final Activity activity) {
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        final String action = Settings.ACTION_DATE_SETTINGS;
-        final String message = "turn on date and time to AUTO ";
-
-        builder.setMessage(message)
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface d, int id) {
-                                activity.startActivity(new Intent(action));
-                                activity.finish();
-                                d.dismiss();
-                            }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface d, int id) {
-                                activity.finish();
-                                d.cancel();
-                            }
-                        });
-        builder.create().show();
-    }
-
+    private String backMessage; //jst to store whether Hindi of Englisg text to be shown on dialog
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,17 +57,31 @@ public class CT_Questions extends AppCompatActivity {
         //visit=new Visit();
         visit=VisitSingleton.getInstance();
 
-        setTimeDate();//sets time and date setting and update the atm date and time on list item click
+        //sets time and date setting and update the atm date and time on list item click
         setVisitID();
 
         //setLatLong();
 
-
         questionEnglishArray=getResources().getStringArray(R.array.ct_question);
+        ctQuestionHindiArray = getResources().getStringArray(R.array.ct_questions_hindi);
+
+        String lang = Utility.getLanguage(this);
+
+        Utility.printToast(lang, this);
+
+        backMessage = getString(R.string.backMessageFromQuestion);
+
+        if (lang != null && lang.equals("Hindi")) {
+            backMessage = getString(R.string.backMessageFromQuestionHindi);
+            questionEnglishArray = ctQuestionHindiArray;
+        }
+
         textViewIds = UtilCT.getResourceQuestion();
         UtilCT.setEnglishQuestion(questionEnglishArray, textViewIds, this);
         assignPopupToNOButton();
         assignPopupToYesButton();
+
+        getSupportActionBar().setTitle(visit.getAtmId() + " : CT");
 
     }
 
@@ -134,38 +120,28 @@ public class CT_Questions extends AppCompatActivity {
 
     }
 */
+   @Override
+   public void onBackPressed() {
+       //super.onBackPressed();
 
-    public void setTimeDate() {
-        try {
-            int answer = android.provider.Settings.System.getInt(getContentResolver(),
-                    android.provider.Settings.Global.AUTO_TIME);
-            int answer2 = android.provider.Settings.System.getInt(getContentResolver(),
-                    Settings.Global.AUTO_TIME_ZONE);
-            //Toast.makeText(this,answer+"and"+answer2,Toast.LENGTH_LONG).show();
-            if (answer == 0 || answer2 == 0) {
-                displayPromptForEnablingDateTime(this);
-
-            }
-            if (answer == 1 || answer2 == 1) {
-                Calendar c = Calendar.getInstance();
-               // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-
-                String strDateTime = sdf.format(c.getTime());
-                //SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm:ss a");
-                //String Time = sdf2.format(c.getTime());
-                visit.setDatetime(strDateTime);
-
-                Toast.makeText(this, strDateTime, Toast.LENGTH_LONG).show();
-
-            }
-        } catch (Settings.SettingNotFoundException e) {
-            e.printStackTrace();
-        }
-
-    }
-
+       if (visit.checkEmpty(ansewers)) {
+           super.onBackPressed();
+       } else {
+           new AlertDialog.Builder(this)
+                   .setMessage(backMessage)
+                   .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+                      /* Intent ii=new Intent(CT_Questions.this, Daily_Audit.class);
+                       ii.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                       startActivity(ii);*/
+                           CT_Questions.this.finish();
+                       }
+                   })
+                   .setNegativeButton("No", null)
+                   .create()
+                   .show();
+       }
+   }
     public void setVisitID()
     {
         sharedPreferences=getSharedPreferences(Login.USER_ID_LOGIN_PREFERENCES, Context.MODE_PRIVATE);
@@ -180,14 +156,18 @@ public class CT_Questions extends AppCompatActivity {
 
         String allAns[] = new String[ansewers.length];
         for (int i = 0; i < ansewers.length; i++) {
-            result = result + ansewers[i] + otherText[i] + "/";
+            //  result = result + ansewers[i] + otherText[i] + "/";
 
-            allAns[i] = ansewers[i] + "," + otherText[i];
+            // allAns[i] = ansewers[i] + "," + otherText[i];
+            allAns[i] = ansewers[i] + "" + otherText[i];
+
+            result = result + allAns[i] + "/";
 
         }
         Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
-        visit.setCt(ansewers);
+        //  visit.setCt(ansewers);
+        visit.setCt(allAns);
         if (visit.checkCTComplete()) {
             Toast.makeText(this, "complete", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, Photo_Of_CT.class);
@@ -369,19 +349,29 @@ public class CT_Questions extends AppCompatActivity {
     {
 
         Dialog dialog;
-
          String array[];
+        String arrayH[]; //this will hold subQ in hindi just to display
+
         if(getButtonType()==1)
         {
             array = UtilCT.getYesSubQuestion();
+            arrayE = UtilCT.getYesSubQuestion();//Every time option data will be stored from this because it will always be in english
+            arrayH = UtilCT.getYesSubQuestionH();
+
         }
         else
         {
             array = UtilCT.getNoSubQuestion();
+            arrayE = UtilCT.getNoSubQuestion();
+            arrayH = UtilCT.getNoSubQuestionH();
         }
 
-
+        if (Utility.getLanguage(CT_Questions.this) != null && Utility.getLanguage(CT_Questions.this).equals("Hindi")) {
+            array = arrayH;
+        }
         final String[] items=array[buttonPressed].split("-");
+        itemsSubQ = arrayE[buttonPressed].split("-");
+
         final List<String> itemsSelected = new ArrayList();
         //CBI
        /* if(checkedStates[currentButtonPressed]==null)
@@ -393,7 +383,8 @@ public class CT_Questions extends AppCompatActivity {
             builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    itemsSelected.add(items[i]);
+                    // itemsSelected.add(items[i]);
+                    itemsSelected.add(itemsSubQ[i]);
                 }
             });
 
@@ -403,20 +394,22 @@ public class CT_Questions extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int selectedItemId,
                                             boolean isSelected) {
-
-                            //    Home.printToast(checkedStates[currentButtonPressed][0]+" "+checkedStates[currentButtonPressed][1]+" "+checkedStates[currentButtonPressed][2],CT_Questions.this);
-
                             if (isSelected) {
                                 // Toast.makeText(getBaseContext(),items[selectedItemId].toString()+"",Toast.LENGTH_SHORT).show();
-                                itemsSelected.add(items[selectedItemId]);
+                                //   itemsSelected.add(items[selectedItemId]);
+                                itemsSelected.add(itemsSubQ[selectedItemId]);
 
                                 //  checkedStates[currentButtonPressed][selectedItemId]=true;
 
 
-                            } else if (itemsSelected.contains(items[selectedItemId])) {
+                            } /*else if (itemsSelected.contains(items[selectedItemId])) {
+
                                 itemsSelected.remove(items[selectedItemId]);
 
                                 //  checkedStates[currentButtonPressed][selectedItemId]=false;
+                            }*/ else if (itemsSelected.contains(itemsSubQ[selectedItemId])) {
+
+                                itemsSelected.remove(itemsSubQ[selectedItemId]);
                             }
 
 
@@ -479,7 +472,7 @@ public class CT_Questions extends AppCompatActivity {
                             } else {
                                 ((Button) findViewById((UtilCT.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
                             }*/
-                    ansewers[buttonPressed] = buttonPressed + 1 + "";
+                    //   ansewers[buttonPressed] = buttonPressed + 1 + "";
 
                 }
 
@@ -499,7 +492,7 @@ public class CT_Questions extends AppCompatActivity {
                       /*  for(int i=0;i<checkedStates[currentButtonPressed].length;i++)
                         {checkedStates[currentButtonPressed][i]=false;}*/
 
-                        ansewers[buttonPressed] = buttonPressed + 1 + "";
+                        //  ansewers[buttonPressed] = buttonPressed + 1 + "";
                         dialog.dismiss();
 
 
@@ -551,7 +544,7 @@ public class CT_Questions extends AppCompatActivity {
 
     public void showTextPopUp()
         {
-            AlertDialog dialog2;
+            final AlertDialog dialog2;
             final EditText editView=new EditText(this);
             AlertDialog.Builder builder2=new AlertDialog.Builder(this);
             builder2.setTitle("Enter the reason");
@@ -559,7 +552,7 @@ public class CT_Questions extends AppCompatActivity {
             builder2.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    otherText[currentButtonPressed]=(editView.getText().toString());
+                    //   otherText[currentButtonPressed]=(editView.getText().toString());
                    // Toast.makeText(getBaseContext(),getOtherText(),Toast.LENGTH_SHORT).show();
 
                 }
@@ -569,6 +562,18 @@ public class CT_Questions extends AppCompatActivity {
             dialog2=builder2.create();
             dialog2.setCancelable(false);
             dialog2.show();
+            dialog2.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!editView.getText().toString().trim().equals("")) {
+                        otherText[currentButtonPressed] = (editView.getText().toString());
+
+                        dialog2.dismiss();
+                    } else {
+                        Utility.printToast("Enter some reason", CT_Questions.this);
+                    }
+                }
+            });
         }
 
 

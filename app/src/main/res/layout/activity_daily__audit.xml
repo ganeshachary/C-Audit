@@ -15,7 +15,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            app:tabGravity="fill"
-           app:tabMode="scrollable"
+           app:tabMode="fixed"
            app:tabSelectedTextColor="@color/black"
            app:tabTextAppearance="@style/my_tab_text"
            app:tabTextColor="@color/white" />

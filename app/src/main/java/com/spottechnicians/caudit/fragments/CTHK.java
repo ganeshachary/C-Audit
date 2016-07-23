@@ -21,6 +21,7 @@ import com.spottechnicians.caudit.adapters.AtmList;
 import com.spottechnicians.caudit.models.Atm;
 import com.spottechnicians.caudit.models.VisitSingleton;
 import com.spottechnicians.caudit.utils.GetLocationService;
+import com.spottechnicians.caudit.utils.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class CTHK extends Fragment {
     EditText etSearchBarCTHK;
     List<Atm> listOfAtms;
     AtmList atmListAdapter;
+    TextView tvCTHKAudit;
     VisitSingleton visit;
 
     public CTHK() {
@@ -46,10 +48,12 @@ public class CTHK extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_cthk, container, false);
         listViewCTHK = (ListView) rootView.findViewById(R.id.listviewCTHK);
         etSearchBarCTHK = (EditText) rootView.findViewById(R.id.etSearchBarCTHK);
+        tvCTHKAudit = (TextView) rootView.findViewById(R.id.tvCtHkAudit);
         listOfAtms = new ArrayList<>();
 
         visit = VisitSingleton.getInstance();
         listOfAtms = getAtmsTypeHK();         //just populating Hk type ATM's for test will be replaced by CtHk later..
+        Utility.setAuditedRecord(listOfAtms, etSearchBarCTHK, tvCTHKAudit);
         atmListAdapter = new AtmList(getContext(), listOfAtms);
         listViewCTHK.setAdapter(atmListAdapter);
 

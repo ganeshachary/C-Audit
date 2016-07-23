@@ -12,4 +12,9 @@
     <color name="red">#ff0000</color>
 
     <color name="grey">#9D9FA2</color>
+
+
+    <color name="home_bg">#E3F2FD</color>
+    <color name="list_item_dayDate">#0F2E8D</color>
+    <color name="ligntblue">#3081bf</color>
 </resources>

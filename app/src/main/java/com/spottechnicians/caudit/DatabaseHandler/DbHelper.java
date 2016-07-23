@@ -653,9 +653,9 @@ public static final String COLUMN_CTQ8 = "CTQ8";
             contentValues.put(COLUMN_CT_NO,visitList.getCaretakerNumber());
             contentValues.put(COLUMN_LATITUDE,visitList.getLatitude());
             contentValues.put(COLUMN_LONGITUDE,visitList.getLongitude());
-            contentValues.put(COLUMN_CT_PHOTO1,visitList.getCtphotoByteArray("img0"));
-            contentValues.put(COLUMN_CT_PHOTO2,visitList.getCtphotoByteArray("img1"));
-            contentValues.put(COLUMN_CT_PHOTO3,visitList.getCtphotoByteArray("img2"));
+        contentValues.put(COLUMN_CT_PHOTO1, visitList.getCtphotoByteArray("ctimg0"));
+        contentValues.put(COLUMN_CT_PHOTO2, visitList.getCtphotoByteArray("ctimg1"));
+        contentValues.put(COLUMN_CT_PHOTO3, visitList.getCtphotoByteArray("ctimg2"));
             contentValues.put(COLUMN_SYNC_STATUS,"unsynced");
 
 
@@ -722,21 +722,21 @@ public static final String COLUMN_CTQ8 = "CTQ8";
         contentValues.put(COLUMN_HKQ17, hkReport[16]);
 
 
-        contentValues.put(COLUMN_HK_NAME, visitList.getCaretakerName());
-        contentValues.put(COLUMN_HK_NO, visitList.getCaretakerNumber());
+        contentValues.put(COLUMN_HK_NAME, visitList.getHousekeeperName());
+        contentValues.put(COLUMN_HK_NO, visitList.getHousekeeperNumber());
         contentValues.put(COLUMN_LATITUDE, visitList.getLatitude());
         contentValues.put(COLUMN_LONGITUDE, visitList.getLongitude());
-        contentValues.put(COLUMN_HK_PHOTO1, visitList.getHkphotoByteArray("img0"));
-        contentValues.put(COLUMN_HK_PHOTO2, visitList.getHkphotoByteArray("img1"));
-        contentValues.put(COLUMN_HK_PHOTO3, visitList.getHkphotoByteArray("img2"));
-        contentValues.put(COLUMN_HK_PHOTO4, visitList.getHkphotoByteArray("img3"));
-        contentValues.put(COLUMN_HK_PHOTO5, visitList.getHkphotoByteArray("img4"));
-        contentValues.put(COLUMN_HK_PHOTO6, visitList.getHkphotoByteArray("img5"));
-        contentValues.put(COLUMN_HK_PHOTO7, visitList.getHkphotoByteArray("img6"));
-        contentValues.put(COLUMN_HK_PHOTO8, visitList.getHkphotoByteArray("img7"));
-        contentValues.put(COLUMN_HK_PHOTO9, visitList.getHkphotoByteArray("img8"));
-        contentValues.put(COLUMN_HK_PHOTO10, visitList.getHkphotoByteArray("img9"));
-        contentValues.put(COLUMN_HK_PHOTO11, visitList.getHkphotoByteArray("img10"));
+        contentValues.put(COLUMN_HK_PHOTO1, visitList.getHkphotoByteArray("hkimg0"));
+        contentValues.put(COLUMN_HK_PHOTO2, visitList.getHkphotoByteArray("hkimg1"));
+        contentValues.put(COLUMN_HK_PHOTO3, visitList.getHkphotoByteArray("hkimg2"));
+        contentValues.put(COLUMN_HK_PHOTO4, visitList.getHkphotoByteArray("hkimg3"));
+        contentValues.put(COLUMN_HK_PHOTO5, visitList.getHkphotoByteArray("hkimg4"));
+        contentValues.put(COLUMN_HK_PHOTO6, visitList.getHkphotoByteArray("hkimg5"));
+        contentValues.put(COLUMN_HK_PHOTO7, visitList.getHkphotoByteArray("hkimg6"));
+        contentValues.put(COLUMN_HK_PHOTO8, visitList.getHkphotoByteArray("hkimg7"));
+        contentValues.put(COLUMN_HK_PHOTO9, visitList.getHkphotoByteArray("hkimg8"));
+        contentValues.put(COLUMN_HK_PHOTO10, visitList.getHkphotoByteArray("hkimg9"));
+        contentValues.put(COLUMN_HK_PHOTO11, visitList.getHkphotoByteArray("hkimg10"));
         contentValues.put(COLUMN_SYNC_STATUS, "unsynced");
 
 

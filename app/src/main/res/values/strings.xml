@@ -3,7 +3,8 @@
     <string name="logoname">C-Audit</string>
     <string name="loginbtn">Login</string>
     <string name="welcomemessage">Welcome To C-Audit</string>
-    <string name="version">Cv-1.0 \n\n www.CAudit.com</string>
+    <!--<string name="version">Cv-1.0 \n\n www.CAudit.com</string>-->
+    <string name="version">CssV- 1.0 \n\n www.cssindia.in</string>
     <string name="username">username</string>
     <string name="password">password</string>
 
@@ -19,11 +20,11 @@
     <string name="ct_webservice_link">http://www.cleartask.in/caudit_weblink/WebServices/SaveCTVisitData.aspx</string>
 
     //Textview in hindi
-    <string name="daily_visit_hindi">दैनिक जाएँ रिपोर्ट</string>
+    <string name="daily_visit_hindi">दैनिक रिपोर्ट</string>
     <string name="srm_report_hindi">अन्य रिपोर्ट</string>
     <string name="audited_hindi">लेखा परीक्षित</string>
     <string name="unaudited_hindi">बिना जाँचा</string>
-    <string name="sync_hindi">सर्वर से सिंक</string>
+    <string name="sync_hindi">सर्वर पर अपलोड</string>
 
     <!--//DailyVisitReport screen texts-->
 
@@ -55,6 +56,27 @@
         <item>10.Does CT ensure only one person per ATM machine?</item>
         <item>11.Important numbers are displayed in the ATM?</item>
         <item>12.Is the ATM down due to any major problem</item>
+    </string-array>
+
+    <!--
+     क्या
+     केअरटेकर
+     -->
+
+
+    <string-array name="ct_questions_hindi">
+        <item>1.क्या साइट पर केअरटेकर मौजूद है ?</item>
+        <item>2.केअरटेकर आईडी कार्ड पहने हुए है?</item>
+        <item>3.केअरटेकर उचित यूनिफॉर्म पहने हुए है?</item>
+        <item>4.केअरटेकर का टेलीफोन काम कर रहा है ?</item>
+        <item>5.साइट पर कुर्सी उपलब्ध है ?</item>
+        <item>6.क्या केअरटेकर १२ घंटे से अधिक समय तक काम कर रहा है ?</item>
+        <item>7.सभी अनिवार्य रजिस्टर साइट पर रखे है ?</item>
+        <item>8.क्या केअरटेकर को पता है की,नकद और चेक कहा जमा करना है?</item>
+        <item>9.क्या केअरटेकर विनम्रता से एटीएम के उपयोग मे ग्राहकों की मदद करता है?</item>
+        <item>10.क्या केअरटेकर , एटीएम में केवल एक व्यक्ति है यह सुनिश्चित करता है?</item>
+        <item>11.महत्वपूर्ण नंबर एटीएम में प्रदर्शित हैं ?</item>
+        <item>12.एटीएम किसी भी प्रमुख समस्या की वजह से बंद है?</item>
     </string-array>
 
     <string-array name="CT_YES_Q2">
@@ -93,6 +115,30 @@
         <item>Q16.Deep-cleaning done?</item>
         <item>Q17.Pest-control done?</item>
 
+
+    </string-array>
+
+    <string-array name="hk_questions_hindi">
+        <item>Q1.साइनेज / लोलीपोप बोर्ड साफ है?</item>
+        <item>Q2.मेन दरवाजा,साइड ग्लास और फ्लोर मशीन पे दाग है?</item>
+
+        <item>Q3.क्या एटीएम मशीन साफ है? </item>
+        <item>Q4.क्या एटीएम फ्लोर साफ है?</item>
+        <item>Q5.क्या डोरमॅट और डस्टबिन साफ है?</item>
+        <item>Q6.क्या छत और मकड़ी का जाला साफ है?</item>
+        <item>Q7.छत की लाइट्स मे किटक मौजूद है?</item>
+        <item>Q8.क्या दायी और बायी दीवार पर दाग है?</item>
+        <item>Q9.क्या पोस्टर फ्रेम के पीछे और ब्रोचर होल्डर पर धूल है?</item>
+        <item>Q10.क्या फायर बॉटल पर धूल है?</item>
+        <item>Q11.क्या एसी पर धूल या गंदगी है?</item>
+        <item>Q12.क्या यूपीएस और बैटरी पर धूल या गंदगी है?</item>
+        <item>Q13.क्या बॅकरूम फ्लोर और पारटिशन साफ है?</item>
+        <item>Q14.बॅकरूम की छत साफ है?</item>
+
+        <item>Q15.सफाई का समान मौजूद है?</item>
+
+        <item>Q16.डीप क्लीनिंग हुई है?</item>
+        <item>Q17.पेस्ट कंट्रोल हुआ है?</item>
 
     </string-array>
 
@@ -221,6 +267,13 @@
 
     <string name="ctphoto1text3">Opened Registers photo</string>
 
+    <string name="ctphoto1Hinditext1">यूनिफॉर्म और आईडी कार्ड के साथ केअरटेकर का फोटो</string>
+
+    <string name="ctphoto1Hinditext2">मेन साइनेज,कुर्सी के साथ केअरटेकर का फोटो</string>
+
+    <string name="ctphoto1Hinditext3">खुले हुए रजिस्टर का फोटो</string>
+
+
     <!--for HK image-->
     <string name="hkphototext1">*Front signage with main door view</string>
 
@@ -236,13 +289,35 @@
 
     <string name="hkphototext7">*Ceiling view</string>
 
-    <string name="hkphototext8">AC indoor unit view</string>
+    <string name="hkphototext8">AC (indoor) unit view</string>
 
     <string name="hkphototext9">Fire extinguisher view</string>
 
     <string name="hkphototext10">Backroom floor with HK materials view</string>
 
     <string name="hkphototext11">Backroom ceiling view</string>
+
+    <string name="hkphototextHindi1">*मेन साइनेज के साथ दरवाजे का दृश्य</string>
+
+    <string name="hkphototextHindi2">*एटीएम मशीन के उपर का दृश्य</string>
+
+    <string name="hkphototextHindi3">*एटीएम मशीन के साथ डोरमॅट और डस्टबिन का दृश्य</string>
+
+    <string name="hkphototextHindi4">*फ्लोर का दृश्य</string>
+
+    <string name="hkphototextHindi5">*दायी तरफ की दीवार का दृश्य</string>
+
+    <string name="hkphototextHindi6">*बायी तरफ की दीवार का दृश्य</string>
+
+    <string name="hkphototextHindi7">*छत का दृश्य</string>
+
+    <string name="hkphototextHindi8">एसी(इनडोर) यूनिट दृश्य</string>
+
+    <string name="hkphototextHindi9">फायर बॉटल दृश्य</string>
+
+    <string name="hkphototextHindi10">बॅकरूम के साथ सफाई के समान का दृश्य</string>
+
+    <string name="hkphototextHindi11">बॅकरूम की छत का दृश्य</string>
 
 
     <string name="srmphototext1">*SRM issue 1</string>
@@ -377,6 +452,12 @@
         <item>12th Pass</item>
         <item>Graduate</item>
     </string-array>
+    <string name="title_activity_delete">delete</string>
+    <string name="photoHeadingHindi">फोटोग्राफ मेनू</string>
+    <string name="backMessageFromQuestion">Back button will clear all selected options??</string>
+    <string name="backMessageFromQuestionHindi">बॅक बटन सभी चुने हुए ओप्शन को हटा देगा ??</string>
+    <string name="backMessageFromPhoto">Back button will remove captured photos??</string>
+    <string name="backMessageFromPhotoHindi">बॅक बटन सभी खीची गयी फोटो को हटा देगा??</string>
 
 
 </resources>

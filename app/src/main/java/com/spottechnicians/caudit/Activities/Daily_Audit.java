@@ -11,7 +11,6 @@ import com.spottechnicians.caudit.adapters.ViewPagerAdapter;
 import com.spottechnicians.caudit.fragments.CTHK;
 import com.spottechnicians.caudit.fragments.CT_Fragment;
 import com.spottechnicians.caudit.fragments.HK_Fragment;
-import com.spottechnicians.caudit.fragments.SRM_Fragment;
 
 public class Daily_Audit extends AppCompatActivity {
 
@@ -36,9 +35,9 @@ public class Daily_Audit extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new CT_Fragment(), "Caretaker");
         adapter.addFragment(new HK_Fragment(), "Housekeeping");
-        adapter.addFragment(new SRM_Fragment(), "SRM");
+        //   adapter.addFragment(new SRM_Fragment(), "SRM");
         adapter.addFragment(new CTHK(), "CT/HK");
-        adapter.addFragment(new HK_Fragment(), "ALL");
+        //   adapter.addFragment(new HK_Fragment(), "ALL");
         viewPager.setAdapter(adapter);
 
     }

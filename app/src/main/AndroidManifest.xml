@@ -18,6 +18,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!--android:name="android.support.multidex.MultiDexApplication"  use this in application tag to use Multidex support-->
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.spottechnicians.caudit.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
         <activity
             android:name=".Activities.Splash"
             android:screenOrientation="portrait" />
@@ -30,12 +43,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-
         </activity>
         <activity
             android:name=".Activities.Home"
             android:screenOrientation="portrait">
-
 
         </activity>
         <activity
@@ -46,6 +57,7 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ModuleCT.Photo_Of_CT"
+            android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ModuleCT.Signatuere_Of_CT"
@@ -57,7 +69,11 @@
         <activity android:name=".ModuleHK.HKQuestions" />
         <activity android:name=".ModuleHK.PhotoOfHK" />
         <activity android:name=".ModuleSRM.SRMQuestions" />
-        <activity android:name=".ModuleSRM.PhotoOfSRM" />
+
+        <activity
+            android:name=".ModuleSRM.PhotoOfSRM"
+            android:configChanges="keyboardHidden|orientation" />
+
         <activity android:name=".ModuleRecruitment.OfficialDetails" />
         <activity android:name=".ModuleRecruitment.Address" />
         <activity android:name=".ModuleRecruitment.Biodata" />

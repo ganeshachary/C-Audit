@@ -249,7 +249,7 @@ public class Visit{
     public byte[] getCtphoto1ByteArray() {
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        ctphoto1.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        ctphoto1.compress(Bitmap.CompressFormat.JPEG, 90, stream);
         return stream.toByteArray();
 
     }
@@ -280,7 +280,7 @@ public class Visit{
     public String getCtPhoto1String()
     {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        ctphoto1.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        ctphoto1.compress(Bitmap.CompressFormat.JPEG, 90, stream);
         byte[] byteFormat = stream.toByteArray();
 
         String imgString = Base64.encodeToString(byteFormat, Base64.DEFAULT);
@@ -290,7 +290,7 @@ public class Visit{
     public String getCtPhoto2String()
     {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        ctphoto2.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        ctphoto2.compress(Bitmap.CompressFormat.JPEG, 90, stream);
         byte[] byteFormat = stream.toByteArray();
 
         String imgString = Base64.encodeToString(byteFormat, Base64.DEFAULT);
@@ -301,7 +301,7 @@ public class Visit{
     public String getCtPhoto3String()
     {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        ctphoto3.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        ctphoto3.compress(Bitmap.CompressFormat.JPEG, 90, stream);
         byte[] byteFormat = stream.toByteArray();
 
         String imgString = Base64.encodeToString(byteFormat, Base64.DEFAULT);

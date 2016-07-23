@@ -21,6 +21,20 @@ public class UtilCT {
         return array;
     }
 
+    public static int[] getPhotoTextIds() {
+
+        int array[] = {R.id.ctPhotoText1, R.id.ctPhotoText2, R.id.ctPhotoText3};
+
+        return array;
+    }
+
+    public static int[] getPhotoStringHidniIds() {
+
+        int array[] = {R.string.ctphoto1Hinditext1, R.string.ctphoto1Hinditext2, R.string.ctphoto1Hinditext3};
+
+        return array;
+    }
+
     public static int[] getYesButtonIdsArray() {
         int array[] = {R.id.btnCTQuestionYes1, R.id.btnCTQuestionYes2, R.id.btnCTQuestionYes3, R.id.btnCTQuestionYes4, R.id.btnCTQuestionYes5,
                 R.id.btnCTQuestionYes6, R.id.btnCTQuestionYes7, R.id.btnCTQuestionYes8, R.id.btnCTQuestionYes9,
@@ -48,6 +62,32 @@ public class UtilCT {
                 "Not provided-Under washing-Torn-Other", "Not provided-Technical issue-Other", "Damaged-Not provided-Other", "null",
                 "Attendance reg n/a-Break reg n/a-Vendor reg n/a-LogBook n/a-Other", "New Caretaker-Other", "New Caretaker-Other",
                 "New Caretaker-Other", "Not provided by bank-Other", "null"};
+        return No;
+    }
+
+/*
+
+    नहीं दिया गया
+            अन्य
+
+    नया केअरटेकर-अन्य
+
+    बिजली कट-बिजली की कटौती-बिजली समस्या-एटीएम सेवा से बाहर है-अन्य
+*/
+
+    public static String[] getYesSubQuestionH() {
+        String Yes[] = {"null", "आईडी की तारीख समाप्त हो गई है - आईडी वैध है", "null", "null", "null",
+                "रिलिवर नहीं आया -दूसरा केअरटेकर छुट्टी पर है-अन्य", "null", "null", "null", "null", "null",
+                "बिजली कटी है-बिजली की कटौती-बिजली समस्या-एटीएम सेवा से बाहर है-अन्य"};
+
+        return Yes;
+    }
+
+    public static String[] getNoSubQuestionH() {
+        String No[] = {"शौचालय के लिए गया है- खाना खाने गया है- स्वास्थ्य समस्या-अन्य", "आईडी नहीं दिया गया है-आईडी खो दिया है-आईडी लाना भूल गया है",
+                "यूनिफॉर्म नहीं दी गयी है-यूनिफॉर्म धोने दी है-यूनिफॉर्म फटी है-अन्य", "टेलिफोन नहीं दिया गया है-तकनीकी समस्या -अन्य", "कुर्सी टूटी हुई है-कुर्सी नही दी गयी-अन्य", "null",
+                "अटेंडेन्स रजिस्टर नही हैं-ब्रेक रजिस्टर नही हैं-वेंडर रजिस्टर नही हैं-लॉगबुक नही हैं- अन्य", "नया केअरटेकर है-अन्य", "नया केअरटेकर है-अन्य",
+                "नया केअरटेकर है-अन्य", "बैंक द्वारा प्राप्त नही-अन्य", "null"};
         return No;
     }
 

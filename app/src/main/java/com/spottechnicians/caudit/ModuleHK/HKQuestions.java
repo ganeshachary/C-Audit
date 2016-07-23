@@ -25,6 +25,7 @@ import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.VisitSingleton;
 import com.spottechnicians.caudit.utils.LocationFetch;
 import com.spottechnicians.caudit.utils.UtilHK;
+import com.spottechnicians.caudit.utils.Utility;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -36,13 +37,14 @@ import java.util.List;
 
 public class HKQuestions extends AppCompatActivity {
 
+    public String arrayE[], itemsSubQ[];
     VisitSingleton visit;
-
     String ansewers[] = {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "};
     String otherText[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
     int currentButtonPressed;
     int buttonType;
     String questionEnglishArray[];
+    String hkQuestionHindiArray[];
     String questionHindiArray[];
     int textViewIds[];
 
@@ -52,9 +54,8 @@ public class HKQuestions extends AppCompatActivity {
 
 
     String[] latlong;
-
-
     SharedPreferences sharedPreferences;
+    private String backMessage;
 
     public static void displayPromptForEnablingDateTime(final Activity activity) {
 
@@ -97,13 +98,48 @@ public class HKQuestions extends AppCompatActivity {
 
 
         questionEnglishArray = getResources().getStringArray(R.array.hk_question);
+        hkQuestionHindiArray = getResources().getStringArray(R.array.hk_questions_hindi);
+
+        String lang = Utility.getLanguage(this);
+
+        backMessage = getString(R.string.backMessageFromQuestion);
+        Home.printToast(lang, this);
+
+        if (lang != null && lang.equals("Hindi")) {
+            questionEnglishArray = hkQuestionHindiArray;
+            backMessage = getString(R.string.backMessageFromQuestionHindi);
+        }
+
         textViewIds = UtilHK.getResourceQuestion();
         UtilHK.setEnglishQuestion(questionEnglishArray, textViewIds, this);
         assignPopupToNOButton();
         assignPopupToYesButton();
+        getSupportActionBar().setTitle(visit.getAtmId() + " : HK");
 
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+        if (visit.checkEmpty(ansewers)) {
+            super.onBackPressed();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setMessage(backMessage)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                           /* Intent ii=new Intent(HKQuestions.this, Daily_Audit.class);
+                            ii.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(ii);*/
+                            HKQuestions.this.finish();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .create()
+                    .show();
+        }
+    }
 
     public void setTimeDate() {
         try {
@@ -151,12 +187,13 @@ public class HKQuestions extends AppCompatActivity {
         for (int i = 0; i < ansewers.length; i++) {
             result = result + ansewers[i] + otherText[i] + "/";
 
-            allAns[i] = ansewers[i] + "," + otherText[i];
+            allAns[i] = ansewers[i] + "" + otherText[i];
 
         }
         Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
-        visit.setHk(ansewers);
+        // visit.setHk(ansewers);
+        visit.setHk(allAns);
         if (visit.checkHKComplete()) {
             Toast.makeText(this, "complete", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, PhotoOfHK.class);
@@ -259,7 +296,7 @@ public class HKQuestions extends AppCompatActivity {
     private void showDatePopup(final int currentButtonPressed) {
 
 
-        if (ansewers[currentButtonPressed].equals(" ")) {
+        if (ansewers[currentButtonPressed].equals(" ") || ansewers[currentButtonPressed].substring(0, 2).equals("no")) {
             Calendar calendarCurrent = Calendar.getInstance();
 
             month = calendarCurrent.get(Calendar.MONTH);
@@ -284,6 +321,8 @@ public class HKQuestions extends AppCompatActivity {
 
             } catch (ParseException e) {
                 Log.e("Man HKQ: ", e.toString() + " Error coverting string to date");
+
+                Log.e("Man HKQ:", "subString of " + ansewers[currentButtonPressed] + " is " + ansewers[currentButtonPressed].substring(0, 2));
             }
 
 
@@ -384,15 +423,26 @@ public class HKQuestions extends AppCompatActivity {
 
         Dialog dialog;
 
-        String array[];
+        String array[], arrayH[];
+
         if (getButtonType() == 1) {
             array = UtilHK.getYesSubQuestion();
+            arrayE = UtilHK.getYesSubQuestion();//Every time option data will be stored from this because it will always be in english
+            arrayH = UtilHK.getYesSubQuestionH();
         } else {
             array = UtilHK.getNoSubQuestion();
+            arrayE = UtilHK.getNoSubQuestion();
+            arrayH = UtilHK.getNoSubQuestionH();
         }
 
+        if (Utility.getLanguage(HKQuestions.this) != null && Utility.getLanguage(HKQuestions.this).equals("Hindi")) {
+            array = arrayH;
+        }
 
         final String[] items = array[buttonPressed].split("-");
+
+        itemsSubQ = arrayE[buttonPressed].split("-");
+
         final List<String> itemsSelected = new ArrayList();
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Select Reasons");
@@ -403,10 +453,18 @@ public class HKQuestions extends AppCompatActivity {
                                         boolean isSelected) {
                         if (isSelected) {
                             // Toast.makeText(getBaseContext(),items[selectedItemId].toString()+"",Toast.LENGTH_SHORT).show();
-                            itemsSelected.add(items[selectedItemId]);
+                            //   itemsSelected.add(items[selectedItemId]);
 
-                        } else if (itemsSelected.contains(items[selectedItemId])) {
+                            itemsSelected.add(itemsSubQ[selectedItemId]);
+
+
+                        }/* else if (itemsSelected.contains(items[selectedItemId])) {
                             itemsSelected.remove(items[selectedItemId]);
+                        }*/ else if (itemsSelected.contains(itemsSubQ[selectedItemId])) {
+
+                            itemsSelected.remove(itemsSubQ[selectedItemId]);
+
+                            //  checkedStates[currentButtonPressed][selectedItemId]=false;
                         }
 
 
@@ -457,8 +515,7 @@ public class HKQuestions extends AppCompatActivity {
                             } else {
                                 ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
                             }*/
-
-                            ansewers[buttonPressed] = buttonPressed + 1 + "";
+                            //ansewers[buttonPressed] = buttonPressed + 1 + "";
 
                         }
                     }
@@ -474,7 +531,7 @@ public class HKQuestions extends AppCompatActivity {
                             ((Button) findViewById((UtilHK.getNoButtonIdsArray()[currentButtonPressed]))).setTextColor(getResources().getColor(R.color.black));
                         }*/
 
-                        ansewers[buttonPressed] = buttonPressed + 1 + "";
+                        //ansewers[buttonPressed] = buttonPressed + 1 + "";
                         dialog.dismiss();
 
 
@@ -556,7 +613,7 @@ public class HKQuestions extends AppCompatActivity {
     }
 
     public void showTextPopUp() {
-        AlertDialog dialog2;
+        final AlertDialog dialog2;
         final EditText editView = new EditText(this);
         AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
         builder2.setTitle("Enter the reason");
@@ -574,6 +631,21 @@ public class HKQuestions extends AppCompatActivity {
         dialog2 = builder2.create();
         dialog2.setCancelable(false);
         dialog2.show();
+
+        dialog2.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!editView.getText().toString().trim().equals("")) {
+                    otherText[currentButtonPressed] = (editView.getText().toString());
+
+                    dialog2.dismiss();
+                } else {
+                    Utility.printToast("Enter some reason", HKQuestions.this);
+                }
+            }
+        });
+
+
     }
 
 

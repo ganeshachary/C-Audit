@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/lang"
-        android:title="Eng"
+        android:title="Hindi"
        app:showAsAction="always"
         />
 </menu>

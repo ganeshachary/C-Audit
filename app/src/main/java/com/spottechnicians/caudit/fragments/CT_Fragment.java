@@ -22,12 +22,9 @@ import com.spottechnicians.caudit.adapters.AtmList;
 import com.spottechnicians.caudit.models.Atm;
 import com.spottechnicians.caudit.models.VisitSingleton;
 import com.spottechnicians.caudit.utils.GetLocationService;
+import com.spottechnicians.caudit.utils.Utility;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
@@ -65,7 +62,7 @@ public class CT_Fragment extends Fragment {
 
         // listOfAtms=createDummyList();
         listOfAtms=getAtmsTypeCT();
-        if (listOfAtms.size() == 0) {
+        /*if (listOfAtms.size() == 0) {
             etSearchBar.setVisibility(View.GONE);
             tvCTAudit.setVisibility(View.GONE);
         } else {
@@ -97,7 +94,9 @@ public class CT_Fragment extends Fragment {
                 }
             }
             tvCTAudit.setText("Audited: " + counter + " Out of " + listOfAtms.size());
-        }
+        }*/
+        Utility.setAuditedRecord(listOfAtms, etSearchBar, tvCTAudit);
+
         atmListAdapter=new AtmList(getContext(),listOfAtms);
         listViewCT.setAdapter(atmListAdapter);
         listViewCT.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -119,17 +118,21 @@ public class CT_Fragment extends Fragment {
                 visit.setBankName(bankname);
                 visit.setCustomerName(customer);
 
-                if (GetLocationService.isLocationOn(getActivity())) {
+                if (GetLocationService.isLocationOn(getActivity()) && Utility.isDateAutoUpdateSet(getActivity())) {
 
                     //starting service again
+                    visit.setDatetime(Utility.setTimeDate(getActivity()));
                     getContext().startService(new Intent(getActivity(), GetLocationService.class));
 
                     Toast.makeText(getActivity(), "new Started  Latitude: " + GetLocationService.LATITUDE_FROM_SERVICE + ", Longitude: " +
                             GetLocationService.LONGITUDE_FROM_SERVICE, Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getContext(), CT_Questions.class);
                     startActivity(intent);
-                } else {
+                } else if (!GetLocationService.isLocationOn(getActivity())) {
                     GetLocationService.showLocationSettings(getActivity());
+                } else if (!Utility.isDateAutoUpdateSet(getActivity())) {
+                    // Utility.showDateTimeSettings(getActivity());
+                    Utility.displayPromptForEnablingDateTime(getActivity());
                 }
 
 
@@ -155,6 +158,40 @@ public class CT_Fragment extends Fragment {
 
         return rootView;
     }
+
+
+    // below method is moved in Utility class now
+   /* public void setTimeDate() {
+        try {
+            int answer = android.provider.Settings.System.getInt(getActivity().getContentResolver(),
+                    android.provider.Settings.Global.AUTO_TIME);
+            int answer2 = android.provider.Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.Global.AUTO_TIME_ZONE);
+            //Toast.makeText(this,answer+"and"+answer2,Toast.LENGTH_LONG).show();
+            if (answer == 0 || answer2 == 0) {
+                Utility.displayPromptForEnablingDateTime(getActivity());
+
+            }
+            if (answer == 1 || answer2 == 1) {
+                Calendar c = Calendar.getInstance();
+                // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
+                String strDateTime = sdf.format(c.getTime());
+                //SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm:ss a");
+                //String Time = sdf2.format(c.getTime());
+                visit.setDatetime(strDateTime);
+
+                Toast.makeText(getActivity(), strDateTime, Toast.LENGTH_LONG).show();
+
+            }
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+*/
 
     public List<Atm> createDummyList()
     {

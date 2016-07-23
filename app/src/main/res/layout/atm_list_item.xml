@@ -19,7 +19,7 @@
             android:layout_weight="1"
             android:text="0o8889d LVB Yes"
             android:textAllCaps="true"
-            android:textAppearance="?android:textAppearanceMedium"
+            android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/black"
             android:textStyle="bold" />
         <TextView
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAllCaps="true"
-            android:textAppearance="?android:textAppearanceMedium"
+            android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/black" />
         <TextView
             android:id="@+id/tvBankName"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAllCaps="true"
-            android:textAppearance="?android:textAppearanceMedium"
+            android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/black" />
 
 
@@ -58,14 +58,24 @@
                 android:layout_height="wrap_content"
                 android:text="sion east near sies college"
                 android:textAllCaps="true"
-                android:textAppearance="?android:textAppearanceSmall" />
+                android:textSize="10dp" />
             <TextView
                 android:id="@+id/tvCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="mumbai"
                 android:textAllCaps="true"
-                android:textAppearance="?android:textAppearanceSmall" />
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/tvState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="maharashtra"
+                android:textAllCaps="true"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textSize="10dp" />
 
         </LinearLayout>
         <!--layout for date and days-->
@@ -95,16 +105,7 @@
                 android:textColor="#0F2E8D"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvState"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:text="maharashtra"
-                android:textAllCaps="true"
-                android:textAppearance="?android:textAppearanceSmall"
-                android:textSize="10dp"
-                android:textStyle="bold" />
+
         </LinearLayout>
 
     </LinearLayout>

@@ -3,6 +3,7 @@ package com.spottechnicians.caudit.Activities;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -10,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -42,6 +44,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+//import android.support.multidex.MultiDex;
+
 public class Login extends AppCompatActivity {
     public static final String USER_ID_LOGIN_PREFERENCES = "UserIdLoginPref";
     public static final String UserIdEntered = "UserId";
@@ -62,6 +66,23 @@ public class Login extends AppCompatActivity {
         etUserid=(EditText)findViewById(R.id.etUserid);
         etPassword=(EditText)findViewById(R.id.etpassword);
         setUsernamePassword();
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed();
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Login.this.finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .create()
+                .show();
 
 
     }
@@ -246,8 +267,10 @@ public class Login extends AppCompatActivity {
     {
 
         //start the home activity
-        Intent intent=new Intent(Login.this,Home.class);
+        Intent intent = new Intent(this, Home.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        finish();
     }
 
 

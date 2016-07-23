@@ -76,7 +76,31 @@ public class VisitSingleton {
         boolean status=true;
         for(int i=0;i<ct.length;i++)
         {
-            if(ct[i]=="") {
+            if (ct[i].equals("")) {
+                status = false;
+            }
+        }
+        return status;
+    }
+
+    //this method will be used to check if confirm dialog is to be shown to when back btn is pressed
+    public boolean checkEmpty(String[] arr) {
+        boolean status = true;
+        if (arr != null) {
+            for (int i = 0; i < arr.length; i++) {
+                if (!arr[i].trim().equals("")) {
+                    status = false;
+                }
+            }
+        }
+        return status;
+    }
+
+    public boolean checkEmptyImage(Bitmap[] bitmap) {
+        boolean status = true;
+        for (int i = 0; i < bitmap.length; i++) {
+            if (bitmap[i] != null) {
+
                 status = false;
             }
         }
@@ -140,9 +164,13 @@ public class VisitSingleton {
     public byte[] getCtphotoByteArray(String key) {
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        getPicListByKey(key).compress(Bitmap.CompressFormat.JPEG, 80, stream);
-        return stream.toByteArray();
+        Bitmap img = getPicListByKey(key);
 
+        if (img != null) {
+            img.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            return stream.toByteArray();
+        } else
+            return null;
     }
 
     public byte[] getHkphotoByteArray(String key) {
@@ -152,8 +180,7 @@ public class VisitSingleton {
         Bitmap img = getPicListByKey(key);
 
         if (img != null) {
-            img.compress(Bitmap.CompressFormat.JPEG, 80, stream);
-
+            img.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             return stream.toByteArray();
         } else
             return null;

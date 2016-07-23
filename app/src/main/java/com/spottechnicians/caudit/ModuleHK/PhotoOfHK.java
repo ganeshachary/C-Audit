@@ -1,20 +1,25 @@
 package com.spottechnicians.caudit.ModuleHK;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.Activities.Home;
@@ -22,6 +27,11 @@ import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.VisitSingleton;
 import com.spottechnicians.caudit.utils.GetLocationService;
+import com.spottechnicians.caudit.utils.UtilHK;
+import com.spottechnicians.caudit.utils.Utility;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class PhotoOfHK extends AppCompatActivity {
 
@@ -37,6 +47,8 @@ public class PhotoOfHK extends AppCompatActivity {
             R.id.ivHkPhoto7, R.id.ivHkPhoto8, R.id.ivHkPhoto9, R.id.ivHkPhoto10, R.id.ivHkPhoto11};
     VisitSingleton visit;
     private byte[] img = null;
+
+    private String backMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +93,54 @@ public class PhotoOfHK extends AppCompatActivity {
 
         visit.setLatitude(GetLocationService.LATITUDE_FROM_SERVICE);
         visit.setLongitude(GetLocationService.LONGITUDE_FROM_SERVICE);
+        getSupportActionBar().setTitle(visit.getAtmId() + " : HK");
+
+
+        backMessage = getString(R.string.backMessageFromPhoto);
+        if (Utility.getLanguage(this) != null && Utility.getLanguage(this).equals("Hindi")) {
+            backMessage = getString(R.string.backMessageFromPhotoHindi);
+            changeTextToHindi();
+        }
+
+
 
     }
+
+    private void changeTextToHindi() {
+
+        ((TextView) findViewById(R.id.tvHKPhotoHeading)).setText(R.string.photoHeadingHindi);
+
+        for (int i = 0; i < UtilHK.getPhotoStringHidniIds().length; i++) {
+            ((TextView) findViewById(UtilHK.getPhotoTextIds()[i])).setText(UtilHK.getPhotoStringHidniIds()[i]);
+        }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+
+        if (visit.checkEmptyImage(bitmap)) {
+            super.onBackPressed();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setMessage(backMessage)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                           /* Intent ii=new Intent(CT_Questions.this, Daily_Audit.class);
+                            ii.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(ii);*/
+                            PhotoOfHK.this.finish();
+                        }
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .create()
+                    .show();
+        }
+    }
+
+
 
     private boolean validateNameNo() {
 
@@ -124,7 +182,7 @@ public class PhotoOfHK extends AppCompatActivity {
 
         if (status) {
             try {
-                if (visit.getSiteType() != null && visit.getSiteType().equals("CTHK")) {
+
                     visit.setPicList("hkimg0", bitmap[0]);
                     visit.setPicList("hkimg1", bitmap[1]);
                     visit.setPicList("hkimg2", bitmap[2]);
@@ -136,19 +194,6 @@ public class PhotoOfHK extends AppCompatActivity {
                     visit.setPicList("hkimg8", bitmap[8]);
                     visit.setPicList("hkimg9", bitmap[9]);
                     visit.setPicList("hkimg10", bitmap[10]);
-                } else {
-                visit.setPicList("img0", bitmap[0]);
-                visit.setPicList("img1", bitmap[1]);
-                visit.setPicList("img2", bitmap[2]);
-                visit.setPicList("img3", bitmap[3]);
-                visit.setPicList("img4", bitmap[4]);
-                visit.setPicList("img5", bitmap[5]);
-                visit.setPicList("img6", bitmap[6]);
-                visit.setPicList("img7", bitmap[7]);
-                visit.setPicList("img8", bitmap[8]);
-                visit.setPicList("img9", bitmap[9]);
-                    visit.setPicList("img10", bitmap[10]);
-                }
 //                Intent intent = new Intent(this, Signatuere_Of_CT.class);
 //                Log.v("atmid", visit.getAtmId());
 //                // intent.putExtra("Visit2", visit);
@@ -158,7 +203,7 @@ public class PhotoOfHK extends AppCompatActivity {
                 if (validateNameNo()) {
 
                     if (visit.getSiteType() != null && visit.getSiteType().equals("CTHK")) {
-                        if (dbHelper.insertCTHKReport(visit)) {
+                        if (dbHelper.insertHKReport(visit) && dbHelper.insertCTReport(visit)) {
                             Toast.makeText(this, "CT/HK Report inserted successfully", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(this, Home.class);
                             startActivity(intent);
@@ -168,8 +213,7 @@ public class PhotoOfHK extends AppCompatActivity {
                         }
 
 
-                    }
-                    if (dbHelper.insertHKReport(visit)) {
+                    } else if (dbHelper.insertHKReport(visit)) {
                         Toast.makeText(this, "HK Report inserted successfully", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(this, Home.class);
                         startActivity(intent);
@@ -257,6 +301,76 @@ public class PhotoOfHK extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0 && resultCode == RESULT_OK) {
 
+            //this is still to be changed to get URI from specific location
+            Uri imageUri = data.getData();
+
+            InputStream input = null;
+            Bitmap bp = null;
+
+            try {
+                input = this.getContentResolver().openInputStream(imageUri);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Log.e("ManB", "Error while creating img file  Error: " + e.toString());
+            }
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = false;
+            options.inSampleSize = 2;
+
+            bp = BitmapFactory.decodeStream(input, null, options);
+            Utility.printToast(bp.getWidth() + "  " + bp.getHeight(), this);
+
+
+            //bp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+
+
+            bp = Bitmap.createScaledBitmap(bp, 632, 355, true);
+
+            //    Bitmap bp = (Bitmap) data.getExtras().get("data");
+
+
+            Bitmap.Config config = bp.getConfig();
+            if (config == null) {
+                config = Bitmap.Config.ARGB_8888;
+            }
+
+            Bitmap newBitmap = Bitmap.createBitmap(bp.getWidth(), bp.getHeight(), config);
+            Canvas canvas = new Canvas(newBitmap);
+
+            canvas.drawBitmap(bp, 0, 0, null);
+            Paint paint = new Paint();
+            paint.setColor(Color.RED);
+            paint.setTextSize(15);
+            paint.setFakeBoldText(true);
+            canvas.drawText("ATMID : " + visit.getAtmId(), 20, 20, paint);
+            canvas.drawText("DATETIME :" + visit.getDatetime(), 20, 40, paint);
+            canvas.drawText("Lat: " + visit.getLatitude() + "Long: " + visit.getLongitude(), 20, 60, paint);
+
+
+            // Log.e("compress",newBitmap.getByteCount()+"");
+
+            for (int i = 0; i < imageViewIds.length; i++) {
+                if (imageViewIds[i] == selectedImageView.getId()) {
+                    bitmap[i] = newBitmap;
+                }
+            }
+            selectedImageView.setImageBitmap(newBitmap);
+
+
+        } else {
+            Toast.makeText(this, "image cancelled", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+
+/*
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == RESULT_OK) {
+
             Bitmap bp = (Bitmap) data.getExtras().get("data");
 
 
@@ -293,6 +407,8 @@ public class PhotoOfHK extends AppCompatActivity {
 
 
     }
+*/
+
 
 
 }

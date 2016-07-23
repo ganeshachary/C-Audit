@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,6 +22,7 @@ import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.Visit;
 import com.spottechnicians.caudit.utils.GetLocationService;
+import com.spottechnicians.caudit.utils.Utility;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,6 +46,7 @@ public class Home extends AppCompatActivity {
     DbHelper dbHelper;
 
     ArrayList<Visit> visitt;
+    Menu menu;
 
     public static void printToast(String s, Context c) {
         Toast.makeText(c, s, Toast.LENGTH_LONG).show();
@@ -53,10 +56,11 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_home2);
         dbHelper=new DbHelper(this);
         notifySync();
 
+        Utility.printToast("Test Toast", this);
 
         //   printHk();
         //   printCTHK();
@@ -128,7 +132,19 @@ public class Home extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater=this.getMenuInflater();
         menuInflater .inflate(R.menu.menu_main,menu);
+        this.menu = menu;
+        updateOptionmenu();
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void updateOptionmenu() {
+
+        MenuItem menuItem = menu.findItem(R.id.lang);
+        if (Utility.getLanguage(this) != null && Utility.getLanguage(this).equals("Hindi")) {
+            changeToHindi();
+            menuItem.setTitle("Eng");
+        }
+
     }
 
 
@@ -147,43 +163,59 @@ public class Home extends AppCompatActivity {
         //sartActivity(new Intent(this, OfficialDetails.class));
     }
 
+    @Override
+    public void onBackPressed() {
+        //  super.onBackPressed();
+        Intent intent = new Intent(this, Login.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getTitle().equals("Eng"))
+        if (item.getTitle().equals("Hindi"))
         {
-            daily_report_tv=(TextView)findViewById(R.id.daily_report_tv);
-            daily_report_tv.setText(R.string.daily_visit_hindi);
-            other_report_tv=(TextView)findViewById(R.id.other_report_tv);
-            other_report_tv.setText(R.string.srm_report_hindi);
-            audited_tv=(TextView)findViewById(R.id.audited_tv);
-            audited_tv.setText(R.string.audited_hindi);
-            unaudited_tv=(TextView)findViewById(R.id.unaudited_tv);
-            unaudited_tv.setText(R.string.unaudited_hindi);
-            sync_tv=(TextView)findViewById(R.id.sycn_tv);
-            sync_tv.setText(R.string.sync_hindi);
-            item.setTitle("Hindi");
-
-
-
-
-        }
-        else if(item.getTitle().equals("Hindi")) {
-            daily_report_tv = (TextView) findViewById(R.id.daily_report_tv);
-            daily_report_tv.setText(R.string.daily_visit);
-            other_report_tv = (TextView) findViewById(R.id.other_report_tv);
-            other_report_tv.setText(R.string.srm_report);
-            audited_tv = (TextView) findViewById(R.id.audited_tv);
-            audited_tv.setText(R.string.audited);
-            unaudited_tv = (TextView) findViewById(R.id.unaudited_tv);
-            unaudited_tv.setText(R.string.unaudited);
-            sync_tv = (TextView) findViewById(R.id.sycn_tv);
-            sync_tv.setText(R.string.sync);
+            changeToHindi();
             item.setTitle("Eng");
-
+        } else if (item.getTitle().equals("Eng")) {
+            changeToEnglish();
+            item.setTitle("Hindi");
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void changeToEnglish() {
+        daily_report_tv = (TextView) findViewById(R.id.daily_report_tv);
+        daily_report_tv.setText(R.string.daily_visit);
+        other_report_tv = (TextView) findViewById(R.id.other_report_tv);
+        other_report_tv.setText(R.string.srm_report);
+         /*   audited_tv = (TextView) findViewById(R.id.audited_tv);
+            audited_tv.setText(R.string.audited);
+            unaudited_tv = (TextView) findViewById(R.id.unaudited_tv);
+            unaudited_tv.setText(R.string.unaudited);*/
+        sync_tv = (TextView) findViewById(R.id.sycn_tv);
+        sync_tv.setText(R.string.sync);
+
+        Utility.setEng(this);
+
+    }
+
+    private void changeToHindi() {
+        daily_report_tv = (TextView) findViewById(R.id.daily_report_tv);
+        daily_report_tv.setText(R.string.daily_visit_hindi);
+        other_report_tv = (TextView) findViewById(R.id.other_report_tv);
+        other_report_tv.setText(R.string.srm_report_hindi);
+          /*  audited_tv=(TextView)findViewById(R.id.audited_tv);
+            audited_tv.setText(R.string.audited_hindi);
+            unaudited_tv=(TextView)findViewById(R.id.unaudited_tv);
+            unaudited_tv.setText(R.string.unaudited_hindi);*/
+        sync_tv = (TextView) findViewById(R.id.sycn_tv);
+        sync_tv.setText(R.string.sync_hindi);
+
+        Utility.setHindi(this);
     }
 
 
@@ -216,14 +248,29 @@ public class Home extends AppCompatActivity {
             ArrayList<Visit> visitReports=dbHelper.fetchCTReport();
             if(visitReports.size()>0)
             {
-                for(int i=0;i<visitReports.size();i++)
+
+                Visit[] visiting = new Visit[visitReports.size()];
+                for (int j = 0; j < visitReports.size(); j++)
+                {
+                    visiting[j] = visitReports.get(j);
+                }
+
+                Log.e("CheckMan", "length is " + visiting.length);
+                new UploadToServer2().execute(visiting);
+               /* for(int i=0;i<visitReports.size();i++)
                 {
                     UploadToServer uploadToServer=new UploadToServer(visitReports.get(i),i);
                     uploadToServer.execute();
+
+
                     Log.v("visitId",visitReports.get(i).getVisitId());
                     Log.v("visitId",visitReports.get(i).getCtPhoto1String());
 
                 }
+                */
+
+
+
             }
             else
             {
@@ -271,8 +318,180 @@ public class Home extends AppCompatActivity {
 
     }
 
+    public class UploadToServer2 extends AsyncTask<Visit, Integer, String> {
 
-    public class UploadToServer extends AsyncTask<Void,Void,String> {
+        String visitid;
+        int totalCount;
+        private ProgressDialog pDialog, dDialog;
+        private String jsonStream;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(Home.this);
+        }
+
+        @Override
+        protected String doInBackground(Visit... params) {
+            String upload_url = "http://www.cleartask.in/caudit_weblink/WebServices/SaveCTVisitData.aspx";
+
+
+            totalCount = params.length;
+            //String upload_url = Resources.getSystem().getString(R.string.ct_webservice_link);
+            for (int i = 0; i < params.length; i++) {
+
+                Log.e("CheckMan", "length is " + params.length);
+                JSONObject jsonObject;
+                HttpURLConnection httpURLConnection = null;
+                publishProgress(i + 1);
+                URL url;
+                try {
+                    url = new URL(upload_url);
+                    httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
+                    OutputStream os = httpURLConnection.getOutputStream();
+                    visitid = params[i].getVisitId();
+                    Log.v("visitId", visitid);
+
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                    String data = URLEncoder.encode("visit_id", "UTF-8") + "=" + URLEncoder.encode(visitid, "UTF-8") + "&"
+                            + URLEncoder.encode("atm_id", "UTF-8") + "=" + URLEncoder.encode(params[i].getAtmId(), "UTF-8") + "&"
+                            + URLEncoder.encode("login_id", "UTF-8") + "=" + URLEncoder.encode(params[i].getAtmId(), "UTF-8") + "&"
+                            + URLEncoder.encode("date_of_capture", "UTF-8") + "=" + URLEncoder.encode(params[i].getDatetime(), "UTF-8") + "&"
+                            + URLEncoder.encode("caretaker_name", "UTF-8") + "=" + URLEncoder.encode(params[i].getCaretakeName(), "UTF-8") + "&"
+                            + URLEncoder.encode("caretaker_number", "UTF-8") + "=" + URLEncoder.encode(params[i].getCaretakerNumber(), "UTF-8") + "&"
+
+                            + URLEncoder.encode("caretaker_img", "UTF-8") + "=" + URLEncoder.encode(params[i].getCtPhoto1String(), "UTF-8") + "&"
+                            + URLEncoder.encode("front_signage_img", "UTF-8") + "=" + URLEncoder.encode(params[i].getCtPhoto2String(), "UTF-8") + "&"
+                            + URLEncoder.encode("registers_img", "UTF-8") + "=" + URLEncoder.encode(params[i].getCtPhoto3String(), "UTF-8") + "&"
+
+                            + URLEncoder.encode("q1", "UTF-8") + "=" + URLEncoder.encode(params[i].getCt()[0], "UTF-8") + "&"
+                            + URLEncoder.encode("q2", "UTF-8") + "=" + URLEncoder.encode(params[i].getCt()[1], "UTF-8") + "&"
+                            + URLEncoder.encode("q3", "UTF-8") + "=" + URLEncoder.encode(params[i].getCt()[2], "UTF-8") + "&"
+                            + URLEncoder.encode("q4", "UTF-8") + "=" + URLEncoder.encode(params[i].getCt()[3], "UTF-8") + "&"
+                            + URLEncoder.encode("q5", "UTF-8") + "=" + URLEncoder.encode(params[i].getCt()[4], "UTF-8") + "&"
+                            + URLEncoder.encode("q6", "UTF-8") + "=" + URLEncoder.encode(params[i].getCt()[5], "UTF-8") + "&"
+                            + URLEncoder.encode("q7", "UTF-8") + "=" + URLEncoder.encode(params[i].getCt()[6], "UTF-8") + "&"
+                            + URLEncoder.encode("q8", "UTF-8") + "=" + URLEncoder.encode(params[i].getCt()[7], "UTF-8") + "&"
+                            + URLEncoder.encode("q9", "UTF-8") + "=" + URLEncoder.encode(params[i].getCt()[8], "UTF-8") + "&"
+                            + URLEncoder.encode("q10", "UTF-8") + "=" + URLEncoder.encode(params[i].getCt()[9], "UTF-8") + "&"
+                            + URLEncoder.encode("q11", "UTF-8") + "=" + URLEncoder.encode(params[i].getCt()[10], "UTF-8") + "&"
+                            + URLEncoder.encode("q12", "UTF-8") + "=" + URLEncoder.encode(params[i].getCt()[11], "UTF-8");
+
+                    Log.e("images", params[i].getCtPhoto1String());
+                    bufferedWriter.write(data);
+                    bufferedWriter.flush();
+                    if (bufferedWriter != null) {
+                        bufferedWriter.close();
+                    }
+                    if (os != null) {
+                        os.close();
+                    }
+
+                    InputStream io = httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(io));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    while ((jsonStream = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(jsonStream);
+                    }
+                    if (bufferedReader != null) {
+                        bufferedReader.close();
+                    }
+                    if (io != null) {
+                        io.close();
+                    }
+                    jsonStream = stringBuilder.toString().trim();
+                    Log.e("jsondata", jsonStream);
+                    // return jsonStream;
+                    if (jsonStream != null) {
+                        try {
+                            jsonObject = new JSONObject(jsonStream);
+                            if (!jsonObject.getBoolean("error")) {
+                                dbHelper.deleteSyncedData(visitid);
+                                //     Toast.makeText(Home.this, "loaded", Toast.LENGTH_LONG).show();
+                                Log.e("jsondata", "Loaded");
+                                //  return "loaded";
+                            } else {
+                                //Toast.makeText(Home.this, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                                return jsonObject.getString("message");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (jsonStream == null) {
+                        //   Toast.makeText(Home.this, "no json data return", Toast.LENGTH_LONG).show();
+                        return "no json data return";
+                    }
+
+
+                    Log.e("sri", "Execution ended.");
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                    Log.e("checkMan", "returning from 1st null");
+                    return "Some error occured,Try again!";
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e("checkMan", "returning from 12st null");
+                    return "Some error occured,Try again!!";
+                }
+
+            }
+            return "Successfully synced";
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+            //   int round=Integer.parseInt(String.valueOf(values));
+            //   pDialog=new ProgressDialog(Home.this);
+            Log.e("in onProgressUpdate: ", "values " + values[0]);
+            pDialog.setTitle("Uploading report " + values[0] + " of " + totalCount + " to server");
+            pDialog.setMessage("Please wait...");
+            pDialog.setIndeterminate(true);
+            pDialog.setCancelable(false);
+            pDialog.show();
+            notifySync();
+
+
+        }
+        //  setProgress();
+
+
+        @Override
+        protected void onPostExecute(String result) {
+
+
+            notifySync();
+            //  pDialog.dismiss();
+
+            Toast.makeText(Home.this, "inpost " + result, Toast.LENGTH_LONG).show();
+            Log.e("in onPostExecute: ", "The string returned is " + result);
+            pDialog.dismiss();
+
+           /* final AlertDialog.Builder alertDialog= new AlertDialog.Builder(Home.this);
+
+            alertDialog.setTitle("Result");
+            alertDialog.setMessage(result);
+            alertDialog.setCancelable(false);
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                alertDialog.create().dismiss();
+                }
+            });
+           alertDialog.show();*/
+
+            new AlertDialog.Builder(Home.this)
+                    .setMessage(result).setNeutralButton("OK", null).show();
+
+
+        }
+    }
+
+    public class UploadToServer extends AsyncTask<Void, Void, String> {
         Visit visit;
         String visitid;
         int round = 0;

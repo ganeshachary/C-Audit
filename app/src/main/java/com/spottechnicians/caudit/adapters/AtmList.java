@@ -110,6 +110,12 @@ public class AtmList extends BaseAdapter implements Filterable{
                     viewHolder.days.setTextColor(context.getResources().getColor(R.color.red));
                     viewHolder.date.setTextColor(context.getResources().getColor(R.color.red));
                 }
+
+                //if date is audited again it will be changed to blue clr
+                else {
+                    viewHolder.days.setTextColor(context.getResources().getColor(R.color.list_item_dayDate));
+                    viewHolder.date.setTextColor(context.getResources().getColor(R.color.list_item_dayDate));
+                }
                 viewHolder.days.setText(diffInDays + " days Before");
 
             } else {

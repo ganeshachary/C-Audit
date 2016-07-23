@@ -23,6 +23,7 @@ import com.spottechnicians.caudit.adapters.AtmList;
 import com.spottechnicians.caudit.models.Atm;
 import com.spottechnicians.caudit.models.VisitSingleton;
 import com.spottechnicians.caudit.utils.GetLocationService;
+import com.spottechnicians.caudit.utils.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class HK_Fragment extends Fragment {
     List<Atm> listOfAtms;
     AtmList atmListAdapter;
     VisitSingleton visit;
+    TextView tvHKAudit;
 
     public HK_Fragment() {
         // Required empty public constructor
@@ -50,6 +52,7 @@ public class HK_Fragment extends Fragment {
         View rootView= inflater.inflate(R.layout.fragment_hk_, container, false);
         listViewHK=(ListView)rootView.findViewById(R.id.listviewHK);
         etSearchBarHK=(EditText)rootView.findViewById(R.id.etSearchBarHK);
+        tvHKAudit = (TextView) rootView.findViewById(R.id.tvHkAudit);
         listOfAtms=new ArrayList<>();
 
         visit = VisitSingleton.getInstance();
@@ -58,32 +61,25 @@ public class HK_Fragment extends Fragment {
 
        // listOfAtms=createDummyList();
         listOfAtms=getAtmsTypeHK();
-        if(listOfAtms==null)
-        {
-            Toast.makeText(getContext(),"no atms for this service is assigned",Toast.LENGTH_LONG).show();
-        }
-        else
-        {
-            atmListAdapter=new AtmList(getContext(),listOfAtms);
-            listViewHK.setAdapter(atmListAdapter);
-            etSearchBarHK.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        Utility.setAuditedRecord(listOfAtms, etSearchBarHK, tvHKAudit);
+        atmListAdapter = new AtmList(getContext(), listOfAtms);
+        listViewHK.setAdapter(atmListAdapter);
+        etSearchBarHK.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
                 }
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    atmListAdapter.getFilter().filter(etSearchBarHK.getText());
-                }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                atmListAdapter.getFilter().filter(etSearchBarHK.getText());
+            }
 
-                @Override
-                public void afterTextChanged(Editable s) {
+            @Override
+            public void afterTextChanged(Editable s) {
 
-                }
-            });
-        }
-
+            }
+        });
 
         listViewHK.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="false"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -13,25 +14,27 @@
         <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+            android:gravity="center"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="30dp"
-            android:orientation="horizontal"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="3"
             >
             <LinearLayout
                 android:id="@+id/dailyreportlogo"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <ImageView
                     style="@style/Home_ImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
                     android:clickable="true"
                     android:onClick="openDailyVisitReport"
                     android:src="@drawable/ic_report" />
@@ -45,15 +48,16 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <ImageView
                     style="@style/Home_ImageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
                     android:clickable="true"
                     android:onClick="openOtherReport"
                     android:src="@drawable/ic_report" />
@@ -66,53 +70,47 @@
 
             </LinearLayout>
 
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <ImageView
-                    style="@style/Home_ImageView"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:onClick="aduditClicked"
-                    android:src="@drawable/ic_audit_done" />
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:id="@+id/ivSync"
+                        style="@style/Home_ImageView"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:onClick="syncReport"
+                        android:src="@drawable/ic_sync" />
+
+                    <TextView
+                        android:id="@+id/tvNoficaiton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@drawable/badge_shape"
+                        android:text="12"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
 
                 <TextView
-                    android:id="@+id/audited_tv"
+                    android:id="@+id/sycn_tv"
                     style="@style/BaseText"
-                    android:text="@string/audited"
-                    />
+                    android:text="@string/sync"
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    style="@style/Home_ImageView"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/ic_audit_done" />
-
-                <TextView
-                    android:id="@+id/unaudited_tv"
-                    style="@style/BaseText"
-                    android:text="@string/unaudited"
                     />
 
             </LinearLayout>
@@ -191,48 +189,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal">
-
-                <ImageView
-                    android:id="@+id/ivSync"
-                    style="@style/Home_ImageView"
-                    android:layout_width="80dp"
-                    android:layout_height="65dp"
-                    android:onClick="syncReport"
-                    android:src="@drawable/ic_sync" />
-
-                <TextView
-                    android:id="@+id/tvNoficaiton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignRight="@+id/ivSync"
-                    android:layout_marginTop="7dp"
-                    android:background="@drawable/badge_shape"
-                    android:text="12"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/sycn_tv"
-                style="@style/BaseText"
-                android:text="@string/sync"
-
-                />
-
-        </LinearLayout>
 
     </LinearLayout>
 
