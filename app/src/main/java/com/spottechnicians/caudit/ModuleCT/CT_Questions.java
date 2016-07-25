@@ -21,6 +21,8 @@ import com.spottechnicians.caudit.utils.LocationFetch;
 import com.spottechnicians.caudit.utils.UtilCT;
 import com.spottechnicians.caudit.utils.Utility;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,10 +146,22 @@ public class CT_Questions extends AppCompatActivity {
    }
     public void setVisitID()
     {
+        String formattedDateTime = "";
         sharedPreferences=getSharedPreferences(Login.USER_ID_LOGIN_PREFERENCES, Context.MODE_PRIVATE);
         // SharedPreferences.Editor editor=sharedPreferences.edit();
         String userIDEnterd=sharedPreferences.getString(Login.UserIdEntered,null);
-        visit.setVisitId(userIDEnterd + "_" + visit.getDatetime());
+
+        try {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+            formattedDateTime = sdf.format(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(visit.getDatetime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        //visit.setVisitId(userIDEnterd + "_" + visit.getDatetime());
+        visit.setVisitId(userIDEnterd + "_" + formattedDateTime);
         visit.setUserId(userIDEnterd);
     }
 

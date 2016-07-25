@@ -1106,4 +1106,58 @@ public static final String COLUMN_CTQ8 = "CTQ8";
         return CtHkVisit;
 
     }
+
+
+    public Visit getCTReportFromVisitId(String visitId) {
+
+        Visit v = null;
+
+        String selectQuery = "SELECT * FROM " + TABLE_CT_REPORT + " WHERE " + COLUMN_VISIT_ID + " = " + "'" + visitId + "'";
+        SQLiteDatabase databaseRead = this.getReadableDatabase();
+        Cursor cursor = databaseRead.rawQuery(selectQuery, null);
+        Log.e("ManB", "cursor length " + cursor.getCount());
+        if (cursor.moveToFirst()) {
+
+
+            v = new Visit(cursor.getString(cursor.getColumnIndex(COLUMN_VISIT_ID)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_ATM_ID)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_SITE_ID)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_CITY)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_STATE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_LOCATION)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_BANK_NAME)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_CUSTOMER_NAME)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_DATE_TIME_OF_VIST)),
+                    new String[]{
+                            cursor.getString(cursor.getColumnIndex(COLUMN_CTQ1)),
+                            cursor.getString(cursor.getColumnIndex(COLUMN_CTQ2)),
+                            cursor.getString(cursor.getColumnIndex(COLUMN_CTQ3)),
+                            cursor.getString(cursor.getColumnIndex(COLUMN_CTQ4)),
+                            cursor.getString(cursor.getColumnIndex(COLUMN_CTQ5)),
+                            cursor.getString(cursor.getColumnIndex(COLUMN_CTQ6)),
+
+                            cursor.getString(cursor.getColumnIndex(COLUMN_CTQ7)),
+                            cursor.getString(cursor.getColumnIndex(COLUMN_CTQ8)),
+                            cursor.getString(cursor.getColumnIndex(COLUMN_CTQ9)),
+                            cursor.getString(cursor.getColumnIndex(COLUMN_CTQ10)),
+                            cursor.getString(cursor.getColumnIndex(COLUMN_CTQ11)),
+                            cursor.getString(cursor.getColumnIndex(COLUMN_CTQ12))},
+
+                    cursor.getString(cursor.getColumnIndex(COLUMN_CT_NAME)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_CT_NO)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_LATITUDE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_LONGITUDE)),
+                    getBitMapFromByte(cursor.getBlob(cursor.getColumnIndex(COLUMN_CT_PHOTO1))),
+                    getBitMapFromByte(cursor.getBlob(cursor.getColumnIndex(COLUMN_CT_PHOTO2))),
+                    getBitMapFromByte(cursor.getBlob(cursor.getColumnIndex(COLUMN_CT_PHOTO3)))
+            );
+
+            Log.e("ManB CT-Single Report :", cursor.getString(cursor.getColumnIndex(COLUMN_CT_NAME)) + "\n" + cursor.getString(cursor.getColumnIndex(COLUMN_CT_NO)));
+        }
+        return v;
+
+    }
+
+
 }

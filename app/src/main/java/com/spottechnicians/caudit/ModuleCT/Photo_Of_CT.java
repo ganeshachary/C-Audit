@@ -46,6 +46,7 @@ import java.util.Date;
 
 public class Photo_Of_CT extends AppCompatActivity {
 
+    public static final String CT_SINGLE_REPORT_TO_SYNC = "VisitIdToSync";
     public ImageView selectedImageView;
     ImageView ivCtPhoto1, ivCtPhoto2, ivCtPhoto3;
     Bitmap bitmap[] = new Bitmap[3];
@@ -54,6 +55,7 @@ public class Photo_Of_CT extends AppCompatActivity {
     VisitSingleton visit;
     DbHelper dbHelper;
     String mCurrentPhotoPath;//this will hold of the path of currently clicked image
+    String abPath;// this hold the absolute path of img
     Uri currentUri;//this will hold the Uri of currently clicked image
     private byte[] img = null;
     private String backMessage;
@@ -95,7 +97,7 @@ public class Photo_Of_CT extends AppCompatActivity {
         visit.setLongitude(GetLocationService.LONGITUDE_FROM_SERVICE);
         getSupportActionBar().setTitle(visit.getAtmId() + " : CT");
 
-        if (visit.getCt()[1].trim().toString().equals("NA")) {
+        if (visit.getCt()[1] != null && visit.getCt()[1].trim().toString().equals("NA")) {
             ivCtPhoto1.setImageResource(R.mipmap.ic_launcher);
             bitmap[0] = BitmapFactory.decodeResource(getResources(),
                     R.mipmap.ic_launcher);
@@ -198,9 +200,27 @@ public class Photo_Of_CT extends AppCompatActivity {
     }
 
     public void onUpload(View view) {
-        onSave(view);
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
+        if (checkImage()) {
+
+            if (validateNameNo()) {
+                if (dbHelper.insertCTReport(visit)) {
+                    Toast.makeText(this, "CT Report inserted successfully", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(this, Home.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(CT_SINGLE_REPORT_TO_SYNC, visit.getVisitId());
+                    startActivity(intent);
+                    finish(); // call this to finish the current activity
+                } else {
+                    Toast.makeText(this, "CT Report inserted unsuccessfull try again", Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        } else {
+            Home.printToast("Take All photos", this);
+        }
+
+
     }
 
 
@@ -313,7 +333,13 @@ public class Photo_Of_CT extends AppCompatActivity {
                 // Continue only if the File was successfully created
                 if (photoFile != null) {
                     if (Build.VERSION.SDK_INT < 21) {
+
                         currentUri = Uri.fromFile(photoFile); //This Uri.fromFile may throw a security exception on build version over 23
+                        Log.e("ManB", "URI from Uri.fromFile method " + currentUri.toString());
+                        if (currentUri == null) {
+                            currentUri = Uri.parse("file://" + abPath);
+                            Log.e("ManB", "Manual Uri from parse " + currentUri.toString());
+                        }
 
                     } else {
                         currentUri = FileProvider.getUriForFile(this, "com.spottechnicians.caudit.fileprovider",
@@ -325,7 +351,10 @@ public class Photo_Of_CT extends AppCompatActivity {
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, currentUri);
                     startActivityForResult(takePictureIntent, 0);
 
+                } else {
+                    Log.e("ManB", "The image returned is null");
                 }
+
             }
         } else {
             Toast.makeText(this, "app dont have the permision", Toast.LENGTH_SHORT).show();
@@ -401,6 +430,11 @@ public class Photo_Of_CT extends AppCompatActivity {
                 bp = Bitmap.createScaledBitmap(bp, 632, 355, true);}*/
                 if (bp.getWidth() > bp.getHeight()) {
                     bp = Bitmap.createScaledBitmap(bp, 632, 355, true);
+                    try {
+                        bp = Utility.rotateImageIfRequired(bp, abPath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     bp = Bitmap.createScaledBitmap(bp, 355, 632, true);
                 }
@@ -593,6 +627,8 @@ public class Photo_Of_CT extends AppCompatActivity {
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        abPath = image.getAbsolutePath();
+        Log.e("ManB", "The absolute path is " + image.getAbsolutePath());
         return image;
     }
 

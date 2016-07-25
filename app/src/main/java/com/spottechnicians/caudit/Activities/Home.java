@@ -19,9 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
+import com.spottechnicians.caudit.ModuleCT.Photo_Of_CT;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.Visit;
 import com.spottechnicians.caudit.utils.GetLocationService;
+import com.spottechnicians.caudit.utils.NetworkStatus;
 import com.spottechnicians.caudit.utils.Utility;
 
 import org.json.JSONException;
@@ -61,6 +63,14 @@ public class Home extends AppCompatActivity {
         notifySync();
 
         Utility.printToast("Test Toast", this);
+
+        String ctReportToSync = getIntent().getStringExtra(Photo_Of_CT.CT_SINGLE_REPORT_TO_SYNC);
+        if (ctReportToSync != null) {
+            Log.e("ManB", "The single visit Id to sync from PhotoOfCt" + ctReportToSync);
+            syncSingleCt(ctReportToSync);
+        }
+
+        // syncSingleCt("cssmum19_2016_07_25_13_20_36");
 
         //   printHk();
         //   printCTHK();
@@ -238,6 +248,24 @@ public class Home extends AppCompatActivity {
             return 0;
 
         }
+    }
+
+    private void syncSingleCt(String visitId) {
+        if (NetworkStatus.networkStatus(this) != 0) {
+            Visit visit = dbHelper.getCTReportFromVisitId(visitId);
+
+            if (visit != null) {
+                Log.e("ManB", "SingleCtSync " + visit.getCaretakeName() + " " + visit.getVisitId() + " " + visit.getAtmId() + " ");
+
+                new UploadToServer2().execute(dbHelper.getCTReportFromVisitId(visitId));
+            } else {
+                Log.e("ManB", "Visit is null");
+            }
+        } else {
+            Toast.makeText(this, "Turn on the mobile data or Wifi", Toast.LENGTH_LONG).show();
+
+        }
+
     }
 
 
@@ -528,7 +556,7 @@ public class Home extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 OutputStream os=httpURLConnection.getOutputStream();
                 visitid = visit.getVisitId();
-                Log.v("visitId",visitid);
+                Log.e("visitId", visitid);
 
                 BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
                 String data = URLEncoder.encode("visit_id", "UTF-8") + "=" + URLEncoder.encode(visitid, "UTF-8") + "&"

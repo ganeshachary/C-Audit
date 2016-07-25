@@ -222,7 +222,7 @@ public class CT_Fragment extends Fragment {
 
     public List<Atm> getAtmsTypeCT()
     {
-       List<Atm> listOfAtms1=new DbHelper(getContext()).fetchAtmsByType("ct");
+        List<Atm> listOfAtms1 = new DbHelper(getContext()).fetchAtmsByType("CT");
         return listOfAtms1;
     }
 

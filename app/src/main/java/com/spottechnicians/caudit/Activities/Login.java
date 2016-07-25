@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.spottechnicians.caudit.DatabaseHandler.DbHelper;
 import com.spottechnicians.caudit.R;
 import com.spottechnicians.caudit.models.Atm;
-import com.spottechnicians.caudit.utils.DummyData;
 import com.spottechnicians.caudit.utils.GetLocationService;
 import com.spottechnicians.caudit.utils.NetworkStatus;
 import com.spottechnicians.caudit.utils.StatusCode;
@@ -277,7 +276,7 @@ public class Login extends AppCompatActivity {
 
 
 
-    public void jsonParse(String jsonString)
+   /* public void jsonParse(String jsonString)
     {
         Atm atmObjects;
         atmList=new ArrayList<>();
@@ -332,6 +331,56 @@ public class Login extends AppCompatActivity {
         }
 
 
+    }*/
+
+
+    public void jsonParse(String jsonString) {
+        Atm atmObjects;
+        atmList = new ArrayList<>();
+        Boolean errorStatus;
+        String message;
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            errorStatus = jsonObject.getBoolean("error");
+            message = jsonObject.getString("message");
+            if (!errorStatus) {
+                networkPrefEditor.putString(StatusCode.ATM_DATA_CALL, StatusCode.STATUS_OK + "");
+                storeCredenditials();
+                JSONArray jsonArray = jsonObject.getJSONArray("user_atm_data");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonAtm = jsonArray.getJSONObject(i);
+                    atmObjects = new Atm();
+                    atmObjects.setAtmId(jsonAtm.getString("atm_id"));
+                    atmObjects.setAddress(jsonAtm.getString("location"));
+                    atmObjects.setBankName(jsonAtm.getString("bank_name"));
+                    atmObjects.setCustomerName(jsonAtm.getString("customer_name"));
+                    atmObjects.setCity(jsonAtm.getString("city"));
+                    atmObjects.setState(jsonAtm.getString("state"));
+                    atmObjects.setSiteId(jsonAtm.getString("site_id"));
+                    atmObjects.setType(jsonAtm.getString("service"));
+
+                    atmList.add(atmObjects);
+                }
+                dbHelper = new DbHelper(this);
+                if (dbHelper.insertATM(atmList)) {
+                    Toast.makeText(getBaseContext(), "data inserted in db", Toast.LENGTH_SHORT).show();
+                    logIn();
+                } else {
+                    Toast.makeText(getBaseContext(), "error in insertion", Toast.LENGTH_SHORT).show();
+                }
+
+            } else {
+                networkPrefEditor.putString(StatusCode.ATM_DATA_CALL, StatusCode.STATUS_ERROR + "");
+                Toast.makeText(getBaseContext(), message.toString(), Toast.LENGTH_SHORT).show();
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     class ValidateLoginDeatails extends AsyncTask<String,Void,String>
@@ -357,7 +406,9 @@ public class Login extends AppCompatActivity {
 
             localUserid=params[0];
             localPassword=params[1];
-            String loginURL="http://www.cleartask.in/caudit2/webservicedatabase.aspx";
+            //  String loginURL="http://www.cleartask.in/caudit2/webservicedatabase.aspx";
+
+            String loginURL = "http://www.cleartask.in/caudit_weblink/webservices/ValidateAndFetchUserATMData.aspx";
 
             HttpURLConnection httpURLConnection=null;
             URL url;
@@ -370,7 +421,7 @@ public class Login extends AppCompatActivity {
                 OutputStream os=httpURLConnection.getOutputStream();
 
                 BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
-                String data= URLEncoder.encode("username", "UTF-8")+"="+URLEncoder.encode(localUserid,"UTF-8")+ "&"
+                String data = URLEncoder.encode("login_id", "UTF-8") + "=" + URLEncoder.encode(localUserid, "UTF-8") + "&"
                         +URLEncoder.encode("password", "UTF-8")+"="+URLEncoder.encode(localPassword,"UTF-8");
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
@@ -423,9 +474,8 @@ public class Login extends AppCompatActivity {
 
             if(jsonString==null||jsonString=="")
             {
-                DummyData dummyData = new DummyData();
-                dummyData.addDummyData(dbHelper, Login.this);
-
+               /* DummyData dummyData = new DummyData();
+                dummyData.addDummyData(dbHelper, Login.this);*/
                 Toast.makeText(getBaseContext(), "Server cannot be reached", Toast.LENGTH_SHORT).show();
 
             }

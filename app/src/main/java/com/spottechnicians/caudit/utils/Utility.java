@@ -5,8 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +19,7 @@ import android.widget.Toast;
 
 import com.spottechnicians.caudit.models.Atm;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -200,6 +205,40 @@ public class Utility {
         t.show();
     }
 
+    public static Bitmap rotateImageIfRequired(Bitmap img, String selectedImagePath) throws IOException {
+
+        ExifInterface ei = new ExifInterface(selectedImagePath);
+
+        Log.e("ManB", "the Path is " + selectedImagePath);
+
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+
+                return rotateImage(img, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotateImage(img, 180);
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotateImage(img, 270);
+            default:
+                return img;
+        }
+    }
+
+    public static Bitmap rotateImage(Bitmap img, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+
+        Log.e("ManB", "Orientation is " + degree);
+        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+        img.recycle();
+
+
+        Log.e("ManB", "After orientation of " + degree + " " + rotatedImg.getWidth() + "*" + rotatedImg.getHeight());
+        return rotatedImg;
+    }
+
     public String getPicList(String key) {
 
         PicList.put("MP", "Madhya Pradesh");
@@ -242,5 +281,6 @@ public class Utility {
         return PicList.get(key);
 
     }
+
 
 }

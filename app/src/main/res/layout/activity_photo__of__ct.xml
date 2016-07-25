@@ -26,7 +26,9 @@
             <ImageView
                 android:id="@+id/ivCtPhoto1"
                 style="@style/photoMenuIV"
+                android:cropToPadding="false"
                 android:onClick="imageClicked"
+                android:paddingBottom="10dp"
                 android:src="@drawable/ic_template" />
 
             <TextView
